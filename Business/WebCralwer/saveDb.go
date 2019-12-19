@@ -12,4 +12,6 @@ func SaveDBTodey() {
 	t := time.Now()
 	str_time := t.Format(base_format)
 	fmt.Println(str_time)
+	//uuid的产生
+	
 }
