@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"myCP/Business/WebCralwer"
+	"myCPforGo/Business/WebCralwer"
 )
 
 func main() {
 	fmt.Println("main, i am home ")
-	//	WebCralwer.GetWeb()
-	WebCralwer.SaveDBTodey()
+	WebCralwer.GetWeb()
+	//WebCralwer.SaveDBTodey()
 }

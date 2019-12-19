@@ -39,6 +39,12 @@ type Game struct {
 	GredQuantities string
 	//让球数
 	GletCount string
+	//比赛结果
+	GresultScore string
+	//客队红牌
+	GredQuantitlesGuest string
+	//半场比分
+	GresultHalfScore string
 }
 
 // SaveGametoDB 把比赛数据放到数据库中

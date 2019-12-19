@@ -3,8 +3,8 @@ package WebCralwer
 import (
 	"fmt"
 	"log"
-	"myCP/Com"
-	"myCP/Model"
+	"myCPforGo/Com"
+	"myCPforGo/Model"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -36,22 +36,22 @@ func GetWeb() {
 					break
 				case "paim": //主队排名
 					games[(i-2)/5].GhomeRank = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", "]"), "", "[")
-				case"rq": //主队让球
-					games[(i-4)/5].GletCount= Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", ")"), "", "(")
+				case "rq": //主队让球
+					games[(i-4)/5].GletCount = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", ")"), "", "(")
 				default:
 					break
 				}
 			}
 		})
 		//比赛结果
-		dom.Find("span.boldbf").Each(func(i int,s *goquery.Selection){
+		dom.Find("span.boldbf").Each(func(i int, s *goquery.Selection) {
 			//fmt.Println(i,s.Text())
-			games[i].GresultScore= Com.RemoveBlank(s.Text())
+			games[i].GresultScore = Com.RemoveBlank(s.Text())
 		})
 		//赛制
-		dom.Find("body>span[style]").Each(func(i int,s *goquery.Selection){
+		dom.Find("body>span[style]").Each(func(i int, s *goquery.Selection) {
 			//fmt.Println(i,s.Text())
-			games[i].Gleague= Com.RemoveBlank(s.Text())
+			games[i].Gleague = Com.RemoveBlank(s.Text())
 			fmt.Println(s.Html())
 			//s.Find
 		})
@@ -62,48 +62,48 @@ func GetWeb() {
 				//fmt.Println("编号", i)
 				games[(i)/4].GguestName = s.Text()
 			}
-			 strClass, result := s.Attr("class")
-			 if result == true {
-			 	switch strClass {
-				 case "hongpai": //客队比赛红牌
-				 // fmt.Println("编号", i)
-			 		games[(i-3)/4].GredQuantitlesGuest = Com.RemoveBlank(s.Text())
-			 		break
-				 case "paim": //客队排名	
-					 games[(i-1)/4].GguestRank = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", "]"), "", "[")
-			 	default:
-			 		break
-			 	}
-			 }
+			strClass, result := s.Attr("class")
+			if result == true {
+				switch strClass {
+				case "hongpai": //客队比赛红牌
+					// fmt.Println("编号", i)
+					games[(i-3)/4].GredQuantitlesGuest = Com.RemoveBlank(s.Text())
+					break
+				case "paim": //客队排名
+					games[(i-1)/4].GguestRank = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", "]"), "", "[")
+				default:
+					break
+				}
+			}
 		})
 		//半场比分
-		dom.Find("span.bcbf").Each(func(i int,s *goquery.Selection){
-			games[i].GresultHalfScore= Com.RemoveBlank(s.Text())
+		dom.Find("span.bcbf").Each(func(i int, s *goquery.Selection) {
+			games[i].GresultHalfScore = Com.RemoveBlank(s.Text())
 		})
 		//最终结果
-		dom.Find("strong.f_sf").Each(func(i int,s *goquery.Selection){
-			games[i].Gresult=Com.RemoveBlank(s.Text())
+		dom.Find("strong.f_sf").Each(func(i int, s *goquery.Selection) {
+			games[i].Gresult = Com.RemoveBlank(s.Text())
 		})
 		//是否完成比赛
-		dom.Find("strong").Each(func(i int,s *goquery.Selection){
-			strclass,_:=s.Attr("class")
-			if strclass=="red"{
-				games[i/8].GIsfinish=Com.RemoveBlank(s.Text())
+		dom.Find("strong").Each(func(i int, s *goquery.Selection) {
+			strclass, _ := s.Attr("class")
+			if strclass == "red" {
+				games[i/8].GIsfinish = Com.RemoveBlank(s.Text())
 			}
 		})
 		//比赛欧赔
-		dom.Find("div.oupei").Each(func(i int,s *goquery.Selection){
-			s.Find("span").Each(func(j int,t *goquery.Selection){
-				switch j{
+		dom.Find("div.oupei").Each(func(i int, s *goquery.Selection) {
+			s.Find("span").Each(func(j int, t *goquery.Selection) {
+				switch j {
 				case 0:
-					games[i].GspWin=Com.RemoveBlank(t.Text())			
+					games[i].GspWin = Com.RemoveBlank(t.Text())
 					break
 				case 1:
 					//fmt.Println(i,t.Text())
-					games[i].GspTie=Com.RemoveBlank(t.Text())
+					games[i].GspTie = Com.RemoveBlank(t.Text())
 					break
 				case 2:
-					games[i].GspDefeat=Com.RemoveBlank(t.Text())
+					games[i].GspDefeat = Com.RemoveBlank(t.Text())
 					break
 				default:
 					break
