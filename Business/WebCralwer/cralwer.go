@@ -1,17 +1,41 @@
 package WebCralwer
 
 import (
-	"fmt"
+	"context"
 	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly"
 )
 
-func GetWeb() {
+func SaveWeb() {
+	d := time.Now().Add(5000 * time.Millisecond)
+	ctx, cancel := context.WithDeadline(context.Background(), d)
+	defer func() { cancel() }()
+	ch := make(chan int)
+	games := GetWeb()
+	log.Println("开始工作")
+	for _, game := range games {
+		go SaveOneGameInfo(game, ctx, ch)
+	}
+
+	for {
+		select {
+		case <-ctx.Done():
+			log.Println(<-ch)
+			log.Println("工作完了")
+			return
+		case <-ch:
+			log.Println("通道改变了")
+		}
+	}
+}
+
+func GetWeb() []Model.Game {
 	games := []Model.Game{}
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
@@ -52,7 +76,7 @@ func GetWeb() {
 		dom.Find("body>span[style]").Each(func(i int, s *goquery.Selection) {
 			//fmt.Println(i,s.Text())
 			games[i].Gleague = Com.RemoveBlank(s.Text())
-			fmt.Println(s.Html())
+			//fmt.Println(s.Html())
 			//s.Find
 		})
 
@@ -117,7 +141,8 @@ func GetWeb() {
 	})
 	c.OnHTML("tr", func(e *colly.HTMLElement) {
 		//log.Println(e.ChildAttr(".matchDate", "date"))
-		log.Println(e)
+		//	log.Println(e)
 	})
 	c.Visit("http://live.zgzcw.com/ls/AllData.action?code=201&date=2019-11-23&ajax=true")
+	return games
 }

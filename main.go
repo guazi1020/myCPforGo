@@ -7,6 +7,7 @@ import (
 
 func main() {
 	fmt.Println("main, i am home ")
-	//WebCralwer.GetWeb()
-	WebCralwer.SaveDBTodey()
+
+	WebCralwer.SaveWeb()
+	//WebCralwer.SaveDBTodey()
 }

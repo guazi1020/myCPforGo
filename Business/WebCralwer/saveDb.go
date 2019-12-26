@@ -1,12 +1,14 @@
 package WebCralwer
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/DataBase/power"
 	"myCPforGo/Model"
 	"reflect"
-	"strings"
+	"strconv"
 	"time"
 
 	tsgutils "github.com/typa01/go-utils"
@@ -36,39 +38,44 @@ func init() {
 }
 
 //单一存储
-func SaveOneGameInfo(game Model.Game) {
-
+func SaveOneGameInfo(game Model.Game, ctx context.Context, ch chan int) {
+	//这个功能只执行3.5s
+	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(3500))
+	defer func() {
+		ch <- 1
+		cancel()
+	}()
 	var str_ string
 	var str_value string
-	t := reflect.TypeOf(game)
-	v := reflect.ValueOf(game)
-	for i := 0; i < t.NumField(); i++ {
-		if v.Field(i).String() != "" {
-			str_ = str_ + t.Field(i).Name + ","
-			str_value = str_value + v.Field(i).String() + ","
-			// fmt.Print(t.Field(i).Name)
-			// fmt.Println(v.Field(i).String())
+	//var values []string
+	if (game == Model.Game{}) {
+		// 如果对象是空的
+		return
+	} else {
+		// 如果对象不为空,working
+		t := reflect.TypeOf(game)
+		v := reflect.ValueOf(game)
+		for i := 0; i < t.NumField(); i++ {
+			if v.Field(i).String() != "" {
+				str_ = str_ + t.Field(i).Name + ","
+				switch t.Field(i).Type.Name() {
+				case "string":
+					str_value = str_value + "'" + v.Field(i).String() + "',"
+				case "int":
+					str_value = str_value + strconv.FormatInt(v.Field(i).Int(), 10) + ","
+				default:
+					break
+				}
+			}
 		}
-	}
-	str_ = strings.TrimRight(str_, ",")
-	str_value = strings.TrimRight(str_value, ",")
-	str_ = "insert game (" + str_ + ") values (" + str_value + ")"
-	fmt.Println(str_)
-}
-func SaveDBTodey() {
-	//fmt.Println(time.Now(time.Now().Year(), time.Now().Month(), time.Now().Day()))
+		str_ = str_ + "UUID"
+		str_value += "'" + tsgutils.UUID() + "'"
+		str_sql := "insert into game (" + str_ + ")values (" + str_value + ")"
+		log.Println(enable.Exec(str_sql))
 
-	// t := time.Now()
-	// str_time := t.Format(base_format)
-	// fmt.Println(str_time)
-	// //uuid的产生
-	// fmt.Println(tsgutils.UUID())
-	// fmt.Println(enable)
-	//MysqlDemo_Select()
-	var game Model.Game
-	game.GIsfinish = "yes"
-	SaveOneGameInfo(game)
+	}
 }
+
 func MysqlDemo_Insert() {
 	str_sql := "insert game (UUID,Gnumber) values (?,?)"
 	t := time.Now().Format(base_format)

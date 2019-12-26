@@ -1,6 +1,9 @@
 package Model
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 type Game struct {
 	//赛事编号
@@ -12,7 +15,7 @@ type Game struct {
 	//赛制
 	Gleague string
 	//轮
-	Gleaguenumber string
+	Gleaguenumber int
 	//是否已经完赛
 	GIsfinish string
 	//主队排名
@@ -50,4 +53,7 @@ type Game struct {
 // SaveGametoDB 把比赛数据放到数据库中
 func (game *Game) SaveGametoDB() {
 	fmt.Println(game.Gnumber)
+}
+func (game *Game) IsEmpty() bool {
+	return reflect.DeepEqual(game, Game{})
 }
