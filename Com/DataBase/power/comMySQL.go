@@ -3,8 +3,8 @@ package power
 import (
 	"database/sql"
 	"fmt"
-	"go_dev/com/comerr"
-	"go_dev/com/dbase/model"
+	"myCPforGo/Com/DataBase/model"
+	"myCPforGo/Com/comerr"
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -60,17 +60,6 @@ func (comMySQL ComMySQL) Query(a string, args ...interface{}) map[int]map[string
 //Del mysql实现执行sql
 func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
 
-	// for _, arg := range args {
-	// 	switch arg.(type) {
-	// 	case int:
-	// 		fmt.Println(arg)
-	// 		break
-	// 	case string:
-	// 		fmt.Println(arg)
-	// 	default:
-	// 		break
-	// 	}
-	// }
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(str_sql)
 	comerr.CheckErr(err)
