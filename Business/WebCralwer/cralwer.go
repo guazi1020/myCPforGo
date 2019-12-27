@@ -2,6 +2,7 @@ package WebCralwer
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
@@ -12,13 +13,25 @@ import (
 	"github.com/gocolly/colly"
 )
 
+const (
+	timeLayout = "2006-01-02 15:04:05"
+	dateLayout = "2006-01-02"
+)
+
 //SaveWebByDate 根据开始时间和结束时间爬
 //beginDate 开始时间,为空默认为只爬endDate一天
 //endDate 结束时间，为空默认为当前一天
 func SaveWebByDate(beginDate string, endDate string) {
 
 	//1.从beginDate到endDate遍历
-
+	loc, _ := time.LoadLocation("Local")
+	thebeginDate, _ := time.ParseInLocation(dateLayout, beginDate, loc)
+	theendDate, _ := time.ParseInLocation(dateLayout, endDate, loc)
+	sr := thebeginDate.Unix()
+	dataStr_begin := time.Unix(sr, 0).Format(dateLayout)
+	sr = theendDate.AddDate(0, 0, 1).Unix()
+	dataStr_end := time.Unix(sr, 0).Format(dateLayout)
+	fmt.Println(dataStr_begin, dataStr_end)
 }
 
 func SaveWeb(params map[string]string) {
