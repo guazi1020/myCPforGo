@@ -12,11 +12,22 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func SaveWeb() {
+//SaveWebByDate 根据开始时间和结束时间爬
+//beginDate 开始时间,为空默认为只爬endDate一天
+//endDate 结束时间，为空默认为当前一天
+func SaveWebByDate(beginDate string, endDate string) {
+
+	//1.从beginDate到endDate遍历
+
+}
+
+func SaveWeb(params map[string]string) {
 	d := time.Now().Add(5000 * time.Millisecond)
 	ctx, cancel := context.WithDeadline(context.Background(), d)
 	defer func() { cancel() }()
-	games := GetWeb()
+
+	str_href := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
+	games := GetWeb(str_href)
 	log.Println("开始工作")
 	for key, game := range games {
 		go SaveOneGameInfo(game, ctx, key)
@@ -31,7 +42,7 @@ func SaveWeb() {
 	}
 }
 
-func GetWeb() []Model.Game {
+func GetWeb(str_href string) []Model.Game {
 	games := []Model.Game{}
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
@@ -139,6 +150,21 @@ func GetWeb() []Model.Game {
 		//log.Println(e.ChildAttr(".matchDate", "date"))
 		//	log.Println(e)
 	})
-	c.Visit("http://live.zgzcw.com/ls/AllData.action?code=201&date=2019-11-23&ajax=true")
+	//c.Visit("http://live.zgzcw.com/ls/AllData.action?code=201&date=2019-11-23&ajax=true")
+	c.Visit(str_href)
 	return games
+}
+
+//CompositionURL 拆解组合URL
+func CompositionURL(head string, params map[string]string) string {
+	//1.拆params
+	var str_params string
+	for key, value := range params {
+		str_params += key + "=" + value + "&"
+	}
+	if str_params != "" {
+		str_params = strings.TrimRight(str_params, "&")
+	}
+	//2.组装url
+	return head + "?" + str_params
 }

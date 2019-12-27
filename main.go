@@ -8,6 +8,11 @@ import (
 func main() {
 	fmt.Println("main, i am home ")
 
-	WebCralwer.SaveWeb()
+	params := make(map[string]string)
+	params["code"] = "201"
+	params["date"] = "2019-11-23"
+	params["ajax"] = "true"
+
+	WebCralwer.SaveWeb(params)
 	//WebCralwer.SaveDBTodey()
 }
