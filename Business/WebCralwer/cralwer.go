@@ -16,21 +16,17 @@ func SaveWeb() {
 	d := time.Now().Add(5000 * time.Millisecond)
 	ctx, cancel := context.WithDeadline(context.Background(), d)
 	defer func() { cancel() }()
-	ch := make(chan int)
 	games := GetWeb()
 	log.Println("开始工作")
-	for _, game := range games {
-		go SaveOneGameInfo(game, ctx, ch)
+	for key, game := range games {
+		go SaveOneGameInfo(game, ctx, key)
 	}
 
 	for {
 		select {
 		case <-ctx.Done():
-			log.Println(<-ch)
 			log.Println("工作完了")
 			return
-		case <-ch:
-			log.Println("通道改变了")
 		}
 	}
 }

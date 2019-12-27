@@ -3,7 +3,6 @@ package WebCralwer
 import (
 	"context"
 	"fmt"
-	"log"
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/DataBase/power"
 	"myCPforGo/Model"
@@ -38,12 +37,13 @@ func init() {
 }
 
 //单一存储
-func SaveOneGameInfo(game Model.Game, ctx context.Context, ch chan int) {
+func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 	//这个功能只执行3.5s
 	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(3500))
 	defer func() {
-		ch <- 1
+
 		cancel()
+		//close(ch)
 	}()
 	var str_ string
 	var str_value string
@@ -71,7 +71,9 @@ func SaveOneGameInfo(game Model.Game, ctx context.Context, ch chan int) {
 		str_ = str_ + "UUID"
 		str_value += "'" + tsgutils.UUID() + "'"
 		str_sql := "insert into game (" + str_ + ")values (" + str_value + ")"
-		log.Println(enable.Exec(str_sql))
+		if enable.Exec(str_sql) == 1 {
+			fmt.Println(key)
+		}
 
 	}
 }
