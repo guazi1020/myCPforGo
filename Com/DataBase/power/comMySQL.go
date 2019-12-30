@@ -16,12 +16,11 @@ type ComMySQL struct {
 }
 
 //DB mysql的连接变量
-var DB *sql.DB
 
 //Query mysql实现查询语句
 func (comMySQL ComMySQL) Query(a string, args ...interface{}) map[int]map[string]string {
 	result := make(map[int]map[string]string)
-
+	var DB *sql.DB
 	/*数据库操作*/
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(a)
@@ -59,7 +58,7 @@ func (comMySQL ComMySQL) Query(a string, args ...interface{}) map[int]map[string
 
 //Del mysql实现执行sql
 func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
-
+	var DB *sql.DB
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(str_sql)
 	comerr.CheckErr(err)
@@ -67,8 +66,12 @@ func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
 	comerr.CheckErr(err)
 	num, err := result.RowsAffected()
 	comerr.CheckErr(err)
-	stmt.Close()
-	DB.Close()
+	defer func() {
+		if num != 0 {
+			stmt.Close()
+			DB.Close()
+		}
+	}()
 	return num
 }
 

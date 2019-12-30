@@ -2,7 +2,6 @@ package WebCralwer
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
@@ -21,17 +20,33 @@ const (
 //SaveWebByDate 根据开始时间和结束时间爬
 //beginDate 开始时间,为空默认为只爬endDate一天
 //endDate 结束时间，为空默认为当前一天
-func SaveWebByDate(beginDate string, endDate string) {
+func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 
-	//1.从beginDate到endDate遍历
+	//条件判断
+	if endDate == "" {
+		endDate = time.Now().Format(dateLayout)
+	}
+	if beginDate == "" {
+		beginDate = time.Now().Format(dateLayout)
+	}
+
 	loc, _ := time.LoadLocation("Local")
 	thebeginDate, _ := time.ParseInLocation(dateLayout, beginDate, loc)
 	theendDate, _ := time.ParseInLocation(dateLayout, endDate, loc)
-	sr := thebeginDate.Unix()
-	dataStr_begin := time.Unix(sr, 0).Format(dateLayout)
-	sr = theendDate.AddDate(0, 0, 1).Unix()
-	dataStr_end := time.Unix(sr, 0).Format(dateLayout)
-	fmt.Println(dataStr_begin, dataStr_end)
+
+	begin_sr := thebeginDate.Unix()
+	//end_sr := theendDate.AddDate(0, 0, -1).Unix()
+	end_sr := theendDate.Unix()
+
+	if end_sr-begin_sr <= 0 {
+		return //如果最晚时间早于开始时间，结束
+	}
+
+	for i := 0; i < int((end_sr-begin_sr)/86400); i++ {
+		//log.Println(thebeginDate.AddDate(0, 0, i).Format(dateLayout))
+		params["date"] = thebeginDate.AddDate(0, 0, i).Format(dateLayout)
+		SaveWeb(params)
+	}
 }
 
 func SaveWeb(params map[string]string) {
