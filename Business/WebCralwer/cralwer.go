@@ -183,17 +183,19 @@ func GetWeb(str_href string) []Model.Game {
 			for _, str := range strs_ {
 				//fmt.Println(str)
 				gst_item[x] = str
+				x++
 				if str == "析" {
 					x = 0
-					gst[y] = gst_item
-					fmt.Println(gst_item[3])
 					y++
+					gst[y] = gst_item
+
 				}
-				x++
+				//fmt.Println(gst)
 			}
-			// for key, value := range gst {
+			fmt.Println(gst)
+			// for key, _ := range gst {
 			// 	//games[key].Gleaguenumber = value[3]
-			// 	fmt.Println(key, value[3])
+			// 	fmt.Println(key)
 			// }
 
 		})
