@@ -2,11 +2,13 @@ package WebCralwer
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
 	"strings"
 	"time"
+	"unicode"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly"
@@ -170,6 +172,30 @@ func GetWeb(str_href string) []Model.Game {
 					break
 				}
 			})
+		})
+		dom.Find("body").Each(func(i int, s *goquery.Selection) {
+			//remove space and make []string
+			strs_ := strings.FieldsFunc(s.Text(), unicode.IsSpace)
+			y := 0
+			x := 0
+			gst := make(map[int]map[int]string)
+			gst_item := make(map[int]string)
+			for _, str := range strs_ {
+				//fmt.Println(str)
+				gst_item[x] = str
+				if str == "析" {
+					x = 0
+					gst[y] = gst_item
+					fmt.Println(gst_item[3])
+					y++
+				}
+				x++
+			}
+			// for key, value := range gst {
+			// 	//games[key].Gleaguenumber = value[3]
+			// 	fmt.Println(key, value[3])
+			// }
+
 		})
 		// for index, value := range games {
 		// 	fmt.Println(index,value)

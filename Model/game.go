@@ -15,7 +15,7 @@ type Game struct {
 	//赛制
 	Gleague string
 	//轮
-	Gleaguenumber int
+	Gleaguenumber string
 	//是否已经完赛
 	GIsfinish string
 	//主队排名
