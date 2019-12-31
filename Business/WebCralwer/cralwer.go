@@ -38,17 +38,19 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 	//end_sr := theendDate.AddDate(0, 0, -1).Unix()
 	end_sr := theendDate.Unix()
 
-	if end_sr-begin_sr <= 0 {
+	if end_sr-begin_sr < 0 {
 		return //如果最晚时间早于开始时间，结束
 	}
 
-	for i := 0; i < int((end_sr-begin_sr)/86400); i++ {
-		//log.Println(thebeginDate.AddDate(0, 0, i).Format(dateLayout))
-		params["date"] = thebeginDate.AddDate(0, 0, i).Format(dateLayout)
+	for i := 0; i <= int((end_sr-begin_sr)/86400); i++ {
+		//i-1 yesteday,no today
+		params["date"] = thebeginDate.AddDate(0, 0, i-1).Format(dateLayout)
+		//working go
 		SaveWeb(params)
 	}
 }
 
+//SaveWeb 根据参数开始工作
 func SaveWeb(params map[string]string) {
 	d := time.Now().Add(5000 * time.Millisecond)
 	ctx, cancel := context.WithDeadline(context.Background(), d)
@@ -56,7 +58,7 @@ func SaveWeb(params map[string]string) {
 
 	str_href := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
 	games := GetWeb(str_href)
-	log.Println("开始工作")
+	log.Println("开始工作", str_href)
 	for key, game := range games {
 		go SaveOneGameInfo(game, ctx, key)
 	}
