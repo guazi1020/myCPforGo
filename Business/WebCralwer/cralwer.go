@@ -178,7 +178,8 @@ func GetWeb(str_href string) []Model.Game {
 			strs_ := strings.FieldsFunc(s.Text(), unicode.IsSpace)
 			y := 0
 			x := 0
-			gst := make(map[int]map[int]string)
+
+			// gst := make(map[int]map[int]string)
 			gst_item := make(map[int]string)
 			for _, str := range strs_ {
 				//fmt.Println(str)
@@ -186,13 +187,15 @@ func GetWeb(str_href string) []Model.Game {
 				x++
 				if str == "析" {
 					x = 0
+					games[y].Gdata = gst_item[3]
+					games[y].Gtime = gst_item[4]
+					games[y].Gleaguenumber = gst_item[2]
+					fmt.Println(gst_item[2])
 					y++
-					gst[y] = gst_item
-
 				}
 				//fmt.Println(gst)
 			}
-			fmt.Println(gst)
+			//fmt.Println(gst)
 			// for key, _ := range gst {
 			// 	//games[key].Gleaguenumber = value[3]
 			// 	fmt.Println(key)
