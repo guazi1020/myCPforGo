@@ -2,7 +2,6 @@ package WebCralwer
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
@@ -190,7 +189,7 @@ func GetWeb(str_href string) []Model.Game {
 					games[y].Gdata = gst_item[3]
 					games[y].Gtime = gst_item[4]
 					games[y].Gleaguenumber = gst_item[2]
-					fmt.Println(gst_item[2])
+					//fmt.Println(gst_item[2])
 					y++
 				}
 				//fmt.Println(gst)

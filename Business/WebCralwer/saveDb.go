@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/DataBase/power"
+	"myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 	"reflect"
-	"strconv"
+	"strings"
 	"time"
 
 	tsgutils "github.com/typa01/go-utils"
@@ -45,35 +46,50 @@ func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 		//close(ch)
 	}()
 	var str_ string
-	var str_value string
-	//var values []string
+	//var str_value string
+	var str_place string
 	if (game == Model.Game{}) {
 		// 如果对象是空的
 		return
 	} else {
 		// 如果对象不为空,working
 		t := reflect.TypeOf(game)
+
+		game.CreateDate = time.Now().Format(base_format)
+		game.CreateIP = baseMethod.GetNetIP()
+		game.UUID = tsgutils.UUID()
 		v := reflect.ValueOf(game)
+		var pInterface []interface{} = make([]interface{}, v.NumField())
 		for i := 0; i < t.NumField(); i++ {
-			if v.Field(i).String() != "" {
-				str_ = str_ + t.Field(i).Name + ","
-				switch t.Field(i).Type.Name() {
-				case "string":
-					str_value = str_value + "'" + v.Field(i).String() + "',"
-				case "int":
-					str_value = str_value + strconv.FormatInt(v.Field(i).Int(), 10) + ","
-				default:
-					break
-				}
-			}
+			str_place += "?,"
+			pInterface[i] = v.Field(i).String()
+			str_ = str_ + t.Field(i).Name + ","
 		}
-		str_ = str_ + "UUID"
-		str_value += "'" + tsgutils.UUID() + "'"
-		str_sql := "insert into game (" + str_ + ")values (" + str_value + ")"
-		if enable.Exec(str_sql) == 1 {
+		str_ = strings.TrimRight(str_, ",")
+		str_place = strings.TrimRight(str_place, ",")
+
+		str_sql := "insert into game (" + str_ + ") values (" + str_place + ")"
+		_ = str_sql
+
+		str_c := "insert into game values(" + str_place + ")"
+		for v, k := range pInterface {
+			fmt.Println(v, k)
+		}
+		// var pp []interface{} = make([]interface{}, 22)
+		// pp[0] = tsgutils.UUID()
+		// pp[1] = "周四001"
+		if enable.Exec(str_c, pInterface...) == 1 {
 			fmt.Println(key)
 		}
 
+		// _ = pInterface
+		// str_ := "insert into game ( UUID ) values (?)"
+		// var pp []interface{} = make([]interface{}, 1)
+		// pp[0] = tsgutils.UUID()
+		// //	fmt.Println(str_, pp)
+		// if enable.Exec(str_, pp...) == 1 {
+		// 	fmt.Println(key)
+		// }
 	}
 }
 

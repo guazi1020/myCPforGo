@@ -6,6 +6,8 @@ import (
 )
 
 type Game struct {
+	//主键 UUID
+	UUID string
 	//赛事编号
 	Gnumber string
 	//日期
@@ -34,10 +36,6 @@ type Game struct {
 	GspTie string
 	//sp负
 	GspDefeat string
-	//全场比分
-	Gscore string
-	//半场比分
-	GhalfSource string
 	//红牌数量
 	GredQuantities string
 	//让球数
@@ -48,6 +46,14 @@ type Game struct {
 	GredQuantitlesGuest string
 	//半场比分
 	GresultHalfScore string
+
+	/*
+		非业务性字段
+	*/
+	//创建时间
+	CreateDate string
+	//创建的IP
+	CreateIP string
 }
 
 // SaveGametoDB 把比赛数据放到数据库中

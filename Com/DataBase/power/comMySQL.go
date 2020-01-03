@@ -62,6 +62,7 @@ func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(str_sql)
 	comerr.CheckErr(err)
+	//st := "insert into game (UUID,Gnumber,Gdata,Gtime,Gleague,Gleaguenumber,GIsfinish,GhomeRank,GhomeName,GguestRank,GguestName,Gresult,GspWin,GspTie,GspDefeat,GredQuantities,GletCount,GresultScore,GredQuantitlesGuest,GresultHalfScore,CreateDate,CreateIP) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	result, err := stmt.Exec(args...)
 	comerr.CheckErr(err)
 	num, err := result.RowsAffected()

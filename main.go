@@ -11,6 +11,6 @@ func main() {
 	params := make(map[string]string)
 	params["code"] = "201"
 	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate("2019-12-11", "2019-12-11", params)
+	WebCralwer.SaveWebByDate("2020-01-03", "2020-01-03", params)
 	//WebCralwer.SaveWebByDate("", "", params)
 }
