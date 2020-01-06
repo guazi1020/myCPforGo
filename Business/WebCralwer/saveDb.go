@@ -8,6 +8,7 @@ import (
 	"myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -43,54 +44,49 @@ func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(3500))
 	defer func() {
 		cancel()
-		//close(ch)
 	}()
-	var str_ string
-	//var str_value string
-	var str_place string
+
 	if (game == Model.Game{}) {
 		// 如果对象是空的
 		return
 	} else {
-		// 如果对象不为空,working
-		t := reflect.TypeOf(game)
 
+		/*
+			构建str_sql
+		*/
+		var str_place string //str_place 标识符
 		game.CreateDate = time.Now().Format(base_format)
 		game.CreateIP = baseMethod.GetNetIP()
 		game.UUID = tsgutils.UUID()
+
+		t := reflect.TypeOf(game)
 		v := reflect.ValueOf(game)
 		var pInterface []interface{} = make([]interface{}, v.NumField())
+		//构建pInterface参数[]interface{}
 		for i := 0; i < t.NumField(); i++ {
 			str_place += "?,"
 			pInterface[i] = v.Field(i).String()
-			str_ = str_ + t.Field(i).Name + ","
 		}
-		str_ = strings.TrimRight(str_, ",")
+
 		str_place = strings.TrimRight(str_place, ",")
+		str_c := "insert into game values(" + str_place + ")" //str_c 格式:insert into game values(?,?,?...)
 
-		str_sql := "insert into game (" + str_ + ") values (" + str_place + ")"
-		_ = str_sql
-
-		str_c := "insert into game values(" + str_place + ")"
-		for v, k := range pInterface {
-			fmt.Println(v, k)
-		}
-		// var pp []interface{} = make([]interface{}, 22)
-		// pp[0] = tsgutils.UUID()
-		// pp[1] = "周四001"
+		//存储
 		if enable.Exec(str_c, pInterface...) == 1 {
-			fmt.Println(key)
+			fmt.Println(key, "finished")
 		}
-
-		// _ = pInterface
-		// str_ := "insert into game ( UUID ) values (?)"
-		// var pp []interface{} = make([]interface{}, 1)
-		// pp[0] = tsgutils.UUID()
-		// //	fmt.Println(str_, pp)
-		// if enable.Exec(str_, pp...) == 1 {
-		// 	fmt.Println(key)
-		// }
 	}
+}
+
+//IsOnly 判断是否有重复的值
+//ture 有重复的 false 无重复的
+func IsOnly(Gyear string) bool {
+	str_sql := "select count(Gyear) num from game where Gyear=?"
+	i, _ := strconv.Atoi(enable.Query(str_sql, Gyear)[0]["num"])
+	if i > 0 {
+		return true //有重复的,true
+	}
+	return false //没有重复的, false
 }
 
 func MysqlDemo_Insert() {

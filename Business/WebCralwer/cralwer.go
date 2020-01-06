@@ -2,6 +2,7 @@ package WebCralwer
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
@@ -45,8 +46,11 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 
 	for i := 0; i <= int((end_sr-begin_sr)/86400); i++ {
 		//i-1 yesteday,no today
-		params["date"] = thebeginDate.AddDate(0, 0, i-1).Format(dateLayout)
-		//working go
+		params["date"] = thebeginDate.AddDate(0, 0, i).Format(dateLayout)
+		if IsOnly(params["date"]) {
+			fmt.Println("true")
+			continue
+		}
 		SaveWeb(params)
 	}
 }
@@ -58,7 +62,7 @@ func SaveWeb(params map[string]string) {
 	defer func() { cancel() }()
 
 	str_href := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
-	games := GetWeb(str_href)
+	games := GetWeb(str_href, params)
 	log.Println("开始工作", str_href)
 	for key, game := range games {
 		go SaveOneGameInfo(game, ctx, key)
@@ -73,7 +77,8 @@ func SaveWeb(params map[string]string) {
 	}
 }
 
-func GetWeb(str_href string) []Model.Game {
+//GetWeb 获取页面数量并对象化
+func GetWeb(str_href string, paras map[string]string) []Model.Game {
 	games := []Model.Game{}
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
@@ -189,7 +194,7 @@ func GetWeb(str_href string) []Model.Game {
 					games[y].Gdata = gst_item[3]
 					games[y].Gtime = gst_item[4]
 					games[y].Gleaguenumber = gst_item[2]
-					//fmt.Println(gst_item[2])
+					games[y].Gyear = paras["date"]
 					y++
 				}
 				//fmt.Println(gst)

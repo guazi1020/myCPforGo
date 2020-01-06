@@ -10,6 +10,8 @@ type Game struct {
 	UUID string
 	//赛事编号
 	Gnumber string
+	//年份
+	Gyear string
 	//日期
 	Gdata string
 	//时间
