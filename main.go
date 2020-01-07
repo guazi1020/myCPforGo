@@ -11,8 +11,6 @@ func main() {
 	params := make(map[string]string)
 	params["code"] = "201"
 	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate("2018-10-02", "", params)
-	//WebCralwer.SaveWebByDate("", "", params)
-	//fmt.Println(WebCralwer.IsOnly("2020-01-03"))
-	//WebCralwer.MysqlDemo_Select()
+	//WebCralwer.SaveWebByDate("2018-10-02", "", params)
+	fmt.Println(WebCralwer.Calculate_ScoringRate("切沃", 2))
 }

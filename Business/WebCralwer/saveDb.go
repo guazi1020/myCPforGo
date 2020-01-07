@@ -38,6 +38,12 @@ func init() {
 		comparam}
 }
 
+//SearchForGame 根据game查找内容
+func SearchForGame(game string) map[int]map[string]string {
+	results := enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc", game, game)
+	return results
+}
+
 //单一存储
 func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 	//这个功能只执行1.5s
