@@ -40,8 +40,8 @@ func init() {
 
 //单一存储
 func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
-	//这个功能只执行3.5s
-	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(3500))
+	//这个功能只执行1.5s
+	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(1500))
 	defer func() {
 		cancel()
 	}()
