@@ -30,6 +30,8 @@ type Game struct {
 	GguestRank string
 	//客队名称
 	GguestName string
+	//比赛结果
+	GresultScore string
 	//结果
 	Gresult string
 	//GspWin sp胜
@@ -38,17 +40,14 @@ type Game struct {
 	GspTie string
 	//sp负
 	GspDefeat string
-	//红牌数量
-	GredQuantities string
-	//让球数
-	GletCount string
-	//比赛结果
-	GresultScore string
-	//客队红牌
-	GredQuantitlesGuest string
 	//半场比分
 	GresultHalfScore string
-
+	//红牌数量
+	GredQuantities string
+	//客队红牌
+	GredQuantitlesGuest string
+	//让球数
+	GletCount string
 	/*
 		非业务性字段
 	*/

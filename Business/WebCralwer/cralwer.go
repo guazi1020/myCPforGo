@@ -38,7 +38,7 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 
 	begin_sr := thebeginDate.Unix()
 	//end_sr := theendDate.AddDate(0, 0, -1).Unix()
-	end_sr := theendDate.Unix()
+	end_sr := theendDate.AddDate(0, 0, -1).Unix()
 
 	if end_sr-begin_sr < 0 {
 		return //如果最晚时间早于开始时间，结束
