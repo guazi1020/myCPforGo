@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/baseMethod"
 )
 
 func main() {
@@ -12,5 +12,7 @@ func main() {
 	params["code"] = "201"
 	params["ajax"] = "true"
 	//WebCralwer.SaveWebByDate("2018-10-02", "", params)
-	fmt.Println(WebCralwer.Calculate_ScoringRate("切沃", 2))
+	//fmt.Println(WebCralwer.Calculate_ScoringRate("切沃", 2))
+	fmt.Println(baseMethod.Compoundrate(152756, 0.0385, 24))
+
 }
