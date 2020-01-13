@@ -39,8 +39,24 @@ func init() {
 }
 
 //SearchForGame 根据game查找内容
-func SearchForGame(game string) map[int]map[string]string {
-	results := enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc", game, game)
+//team 队名
+func SearchForGame(team string, count int, ishome ...bool) map[int]map[string]string {
+	var results map[int]map[string]string
+	if len(ishome) == 1 {
+		for _, item := range ishome {
+			switch item {
+			case true:
+				results = enable.Query("select * from game WHERE GhomeName=?  order by Gyear desc LIMIT ?", team, count)
+			case false:
+				results = enable.Query("select * from game WHERE  GguestName=? order by Gyear desc LIMIT ?", team, count)
+			default:
+				break
+			}
+		}
+		return results
+	} else {
+		results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc LIMIT ?", team, team, count)
+	}
 	return results
 }
 
