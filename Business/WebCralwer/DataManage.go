@@ -9,8 +9,12 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+const (
+	E = 2.718
+)
+
 //Probabiltiy_ScoringRate 预测进球率
-//team:球队
+//team:球队,exceptGlobals 预测进球数
 func Probability_ScoringRate(team string, exceptGlobals int) float64 {
 	//公式：P（X）=（M^X/X!)*e^(-M)；P (0) = e^(-M)
 	//M为球队场均进球数
@@ -18,8 +22,17 @@ func Probability_ScoringRate(team string, exceptGlobals int) float64 {
 	//e为常实数2.718
 	//场均进球
 
-	var rate float64
-	return rate
+	m := Calculate_AveGlobal(team, 1)
+	x := baseMethod.CountMultiplying(m, exceptGlobals)
+	fmt.Println(x)
+	y := baseMethod.CountFactorial(exceptGlobals)
+	fmt.Println(y)
+	//	fmt.Println(float64(baseMethod.CountMultiplying(m, exceptGlobals)))
+	avgGlobals, _ := decimal.NewFromFloat(float64(baseMethod.CountMultiplying(m, exceptGlobals))).Div(decimal.NewFromFloat(float64(baseMethod.CountFactorial(exceptGlobals)))).Float64()
+	avgGlobals = avgGlobals * baseMethod.CountMultiplying(E, -m)
+	//	avgGlobals := baseMethod.CountMultiplying(E, -exceptGlobals)
+	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
+	return avgGlobals
 }
 
 //Calculate_sumGlobal 计算总进球数
