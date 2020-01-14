@@ -16,55 +16,65 @@ func Probability_ScoringRate(team string, exceptGlobals int) float64 {
 	//M为球队场均进球数
 	//X为期望进球值
 	//e为常实数2.718
+	//场均进球
 
 	var rate float64
 	return rate
 }
 
 //Calculate_sumGlobal 计算总进球数
-//team:球队 count:轮数 Ishome:是否是主客场,ture主场,guest客场
-func Calculate_sumGlobal(team string, count int, Ishomes bool) int {
+//team:球队 count:轮数 Ishome:是否是主客场,ture主场,guest客场,没有就是不管主客场
+func Calculate_sumGlobal(team string, count int, Ishomes ...bool) int {
 	var results map[int]map[string]string
 	var sNumbers int
 
-	results = SearchForGame(team, count, Ishomes)
-	switch Ishomes {
-	case true:
-		for i := 0; i < len(results); i++ {
-			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
+	if len(Ishomes) > 0 { //确定了主客场
+		for _, ishome := range Ishomes {
+			results = SearchForGame(team, count, ishome)
+			switch ishome {
+			case false:
+				for i := 0; i < len(results); i++ {
+					sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
+				}
+			case true:
+				for i := 0; i < len(results); i++ {
+					sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
+				}
+			default:
+				break
+			}
 		}
-		return sNumbers
-	case false:
+	} else { //全部不确定主客场
+		results = SearchForGame(team, count)
 		for i := 0; i < len(results); i++ {
-			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
+			if results[i]["GguestName"] == team { //主场比分
+				sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
+			} else { //客场比分
+				sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
+			}
+
 		}
-		return sNumbers
-	default:
-		break
 	}
+
 	return sNumbers
 }
 
 //Calulate_AveGlobal 平均进球数
-//parame team 球队 tnumbers 轮数
-func Calculate_AveGlobal(team string, tnumbers int, pnumbers int) float64 {
+//parame team 球队 tnumbers 轮数,ishomes 是否是主场,true/false 不填写全部
+func Calculate_AveGlobal(team string, tnumbers int, ishomes ...bool) float64 {
 	//根据team找到tnumbersshu
-	var global float64
+	var globals int //总进球数
 
-	results := SearchForGame(team, tnumbers)
-	if len(results) < tnumbers {
-		tnumbers = len(results)
-	}
-	var sNumbers int //总进球数
-	for i := 0; i < tnumbers; i++ {
-		//计算主客场数
-		if results[i]["GguestName"] == team {
-			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
-		} else {
-			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
+	if len(ishomes) > 0 {
+		for _, ishome := range ishomes {
+			globals = Calculate_sumGlobal(team, tnumbers, ishome)
 		}
+	} else {
+		globals = Calculate_sumGlobal(team, tnumbers)
 	}
-	return global
+	avgGlobals, _ := decimal.NewFromFloat(float64(globals)).Div(decimal.NewFromFloat(float64(tnumbers))).Float64()
+	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
+	return avgGlobals
 }
 
 //Calculate_ScoringRate 计算进球率

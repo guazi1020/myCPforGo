@@ -15,6 +15,6 @@ func main() {
 	//WebCralwer.SaveWebByDate("2020-01-01", "", params)
 	//fmt.Println(WebCralwer.Calculate_ScoringRate("切沃", 6))
 	//fmt.Println(baseMethod.Compoundrate(152756, 0.0385, 24))
-	fmt.Println(WebCralwer.Calculate_sumGlobal("切沃", 3, false))
+	fmt.Println(WebCralwer.Calculate_AveGlobal("切沃", 3, true))
 
 }
