@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/baseMethod"
 )
 
 func main() {
@@ -16,5 +16,14 @@ func main() {
 	//fmt.Println(baseMethod.Compoundrate(152756, 0.0385, 24))
 	//fmt.Println(WebCralwer.Calculate_AveGlobal("切沃", 3, true))
 	//fmt.Println(baseMethod.CountFactorial(1))
-	fmt.Println(WebCralwer.Probability_ScoringRate("切沃", 3))
+	//fmt.Println(WebCralwer.Probability_ScoringRate("切沃", 3))
+	//baseMethod.CountMultiplyingsqrt(2, 3.3)
+
+	// var x int64
+	// x = 7
+	// var y int64
+	// y = 5
+	// fmt.Println(decimal.NewFromInt(x).Mod(decimal.NewFromInt(y)))
+	x, y := baseMethod.DecimalsToGrade(1.5)
+	fmt.Println(x, y)
 }
