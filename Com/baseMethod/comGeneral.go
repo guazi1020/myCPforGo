@@ -16,8 +16,8 @@ func DecimalsToGrade(source float64) (int, int) {
 	strs := strings.Split(s1, ".")
 	if len(strs) > 1 {
 		//将分子去小数化
-		_den := source
-		_num := 1
+		_num := source
+		_den := 1
 		for i := 0; i < len(strs[1]); i++ {
 			_den = _den * 10
 			_num = _num * 10
@@ -33,11 +33,6 @@ func DecimalsToGrade(source float64) (int, int) {
 			if v.IntPart() == 0 {
 				list_x = append(list_x, i)
 			}
-			//fmt.Println()
-			//fmt.Println(decimal.NewFromInt(int64(_den)).Mod(decimal.NewFromInt(i)))
-
-			// 	//fmt.Println(decimal.NewFromFloat(float64(strs[0])).Mod(decimal.NewFromFloat32(i)))
-			// 	//avgGlobals, _ := decimal.NewFromFloat(float64(globals)).Div(decimal.NewFromFloat(float64(tnumbers))).Float64()
 		}
 		for i = 1; i <= int64(_num); i++ {
 			v := decimal.NewFromInt(int64(_num)).Mod(decimal.NewFromInt(i))
@@ -54,9 +49,11 @@ func DecimalsToGrade(source float64) (int, int) {
 				}
 			}
 		}
-		//	denominator = decimal.NewFromInt(int64(_den)).Div(decimal.NewFromInt(_num)).IntPart()
-		fmt.Println(flag)
-		fmt.Println(list_x, list_y)
+		//	denominator =
+		denominator := decimal.NewFromInt(int64(_den)).Div(decimal.NewFromInt(flag)).IntPart()
+		numerator := decimal.NewFromInt(int64(_num)).Div(decimal.NewFromInt(flag)).IntPart()
+		fmt.Println(numerator, "/", denominator)
+		//fmt.Println(list_x, list_y)
 	} else {
 		denominator = 1
 		numerator = int(source)

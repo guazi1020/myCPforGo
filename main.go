@@ -24,6 +24,6 @@ func main() {
 	// var y int64
 	// y = 5
 	// fmt.Println(decimal.NewFromInt(x).Mod(decimal.NewFromInt(y)))
-	x, y := baseMethod.DecimalsToGrade(1.5)
+	x, y := baseMethod.DecimalsToGrade(1123.7855)
 	fmt.Println(x, y)
 }
