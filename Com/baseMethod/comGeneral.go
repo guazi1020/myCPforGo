@@ -8,10 +8,33 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-func DecimalsToGrade(source float64) (int, int) {
+func MyPow(x float64, n int) float64 {
+	if n < 0 {
+		if n == -1<<31 {
+			return MyPow(x, n+1) / x
+		}
+		x = 1 / x
+		n *= -1
+	}
 
-	var denominator int //denominator 分母
-	var numerator int   //分子
+	var result float64 = 1
+	var current_product float64 = x
+	for n > 0 {
+		if n&1 == 1 { // 当前位为1的话就乘上去
+			result *= current_product
+		}
+		// 前进一位
+		current_product *= current_product
+		n = n >> 1
+	}
+	return result
+}
+
+//小数变分数
+func DecimalsToGrade(source float64) (int64, int64) {
+
+	var denominator int64 //denominator 分母
+	var numerator int64   //分子
 	s1 := strconv.FormatFloat(source, 'f', -1, 64)
 	strs := strings.Split(s1, ".")
 	if len(strs) > 1 {
@@ -50,13 +73,14 @@ func DecimalsToGrade(source float64) (int, int) {
 			}
 		}
 		//	denominator =
-		denominator := decimal.NewFromInt(int64(_den)).Div(decimal.NewFromInt(flag)).IntPart()
-		numerator := decimal.NewFromInt(int64(_num)).Div(decimal.NewFromInt(flag)).IntPart()
-		fmt.Println(numerator, "/", denominator)
+		denominator = decimal.NewFromInt(int64(_den)).Div(decimal.NewFromInt(flag)).IntPart()
+		numerator = decimal.NewFromInt(int64(_num)).Div(decimal.NewFromInt(flag)).IntPart()
+		//fmt.Println(numerator, "/", denominator)
 		//fmt.Println(list_x, list_y)
+
 	} else {
 		denominator = 1
-		numerator = int(source)
+		numerator = int64(source)
 	}
 	return numerator, denominator
 }

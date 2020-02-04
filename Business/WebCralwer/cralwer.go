@@ -51,6 +51,7 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 			fmt.Println("true")
 			continue
 		}
+
 		SaveWeb(params)
 	}
 }
@@ -64,8 +65,12 @@ func SaveWeb(params map[string]string) {
 	str_href := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
 	games := GetWeb(str_href, params)
 	log.Println("开始工作", str_href)
+	//fmt.Println(games)
 	for key, game := range games {
+		//fmt.Println(game)
+		//fmt.Println(key)
 		go SaveOneGameInfo(game, ctx, key)
+
 	}
 
 	for {

@@ -2,6 +2,7 @@ package WebCralwer
 
 import (
 	"fmt"
+	"math"
 	"myCPforGo/Com/baseMethod"
 	"strconv"
 	"strings"
@@ -22,14 +23,23 @@ func Probability_ScoringRate(team string, exceptGlobals int) float64 {
 	//e为常实数2.718
 	//场均进球
 
-	m := Calculate_AveGlobal(team, 1)
-	x := baseMethod.CountMultiplying(m, exceptGlobals)
-	fmt.Println(x)
-	y := baseMethod.CountFactorial(exceptGlobals)
-	fmt.Println(y)
+	m, _ := strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, 3), 2), 64)
+	//fmt.Println("m:", m)
+	//x := baseMethod.CountMultiplying(m, exceptGlobals)
+	//fmt.Println("M^X:", x)
+	//y := baseMethod.CountFactorial(exceptGlobals)
+	//fmt.Println("X!", y)
 	//	fmt.Println(float64(baseMethod.CountMultiplying(m, exceptGlobals)))
+	//M^X/X!
 	avgGlobals, _ := decimal.NewFromFloat(float64(baseMethod.CountMultiplying(m, exceptGlobals))).Div(decimal.NewFromFloat(float64(baseMethod.CountFactorial(exceptGlobals)))).Float64()
-	avgGlobals = avgGlobals * baseMethod.CountMultiplying(E, int(-m))
+	//fmt.Println("M^X/X!=", avgGlobals)
+	//e^(-M)
+	avgGlobals = avgGlobals * math.Pow(E, -m)
+	//"2
+	// M_1, M_2 := baseMethod.DecimalsToGrade(m)
+
+	// fmt.Println(M_1, M_2, baseMethod.CountMultiplying(E, int(M_1)))
+	// avgGlobals = avgGlobals * baseMethod.CountMultiplying(E, int(-m))
 	//	avgGlobals := baseMethod.CountMultiplying(E, -exceptGlobals)
 	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
 	return avgGlobals

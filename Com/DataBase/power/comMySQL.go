@@ -61,6 +61,7 @@ func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
 	var DB *sql.DB
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(str_sql)
+
 	comerr.CheckErr(err)
 	//st := "insert into game (UUID,Gnumber,Gdata,Gtime,Gleague,Gleaguenumber,GIsfinish,GhomeRank,GhomeName,GguestRank,GguestName,Gresult,GspWin,GspTie,GspDefeat,GredQuantities,GletCount,GresultScore,GredQuantitlesGuest,GresultHalfScore,CreateDate,CreateIP) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	result, err := stmt.Exec(args...)
@@ -79,7 +80,8 @@ func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
 //Open 实现连接数据库
 func (comMysql ComMySQL) Open() *sql.DB {
 	//组装账套
-	path := strings.Join([]string{comMysql.UserName, ":", comMysql.UserName, "@tcp(", comMysql.IP, ":", comMysql.Port, ")/", comMysql.Dbname, "?charset=utf8"}, "")
+	path := strings.Join([]string{comMysql.UserName, ":", comMysql.Password, "@tcp(", comMysql.IP, ":", comMysql.Port, ")/", comMysql.Dbname, "?charset=utf8"}, "")
+	//fmt.Println(path)
 	//连接
 	db, err := sql.Open("mysql", path)
 	comerr.CheckErr(err)

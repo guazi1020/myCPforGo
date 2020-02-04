@@ -19,10 +19,12 @@ const base_format = "2006-01-02 15:04:05"
 
 const (
 	userName = "root"
-	password = "lijdlijd105"
-	ip       = "49.235.158.254"
-	port     = "3306"
-	dbname   = "footballsp"
+	password = "LijdLijd*105"
+	//password = "lijdlijd105"
+	ip = "49.235.158.254"
+	//port     = "3306"
+	port   = "38160"
+	dbname = "footballsp"
 )
 
 var comparam = model.DBParam{
@@ -92,7 +94,7 @@ func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 
 		str_place = strings.TrimRight(str_place, ",")
 		str_c := "insert into game values(" + str_place + ")" //str_c 格式:insert into game values(?,?,?...)
-
+		//fmt.Println(str_c)
 		//存储
 		if enable.Exec(str_c, pInterface...) == 1 {
 			fmt.Println(key, "finished")
