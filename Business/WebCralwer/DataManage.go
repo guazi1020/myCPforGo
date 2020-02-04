@@ -29,7 +29,7 @@ func Probability_ScoringRate(team string, exceptGlobals int) float64 {
 	fmt.Println(y)
 	//	fmt.Println(float64(baseMethod.CountMultiplying(m, exceptGlobals)))
 	avgGlobals, _ := decimal.NewFromFloat(float64(baseMethod.CountMultiplying(m, exceptGlobals))).Div(decimal.NewFromFloat(float64(baseMethod.CountFactorial(exceptGlobals)))).Float64()
-	avgGlobals = avgGlobals * baseMethod.CountMultiplying(E, -m)
+	avgGlobals = avgGlobals * baseMethod.CountMultiplying(E, int(-m))
 	//	avgGlobals := baseMethod.CountMultiplying(E, -exceptGlobals)
 	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
 	return avgGlobals
