@@ -2,6 +2,7 @@ package WebCralwer
 
 import (
 	"fmt"
+	_ "fmt"
 	"math"
 	"myCPforGo/Com/baseMethod"
 	"strconv"
@@ -15,67 +16,66 @@ const (
 )
 
 //Probabiltiy_ScoringRate 预测进球率
-//team:球队,exceptGlobals 预测进球数
-func Probability_ScoringRate(team string, exceptGlobals int) float64 {
+//team:球队,exceptGlobals 预测进球数,lastNumber 最近几场,isHome 是否是主场(0,全部;1,主场；2,客场)
+func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isHome int) float64 {
 	//公式：P（X）=（M^X/X!)*e^(-M)；P (0) = e^(-M)
 	//M为球队场均进球数
 	//X为期望进球值
 	//e为常实数2.718
 	//场均进球
+	_lastNumber := 1
+	var m float64
+	if lastNumber > 0 {
+		_lastNumber = lastNumber
+	}
+	if isHome == 0 {
 
-	m, _ := strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, 3), 2), 64)
-	//fmt.Println("m:", m)
-	//x := baseMethod.CountMultiplying(m, exceptGlobals)
-	//fmt.Println("M^X:", x)
-	//y := baseMethod.CountFactorial(exceptGlobals)
-	//fmt.Println("X!", y)
-	//	fmt.Println(float64(baseMethod.CountMultiplying(m, exceptGlobals)))
-	//M^X/X!
+	}
+	//场均进球数
+	switch isHome {
+	case 1:
+		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 1), 3), 64)
+	case 2:
+		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 2), 3), 64)
+	default:
+		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 0), 3), 64)
+	}
+	fmt.Println("m", m)
 	avgGlobals, _ := decimal.NewFromFloat(float64(baseMethod.CountMultiplying(m, exceptGlobals))).Div(decimal.NewFromFloat(float64(baseMethod.CountFactorial(exceptGlobals)))).Float64()
 	//fmt.Println("M^X/X!=", avgGlobals)
 	//e^(-M)
 	avgGlobals = avgGlobals * math.Pow(E, -m)
-	//"2
-	// M_1, M_2 := baseMethod.DecimalsToGrade(m)
-
-	// fmt.Println(M_1, M_2, baseMethod.CountMultiplying(E, int(M_1)))
-	// avgGlobals = avgGlobals * baseMethod.CountMultiplying(E, int(-m))
-	//	avgGlobals := baseMethod.CountMultiplying(E, -exceptGlobals)
 	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
 	return avgGlobals
 }
 
 //Calculate_sumGlobal 计算总进球数
-//team:球队 count:轮数 Ishome:是否是主客场,ture主场,guest客场,没有就是不管主客场
-func Calculate_sumGlobal(team string, count int, Ishomes ...bool) int {
+//team:球队 count:轮数 Ishome:0,all 1,主场 2,客场
+func Calculate_sumGlobal(team string, count int, Ishomes int) int {
 	var results map[int]map[string]string
 	var sNumbers int
 
-	if len(Ishomes) > 0 { //确定了主客场
-		for _, ishome := range Ishomes {
-			results = SearchForGame(team, count, ishome)
-			switch ishome {
-			case false:
-				for i := 0; i < len(results); i++ {
-					sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
-				}
-			case true:
-				for i := 0; i < len(results); i++ {
-					sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
-				}
-			default:
-				break
+	switch Ishomes {
+	default:
+		break
+	case 0:
+		results = SearchForGame(team, count, 0, "意甲")
+		for _, result := range results {
+			if result["GhomeName"] == team {
+				sNumbers = sNumbers + resolveSources(result["GresultScore"], true)
+			} else {
+				sNumbers = sNumbers + resolveSources(result["GresultScore"], false)
 			}
 		}
-	} else { //全部不确定主客场
-		results = SearchForGame(team, count)
+	case 1:
+		results = SearchForGame(team, count, 1, "意甲")
 		for i := 0; i < len(results); i++ {
-			if results[i]["GguestName"] == team { //主场比分
-				sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
-			} else { //客场比分
-				sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
-			}
-
+			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
+		}
+	case 2:
+		results = SearchForGame(team, count, 2, "意甲")
+		for i := 0; i < len(results); i++ {
+			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
 		}
 	}
 
@@ -83,37 +83,37 @@ func Calculate_sumGlobal(team string, count int, Ishomes ...bool) int {
 }
 
 //Calulate_AveGlobal 平均进球数
-//parame team 球队 tnumbers 轮数,ishomes 是否是主场,true/false 不填写全部
-func Calculate_AveGlobal(team string, tnumbers int, ishomes ...bool) float64 {
+//parame team 球队 tnumbers 轮数,ishomes 0,全部 1主场 2,客场
+func Calculate_AveGlobal(team string, tnumbers int, ishomes int) float64 {
 	//根据team找到tnumbersshu
 	var globals int //总进球数
-
-	if len(ishomes) > 0 {
-		for _, ishome := range ishomes {
-			globals = Calculate_sumGlobal(team, tnumbers, ishome)
-		}
-	} else {
-		globals = Calculate_sumGlobal(team, tnumbers)
-	}
+	globals = Calculate_sumGlobal(team, tnumbers, ishomes)
+	// if len(ishomes) > 0 {
+	// 	for _, ishome := range ishomes {
+	// 		globals = Calculate_sumGlobal(team, tnumbers, ishome)
+	// 	}
+	// } else {
+	// 	globals = Calculate_sumGlobal(team, tnumbers)
+	// }
 	avgGlobals, _ := decimal.NewFromFloat(float64(globals)).Div(decimal.NewFromFloat(float64(tnumbers))).Float64()
 	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
 	return avgGlobals
 }
 
-//Calculate_ScoringRate 计算进球率
-//team:名称 number:场次
-//return float64
-func Calculate_ScoringRate(team string, number int) float64 {
-	//1.根据team找到number场
+// //Calculate_ScoringRate 计算进球率
+// //team:名称 number:场次
+// //return float64
+// func Calculate_ScoringRate(team string, number int) float64 {
+// 	//1.根据team找到number场
 
-	var sNumbers int
-	sNumbers = Calculate_sumGlobal(team, number, false)
-	fmt.Println(sNumbers)
-	d1, _ := decimal.NewFromFloat(float64(number)).Div(decimal.NewFromFloat(float64(sNumbers))).Float64()
-	d1, _ = strconv.ParseFloat(baseMethod.ChangeNumber(d1, 5), 64)
-	return d1
-	//return sNumbers
-}
+// 	var sNumbers int
+// 	sNumbers = Calculate_sumGlobal(team, number, false)
+// 	fmt.Println(sNumbers)
+// 	d1, _ := decimal.NewFromFloat(float64(number)).Div(decimal.NewFromFloat(float64(sNumbers))).Float64()
+// 	d1, _ = strconv.ParseFloat(baseMethod.ChangeNumber(d1, 5), 64)
+// 	return d1
+// 	//return sNumbers
+// }
 
 //resovleSources 比分拆解
 //sources 比分 ishome 是否主队(true主队,false客队)

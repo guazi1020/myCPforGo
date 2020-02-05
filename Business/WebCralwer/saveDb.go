@@ -41,28 +41,47 @@ func init() {
 }
 
 //SearchForGame 根据game查找内容
-//team 队名
-func SearchForGame(team string, count int, ishome ...bool) map[int]map[string]string {
+//team 队名 count 前n条,ishome 0,全部 1,主场 2,客场
+func SearchForGame(team string, count int, ishome int, league ...string) map[int]map[string]string {
+
 	var results map[int]map[string]string
-	if len(ishome) == 1 {
-		for _, item := range ishome {
-			switch item {
-			case true:
-				results = enable.Query("select * from game WHERE GhomeName=?  order by Gyear desc LIMIT ?", team, count)
-			case false:
-				results = enable.Query("select * from game WHERE  GguestName=? order by Gyear desc LIMIT ?", team, count)
-			default:
-				break
-			}
+	if len(league) == 0 {
+
+		switch ishome {
+		default:
+			break
+		case 0:
+			results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc LIMIT ?", team, team, count)
+		case 1:
+			results = enable.Query("select * from game WHERE GhomeName=?  order by Gyear desc LIMIT ?", team, count)
+		case 2:
+			results = enable.Query("select * from game WHERE  GguestName=? order by Gyear desc LIMIT ?", team, count)
 		}
-		return results
-	} else {
-		results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc LIMIT ?", team, team, count)
+
+	}
+	if len(league) > 0 {
+		var leagues string
+		for _, item := range league {
+			leagues = leagues + item + ","
+		}
+		leagues = strings.TrimRight(leagues, ",")
+		fmt.Println(leagues)
+		switch ishome {
+		default:
+			break
+		case 0:
+			results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? and Gleague in (?) order by Gyear desc LIMIT ?", team, team, leagues, count)
+		case 1:
+			results = enable.Query("select * from game WHERE GhomeName=? and Gleague in (?) order by Gyear desc LIMIT ?", team, leagues, count)
+		case 2:
+			results = enable.Query("select * from game WHERE  GguestName=? and Gleague in (?) order by Gyear desc LIMIT ?", team, leagues, count)
+		}
+
 	}
 	return results
 }
 
-//单一存储
+//SaveOneGameInfo 单一存储
 func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 	//这个功能只执行1.5s
 	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(1500))
