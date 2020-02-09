@@ -43,7 +43,7 @@ func init() {
 //SearchForGame 根据game查找内容
 //team 队名 count 前n条,ishome 0,全部 1,主场 2,客场
 func SearchForGame(team string, count int, ishome int, league ...string) map[int]map[string]string {
-
+	fmt.Println(league)
 	var results map[int]map[string]string
 	if len(league) == 0 {
 
@@ -62,22 +62,27 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 	if len(league) > 0 {
 		var leagues string
 		for _, item := range league {
-			leagues = leagues + item + ","
+			leagues += "'" + item + "',"
 		}
 		leagues = strings.TrimRight(leagues, ",")
-		fmt.Println(leagues)
+		fmt.Println("leagues:", leagues)
+		var sql string
 		switch ishome {
 		default:
 			break
 		case 0:
-			results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? and Gleague in (?) order by Gyear desc LIMIT ?", team, team, leagues, count)
+			sql = fmt.Sprintf("select * from game WHERE GhomeName=? or GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			results = enable.Query(sql, team, team, count)
 		case 1:
-			results = enable.Query("select * from game WHERE GhomeName=? and Gleague in (?) order by Gyear desc LIMIT ?", team, leagues, count)
+			sql = fmt.Sprintf("select * from game WHERE GhomeName=?  and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			results = enable.Query(sql, team, count)
 		case 2:
-			results = enable.Query("select * from game WHERE  GguestName=? and Gleague in (?) order by Gyear desc LIMIT ?", team, leagues, count)
+			sql = fmt.Sprintf("select * from game WHERE  GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			results = enable.Query(sql, team, count)
 		}
-
+		fmt.Println(sql)
 	}
+
 	return results
 }
 

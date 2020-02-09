@@ -18,7 +18,30 @@ func main() {
 	//fmt.Println(baseMethod.Compoundrate(152756, 0.0385, 24))
 	//fmt.Println(WebCralwer.Calculate_AveGlobal("切沃", 3, true))
 	//fmt.Println(baseMethod.CountFactorial(1))
-	fmt.Println("进球概率:", WebCralwer.Probability_ScoringRate("尤文图斯", 2, 5, 1))
+
+	var team string    //球队名称
+	var goals int      //进球数
+	var num int        //几场比赛
+	var ishome int     //主客场
+	var _ishome string //翻译临时主客场
+	var league []string
+	team = "尤文图斯"
+	goals = 2
+	num = 5
+	ishome = 1
+
+	switch ishome {
+	case 0:
+		_ishome = "主客场"
+	case 1:
+		_ishome = "主场"
+	case 2:
+		_ishome = "客场"
+	}
+	league = append(league, "意甲")
+	//league = append(league, "欧洲杯")
+
+	fmt.Printf("%s,进%d的机率，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 	//fmt.Println(baseMethod.MyPow(4, 3))
 	//fmt.Println(math.Pow(2.14, -1.23))
 	//baseMethod.CountMultiplyingsqrt(2, 3.3)
@@ -31,5 +54,5 @@ func main() {
 	//x, y := baseMethod.DecimalsToGrade(1123.7855)
 	//fmt.Println(x, y)
 	//	WebCralwer.Probability_ScoringRate("切沃", 3, true)
-	fmt.Println("总进球数:", WebCralwer.Calculate_sumGlobal("尤文图斯", 5, 1))
+	//fmt.Println("总进球数:", WebCralwer.Calculate_sumGlobal("尤文图斯", 5, 1, "意甲"))
 }

@@ -16,8 +16,8 @@ const (
 )
 
 //Probabiltiy_ScoringRate 预测进球率
-//team:球队,exceptGlobals 预测进球数,lastNumber 最近几场,isHome 是否是主场(0,全部;1,主场；2,客场)
-func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isHome int) float64 {
+//team:球队,exceptGlobals 预测进球数,lastNumber 最近几场,isHome 是否是主场(0,全部;1,主场；2,客场),league 赛制名称
+func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isHome int, league ...string) float64 {
 	//公式：P（X）=（M^X/X!)*e^(-M)；P (0) = e^(-M)
 	//M为球队场均进球数
 	//X为期望进球值
@@ -34,11 +34,11 @@ func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isH
 	//场均进球数
 	switch isHome {
 	case 1:
-		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 1), 3), 64)
+		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 1, league...), 3), 64)
 	case 2:
-		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 2), 3), 64)
+		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 2, league...), 3), 64)
 	default:
-		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 0), 3), 64)
+		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 0, league...), 3), 64)
 	}
 	fmt.Println("m", m)
 	avgGlobals, _ := decimal.NewFromFloat(float64(baseMethod.CountMultiplying(m, exceptGlobals))).Div(decimal.NewFromFloat(float64(baseMethod.CountFactorial(exceptGlobals)))).Float64()
@@ -51,15 +51,14 @@ func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isH
 
 //Calculate_sumGlobal 计算总进球数
 //team:球队 count:轮数 Ishome:0,all 1,主场 2,客场
-func Calculate_sumGlobal(team string, count int, Ishomes int) int {
+func Calculate_sumGlobal(team string, count int, Ishomes int, league ...string) int {
 	var results map[int]map[string]string
 	var sNumbers int
-
 	switch Ishomes {
 	default:
 		break
 	case 0:
-		results = SearchForGame(team, count, 0, "意甲")
+		results = SearchForGame(team, count, 0, league...)
 		for _, result := range results {
 			if result["GhomeName"] == team {
 				sNumbers = sNumbers + resolveSources(result["GresultScore"], true)
@@ -68,12 +67,12 @@ func Calculate_sumGlobal(team string, count int, Ishomes int) int {
 			}
 		}
 	case 1:
-		results = SearchForGame(team, count, 1, "意甲")
+		results = SearchForGame(team, count, 1, league...)
 		for i := 0; i < len(results); i++ {
 			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
 		}
 	case 2:
-		results = SearchForGame(team, count, 2, "意甲")
+		results = SearchForGame(team, count, 2, league...)
 		for i := 0; i < len(results); i++ {
 			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
 		}
@@ -84,17 +83,11 @@ func Calculate_sumGlobal(team string, count int, Ishomes int) int {
 
 //Calulate_AveGlobal 平均进球数
 //parame team 球队 tnumbers 轮数,ishomes 0,全部 1主场 2,客场
-func Calculate_AveGlobal(team string, tnumbers int, ishomes int) float64 {
+func Calculate_AveGlobal(team string, tnumbers int, ishomes int, league ...string) float64 {
 	//根据team找到tnumbersshu
 	var globals int //总进球数
-	globals = Calculate_sumGlobal(team, tnumbers, ishomes)
-	// if len(ishomes) > 0 {
-	// 	for _, ishome := range ishomes {
-	// 		globals = Calculate_sumGlobal(team, tnumbers, ishome)
-	// 	}
-	// } else {
-	// 	globals = Calculate_sumGlobal(team, tnumbers)
-	// }
+	globals = Calculate_sumGlobal(team, tnumbers, ishomes, league...)
+
 	avgGlobals, _ := decimal.NewFromFloat(float64(globals)).Div(decimal.NewFromFloat(float64(tnumbers))).Float64()
 	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
 	return avgGlobals
