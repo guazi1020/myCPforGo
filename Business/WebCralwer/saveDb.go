@@ -43,7 +43,7 @@ func init() {
 //SearchForGame 根据game查找内容
 //team 队名 count 前n条,ishome 0,全部 1,主场 2,客场
 func SearchForGame(team string, count int, ishome int, league ...string) map[int]map[string]string {
-	fmt.Println(league)
+
 	var results map[int]map[string]string
 	if len(league) == 0 {
 
@@ -54,6 +54,7 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 			results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc LIMIT ?", team, team, count)
 		case 1:
 			results = enable.Query("select * from game WHERE GhomeName=?  order by Gyear desc LIMIT ?", team, count)
+			//fmt.Println(results)
 		case 2:
 			results = enable.Query("select * from game WHERE  GguestName=? order by Gyear desc LIMIT ?", team, count)
 		}
@@ -65,7 +66,7 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 			leagues += "'" + item + "',"
 		}
 		leagues = strings.TrimRight(leagues, ",")
-		fmt.Println("leagues:", leagues)
+		//fmt.Println("leagues:", leagues)
 		var sql string
 		switch ishome {
 		default:
@@ -80,7 +81,7 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 			sql = fmt.Sprintf("select * from game WHERE  GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
 			results = enable.Query(sql, team, count)
 		}
-		fmt.Println(sql)
+		//fmt.Println(sql)
 	}
 
 	return results

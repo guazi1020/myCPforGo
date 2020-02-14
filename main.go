@@ -25,10 +25,10 @@ func main() {
 	var ishome int     //主客场
 	var _ishome string //翻译临时主客场
 	var league []string
-	team = "尤文图斯"
-	goals = 2
-	num = 5
-	ishome = 1
+	team = "多特蒙德"
+	goals = 0
+	num = 20
+	ishome = 2
 
 	switch ishome {
 	case 0:
@@ -38,10 +38,10 @@ func main() {
 	case 2:
 		_ishome = "客场"
 	}
-	league = append(league, "意甲")
-	//league = append(league, "欧洲杯")
+	league = append(league, "德甲")
+	//	league = append(league, "欧洲杯")
 
-	fmt.Printf("%s,进%d的机率，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
+	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 	//fmt.Println(baseMethod.MyPow(4, 3))
 	//fmt.Println(math.Pow(2.14, -1.23))
 	//baseMethod.CountMultiplyingsqrt(2, 3.3)
