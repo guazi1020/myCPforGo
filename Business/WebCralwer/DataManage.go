@@ -1,7 +1,6 @@
 package WebCralwer
 
 import (
-	"fmt"
 	_ "fmt"
 	"math"
 	"myCPforGo/Com/baseMethod"
@@ -40,7 +39,7 @@ func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isH
 	default:
 		m, _ = strconv.ParseFloat(baseMethod.ChangeNumber(Calculate_AveGlobal(team, _lastNumber, 0, league...), 3), 64)
 	}
-	fmt.Println("m", m)
+	//fmt.Println("m", m)
 	avgGlobals, _ := decimal.NewFromFloat(float64(baseMethod.CountMultiplying(m, exceptGlobals))).Div(decimal.NewFromFloat(float64(baseMethod.CountFactorial(exceptGlobals)))).Float64()
 	//fmt.Println("M^X/X!=", avgGlobals)
 	//e^(-M)

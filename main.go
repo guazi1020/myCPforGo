@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Com"
 )
 
 func main() {
-	fmt.Println(Com.RemoveBlank("main, i am home,"))
+	//fmt.Println(Com.RemoveBlank("main, i am home,"))
 	/**/
 	params := make(map[string]string)
 	params["code"] = "201"
