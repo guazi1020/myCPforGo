@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"html"
+	"log"
 	"myCPforGo/Business/WebCralwer"
+	"net/http"
 )
 
 func main() {
@@ -41,6 +44,7 @@ func main() {
 	//	league = append(league, "欧洲杯")
 
 	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
+
 	//fmt.Println(baseMethod.MyPow(4, 3))
 	//fmt.Println(math.Pow(2.14, -1.23))
 	//baseMethod.CountMultiplyingsqrt(2, 3.3)
@@ -54,4 +58,8 @@ func main() {
 	//fmt.Println(x, y)
 	//	WebCralwer.Probability_ScoringRate("切沃", 3, true)
 	//fmt.Println("总进球数:", WebCralwer.Calculate_sumGlobal("尤文图斯", 5, 1, "意甲"))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+	})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
