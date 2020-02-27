@@ -1,14 +1,22 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html"
 	"log"
 	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Model"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
+	StartHttp()
+	//Equation()
+}
+func Equation() {
 	//fmt.Println(Com.RemoveBlank("main, i am home,"))
 	/**/
 	params := make(map[string]string)
@@ -58,8 +66,37 @@ func main() {
 	//fmt.Println(x, y)
 	//	WebCralwer.Probability_ScoringRate("切沃", 3, true)
 	//fmt.Println("总进球数:", WebCralwer.Calculate_sumGlobal("尤文图斯", 5, 1, "意甲"))
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
-	})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+func StartHttp() {
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/", HandleIndex)
+	router.HandleFunc("/app", HandleDemoIndex)
+	router.HandleFunc("/app/{id}", HandleDemoShow)
+	fmt.Println("Main task")
+	log.Fatal(http.ListenAndServe(":8080", router))
+	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	// 	fmt.Fprintf(w, "Http,%q", html.EscapeString(r.URL.Path))
+	// })
+	// log.Fatal(http.ListenAndServe(":8080", nil))
+
+}
+func HandleIndex(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Router test: hello,%q", html.EscapeString(r.URL.Path))
+}
+func HandleDemoIndex(w http.ResponseWriter, r *http.Request) {
+	domains := Games{
+		Model.Game{UUID: "a"},
+		Model.Game{UUID: "b"},
+	}
+	json.NewEncoder(w).Encode(domains)
+	// fmt.Fprintf(w, "Router test: hello,%q", html.EscapeString(r.URL.Path))
+	// fmt.Fprintf(w, "this is app")
+}
+
+type Games []Model.Game
+
+func HandleDemoShow(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	fmt.Fprintf(w, "Domain Show:%q", id)
 }
