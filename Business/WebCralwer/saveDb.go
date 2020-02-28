@@ -1,3 +1,7 @@
+/**
+** 数据库操作的前一层
+**/
+
 package WebCralwer
 
 import (

@@ -1,3 +1,8 @@
+/**
+**	爬数据
+**	http://live.zgzcw.com/ls/AllData.action
+**/
+
 package WebCralwer
 
 import (
@@ -69,7 +74,7 @@ func SaveWeb(params map[string]string) {
 	for key, game := range games {
 		//fmt.Println(game)
 		//fmt.Println(key)
-		go SaveOneGameInfo(game, ctx, key)
+		go SaveOneGameInfo(game, ctx, key) //开协程
 
 	}
 

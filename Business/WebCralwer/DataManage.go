@@ -1,3 +1,8 @@
+/**
+* 对比赛的数据的操作
+*
+*
+**/
 package WebCralwer
 
 import (
@@ -91,21 +96,6 @@ func Calculate_AveGlobal(team string, tnumbers int, ishomes int, league ...strin
 	avgGlobals, _ = strconv.ParseFloat(baseMethod.ChangeNumber(avgGlobals, 5), 64)
 	return avgGlobals
 }
-
-// //Calculate_ScoringRate 计算进球率
-// //team:名称 number:场次
-// //return float64
-// func Calculate_ScoringRate(team string, number int) float64 {
-// 	//1.根据team找到number场
-
-// 	var sNumbers int
-// 	sNumbers = Calculate_sumGlobal(team, number, false)
-// 	fmt.Println(sNumbers)
-// 	d1, _ := decimal.NewFromFloat(float64(number)).Div(decimal.NewFromFloat(float64(sNumbers))).Float64()
-// 	d1, _ = strconv.ParseFloat(baseMethod.ChangeNumber(d1, 5), 64)
-// 	return d1
-// 	//return sNumbers
-// }
 
 //resovleSources 比分拆解
 //sources 比分 ishome 是否主队(true主队,false客队)
