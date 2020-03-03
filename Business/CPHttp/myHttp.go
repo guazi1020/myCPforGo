@@ -11,6 +11,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+const (
+	_port = ":8080"
+)
+
 //StartHttp 开始启动httpweb
 func StartHttp() {
 	router := mux.NewRouter().StrictSlash(true)
@@ -19,8 +23,7 @@ func StartHttp() {
 	router.HandleFunc("/app", HandleDemoIndex)
 	router.HandleFunc("/app/{id}", HandleDemoShow)
 
-	fmt.Println("Main task")
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(_port, router) //监听端口,装载路由
 	//log.Fatal(http.ListenAndServe(":8080", router))
 }
 

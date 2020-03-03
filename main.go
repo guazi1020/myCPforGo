@@ -3,13 +3,12 @@ package main
 import (
 	"fmt"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Com/CPHttp"
 )
 
 func main() {
 
-	CPHttp.StartHttp()
-	//Equation()
+	//CPHttp.StartHttp()
+	Equation()
 }
 
 //Equation 最终计算公式
@@ -33,9 +32,9 @@ func Equation() {
 	var _ishome string //翻译临时主客场
 	var league []string
 	team = "多特蒙德"
-	goals = 0
+	goals = 1
 	num = 20
-	ishome = 2
+	ishome = 1
 
 	switch ishome {
 	case 0:
