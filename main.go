@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/baseMethod"
 )
 
 func main() {
-
+	baseMethod.Domain()
 	//CPHttp.StartHttp()
-	Equation()
+	//Equation()
 }
 
 //Equation 最终计算公式
