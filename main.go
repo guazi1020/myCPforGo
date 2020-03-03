@@ -1,19 +1,14 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"html"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Model"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"myCPforGo/Com/CPHttp"
 )
 
 func main() {
 
-	StartHttp()
+	CPHttp.StartHttp()
 	//Equation()
 }
 
@@ -68,43 +63,4 @@ func Equation() {
 	//fmt.Println(x, y)
 	//	WebCralwer.Probability_ScoringRate("切沃", 3, true)
 	//fmt.Println("总进球数:", WebCralwer.Calculate_sumGlobal("尤文图斯", 5, 1, "意甲"))
-}
-
-//StartHttp 开始启动httpweb
-func StartHttp() {
-	router := mux.NewRouter().StrictSlash(true)
-	//注册
-	router.HandleFunc("/", HandleIndex)
-	router.HandleFunc("/app", HandleDemoIndex)
-	router.HandleFunc("/app/{id}", HandleDemoShow)
-
-	fmt.Println("Main task")
-	http.ListenAndServe(":8080", router)
-	//log.Fatal(http.ListenAndServe(":8080", router))
-}
-
-//HandleIndex /index
-func HandleIndex(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Router test: hello,%q", html.EscapeString(r.URL.Path))
-}
-
-//HandleDemoIndex /app
-func HandleDemoIndex(w http.ResponseWriter, r *http.Request) {
-	domains := Games{
-		Model.Game{UUID: "a"},
-		Model.Game{UUID: "b"},
-	}
-	_ = domains
-	json.NewEncoder(w).Encode(WebCralwer.SearchForGame("AC米兰", 10, 0))
-}
-
-// fmt.Fprintf(w, "Router test: hello,%q", html.EscapeString(r.URL.Path))
-// fmt.Fprintf(w, "this is app")
-type Games []Model.Game
-
-//HandDemoShow /app/{i}
-func HandleDemoShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-	fmt.Fprintf(w, "Domain Show:%q", id)
 }
