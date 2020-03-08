@@ -3,13 +3,13 @@ package main
 import (
 	"fmt"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Com/baseMethod"
+	_ "myCPforGo/Com/baseMethod"
 )
 
 func main() {
-	baseMethod.Domain()
+	//baseMethod.Domain()
 	//CPHttp.StartHttp()
-	//Equation()
+	Equation()
 }
 
 //Equation 最终计算公式
@@ -29,7 +29,7 @@ func Equation() {
 	var team string    //球队名称
 	var goals int      //进球数
 	var num int        //几场比赛
-	var ishome int     //主客场
+	var ishome int     //主客场d
 	var _ishome string //翻译临时主客场
 	var league []string
 	team = "多特蒙德"
@@ -63,4 +63,9 @@ func Equation() {
 	//fmt.Println(x, y)
 	//	WebCralwer.Probability_ScoringRate("切沃", 3, true)
 	//fmt.Println("总进球数:", WebCralwer.Calculate_sumGlobal("尤文图斯", 5, 1, "意甲"))
+}
+
+type EquationParam struct {
+	homeTeam  string
+	guestTeam stringd
 }
