@@ -4,12 +4,16 @@ import (
 	"fmt"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
+	"myCPforGo/Model"
 )
 
 func main() {
 	//baseMethod.Domain()
 	//CPHttp.StartHttp()
-	Equation()
+	//Equation()
+	//测试DICLeague的方法 20200306
+	WebCralwer.CrawlerLeague()
+
 }
 
 //Equation 最终计算公式
@@ -67,5 +71,12 @@ func Equation() {
 
 type EquationParam struct {
 	homeTeam  string
-	guestTeam stringd
+	guestTeam string
+}
+
+//CreatGoldRateResult 创建进球率的结果
+func CreatGoldRateResult() {
+	var result_item Model.GoldRateResult
+	//1.根据球队名称
+	_ = result_item
 }

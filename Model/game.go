@@ -64,3 +64,18 @@ func (game *Game) SaveGametoDB() {
 func (game *Game) IsEmpty() bool {
 	return reflect.DeepEqual(game, Game{})
 }
+
+//GoldPredictionItem 进球预测模型
+type GoldPredictionItem struct {
+	//goalnumber 进球数
+	goalnumber string
+	//rate 进球率
+	rate string
+}
+
+type GoldRateResult struct {
+	//Model.Game 参赛球队
+	Game Game
+	//result 进球结果
+	Result []GoldPredictionItem
+}
