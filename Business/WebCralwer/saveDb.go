@@ -92,6 +92,7 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 }
 
 //SaveOneGameInfo 单一存储
+//game:模型,ctx:上下文规定deadline,key:协程编号
 func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 	//这个功能只执行1.5s
 	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(1500))
@@ -140,6 +141,39 @@ func IsOnly(Gyear string) bool {
 		return true //有重复的,true
 	}
 	return false //没有重复的, false
+}
+
+func SaveLeague(league Model.League) {
+	if (league == Model.League{}) {
+		return
+	}
+	league.UUID = tsgutils.UUID()
+	str_place, pInterface := ModeltoString(league, "DicLeague")
+	if enable.Exec(str_place, pInterface...) == 1 {
+		fmt.Println("finished")
+	}
+}
+
+//ModeltoString 模型转换为拆分占位符和param语句,为了给insert用
+//model:模型 tableName:操作的数据库表对象
+//返回1.占位符 2.param
+/*Demo
+str_place, pInterface := ModeltoString(league, "DicLeague")
+enable.Exec(str_place,pInterface...)
+*/
+func ModeltoString(model interface{}, tableName string) (string, []interface{}) {
+	var str_place string //字符串
+	t := reflect.TypeOf(model)
+	v := reflect.ValueOf(model)
+	var pInterface []interface{} = make([]interface{}, v.NumField())
+	//构建pInterface参数[]interface{}
+	for i := 0; i < t.NumField(); i++ {
+		str_place += "?,"
+		pInterface[i] = v.Field(i).String()
+	}
+	str_place = strings.TrimRight(str_place, ",")
+	str_insert := "insert into " + tableName + " values(" + str_place + ")"
+	return str_insert, pInterface
 }
 
 func MysqlDemo_Insert() {

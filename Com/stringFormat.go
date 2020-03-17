@@ -1,6 +1,8 @@
 package Com
 
-import "strings"
+import (
+	"strings"
+)
 
 func RemoveBlank(str_source string) string {
 	str_source = strings.Replace(str_source, " ", "", -1)
