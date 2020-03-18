@@ -7,6 +7,7 @@ package WebCralwer
 import (
 	"context"
 	"fmt"
+	"log"
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/DataBase/power"
 	"myCPforGo/Com/baseMethod"
@@ -154,6 +155,27 @@ func SaveLeague(league Model.League) {
 	}
 }
 
+/*
+Savecomm 通用的保存数据
+	Param |mmodel:实体类,tablename:表名|
+*/
+func SaveComm(mmodel interface{}, tablename string) {
+
+	if tablename == "" {
+		log.Println("表名没写")
+		return
+	}
+	str_place, pInterface := ModeltoString(mmodel, tablename)
+
+	if pInterface == nil {
+		log.Println("model是空的")
+		return
+	}
+	if enable.Exec(str_place, pInterface...) == 1 {
+		log.Println("finished")
+	}
+}
+
 //ModeltoString 模型转换为拆分占位符和param语句,为了给insert用
 //model:模型 tableName:操作的数据库表对象
 //返回1.占位符 2.param
@@ -176,6 +198,9 @@ func ModeltoString(model interface{}, tableName string) (string, []interface{}) 
 	return str_insert, pInterface
 }
 
+func SearchForLeague() {
+
+}
 func MysqlDemo_Insert() {
 	str_sql := "insert game (UUID,Gnumber) values (?,?)"
 	t := time.Now().Format(base_format)

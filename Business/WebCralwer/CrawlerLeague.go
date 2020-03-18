@@ -1,7 +1,6 @@
 package WebCralwer
 
 import (
-	"log"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
 	"strings"
@@ -23,7 +22,6 @@ func CrawlerLeague() {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
 		dom.Find(".ls").Children().Each(func(i int, s *goquery.Selection) {
 			str_c, _ := s.Find("div.lstitle").Html() //国家
-			log.Println(str_c)
 
 			s.Find("div.kuang").Each(func(i int, ss *goquery.Selection) {
 				ss.Find("a").Each(func(i int, sss *goquery.Selection) { //查找详细

@@ -12,8 +12,14 @@ func main() {
 	//CPHttp.StartHttp()
 	//Equation()
 	//测试DICLeague的方法 20200306
-	WebCralwer.CrawlerLeague()
+	//	WebCralwer.CrawlerLeague()
 
+	//测试DicTeam方法 20200318
+	//WebCralwer.CrawlerTeam("36")
+	var team Model.Team
+	//team.TeamName = "nasidake"
+	//team.UUID = tsgutils.UUID()
+	WebCralwer.SaveComm(team, "di")
 }
 
 //Equation 最终计算公式
