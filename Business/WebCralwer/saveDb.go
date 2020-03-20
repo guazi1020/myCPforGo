@@ -198,8 +198,10 @@ func ModeltoString(model interface{}, tableName string) (string, []interface{}) 
 	return str_insert, pInterface
 }
 
-func SearchForLeague() {
-
+/*SearchCom 标准查找方法
+ */
+func SearchCom(str_sql string) map[int]map[string]string {
+	return enable.Query(str_sql)
 }
 func MysqlDemo_Insert() {
 	str_sql := "insert game (UUID,Gnumber) values (?,?)"

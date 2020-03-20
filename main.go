@@ -16,10 +16,16 @@ func main() {
 
 	//测试DicTeam方法 20200318
 	//WebCralwer.CrawlerTeam("36")
-	var team Model.Team
+	//var team Model.Team
 	//team.TeamName = "nasidake"
 	//team.UUID = tsgutils.UUID()
-	WebCralwer.SaveComm(team, "di")
+	//WebCralwer.SaveComm(team, "di")
+
+	//测试读取方法 20200320
+	// for k, v := range WebCralwer.FindAllLeague() {
+	// 	log.Println(k, v)
+	// }
+	WebCralwer.FindAllLeagueAndCrawlerTeam()
 }
 
 //Equation 最终计算公式
