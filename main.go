@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
@@ -25,7 +26,10 @@ func main() {
 	// for k, v := range WebCralwer.FindAllLeague() {
 	// 	log.Println(k, v)
 	// }
-	WebCralwer.FindAllLeagueAndCrawlerTeam()
+	//WebCralwer.FindAllLeagueAndCrawlerTeam()
+
+	//测试http展示 20200321
+	CPHttp.StartHttp()
 }
 
 //Equation 最终计算公式
