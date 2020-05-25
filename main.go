@@ -2,13 +2,21 @@ package main
 
 import (
 	"fmt"
-	"myCPforGo/Business/CPHttp"
+	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 )
 
 func main() {
+	/*
+	   使用方法：用爬虫去爬
+	*/
+	params := make(map[string]string)
+	params["code"] = "201"
+	params["ajax"] = "true"
+	WebCralwer.SaveWebByDate("2020-05-20", "", params)
+
 	//baseMethod.Domain()
 	//CPHttp.StartHttp()
 	//Equation()
@@ -29,7 +37,7 @@ func main() {
 	//WebCralwer.FindAllLeagueAndCrawlerTeam()
 
 	//测试http展示 20200321
-	CPHttp.StartHttp()
+	//CPHttp.StartHttp()
 }
 
 //Equation 最终计算公式

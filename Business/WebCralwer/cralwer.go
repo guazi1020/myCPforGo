@@ -24,12 +24,12 @@ const (
 	dateLayout = "2006-01-02"
 )
 
-//SaveWebByDate 根据开始时间和结束时间爬
+//SaveWebByDate 根据开始时间和结束时间爬站点的数据，存入数据库中
 //beginDate 开始时间,为空默认为只爬endDate一天
 //endDate 结束时间，为空默认为当前一天
 func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 
-	//条件判断
+	//条件判断，判断当前日期的问题
 	if endDate == "" {
 		endDate = time.Now().Format(dateLayout)
 	}
@@ -41,15 +41,15 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 	thebeginDate, _ := time.ParseInLocation(dateLayout, beginDate, loc)
 	theendDate, _ := time.ParseInLocation(dateLayout, endDate, loc)
 
-	begin_sr := thebeginDate.Unix()
+	beginSr := thebeginDate.Unix()
 	//end_sr := theendDate.AddDate(0, 0, -1).Unix()
-	end_sr := theendDate.AddDate(0, 0, -1).Unix()
+	endSr := theendDate.AddDate(0, 0, -1).Unix()
 
-	if end_sr-begin_sr < 0 {
+	if endSr-beginSr < 0 {
 		return //如果最晚时间早于开始时间，结束
 	}
 
-	for i := 0; i <= int((end_sr-begin_sr)/86400); i++ {
+	for i := 0; i <= int((endSr-beginSr)/86400); i++ {
 		//i-1 yesteday,no today
 		params["date"] = thebeginDate.AddDate(0, 0, i).Format(dateLayout)
 		if IsOnly(params["date"]) {
