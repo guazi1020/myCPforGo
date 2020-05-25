@@ -10,16 +10,21 @@ import (
 
 func main() {
 	/*
-	   使用方法：用爬虫去爬
+	   使用方法：根据时间去爬网站数据，存到数据库中
+	   示例1，爬取2020-05-20到现在的网站数据
 	*/
-	params := make(map[string]string)
-	params["code"] = "201"
-	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate("2020-05-20", "", params)
+	//示例1 begin
+
+	// params := make(map[string]string)
+	// params["code"] = "201"
+	// params["ajax"] = "true"
+	// WebCralwer.SaveWebByDate("2020-05-20", "", params)
+
+	//示例1 end
 
 	//baseMethod.Domain()
 	//CPHttp.StartHttp()
-	//Equation()
+	Equation()
 	//测试DICLeague的方法 20200306
 	//	WebCralwer.CrawlerLeague()
 
