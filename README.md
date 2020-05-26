@@ -26,9 +26,11 @@ e为常实数2.718
 p(x)为最终进球概率*
 
 **param**
+
 team:球队,exceptGlobals 预测进球数,lastNumber 最近几场,isHome 是否是主场(0,全部;1,主场；2,客场),league 赛制名称
 
 **方法名**
+
 func Probability_ScoringRate(team string, exceptGlobals int, lastNumber int, isHome int, league ...string) float64 {}
 
 **示例**
