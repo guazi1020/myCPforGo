@@ -109,3 +109,12 @@ func resolveSources(sources string, isHome bool) int {
 	scoring, _ = strconv.Atoi(strings.Split(sources, "-")[1])
 	return scoring
 }
+
+//Calculate_E 计算E值
+//E=P*SP
+func Calculate_E(D_value float64, main_sp float64) float64 {
+	//E=P*main_SP(主)
+	//P:(45%+0.53%*D_value)
+	p := 0.45 + 0.0053*D_value
+	return p * main_sp
+}

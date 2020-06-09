@@ -4,21 +4,32 @@ import (
 	"fmt"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/baseMethod"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 )
 
 func main() {
 	/*
+		2020-06-09 测试E
+
+	*/
+	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(2, 2.35), 3))
+	var league []string
+	league = append(league, "德甲")
+	results := WebCralwer.SearchForGame("多特蒙德", 200, 1, league...)
+	fmt.Println(results)
+	//WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...)
+	/*
 	   使用方法：根据时间去爬网站数据，存到数据库中
 	   示例1，爬取2020-05-20到现在的网站数据
 	*/
 	//示例1 begin
 
-	params := make(map[string]string)
-	params["code"] = "201"
-	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate("2020-05-24", "", params)
+	// params := make(map[string]string)
+	// params["code"] = "201"
+	// params["ajax"] = "true"
+	// WebCralwer.SaveWebByDate("2020-05-24", "", params)
 
 	//示例1 end
 
