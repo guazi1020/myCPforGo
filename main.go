@@ -16,6 +16,7 @@ func main() {
 	*/
 	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(2, 2.35), 3))
 	var league []string
+
 	league = append(league, "德甲")
 	results := WebCralwer.SearchForGame("多特蒙德", 200, 1, league...)
 	fmt.Println(results)
