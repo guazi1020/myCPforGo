@@ -4,22 +4,25 @@ import (
 	"fmt"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Com/baseMethod"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 )
 
 func main() {
 	/*
+	   2020-06-10 测试抓取当前
+	*/
+	WebCralwer.GetEByDate()
+	/*
 		2020-06-09 测试E
 
 	*/
-	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(2, 2.35), 3))
-	var league []string
+	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(-3, 2.98), 3))
+	// var league []string
 
-	league = append(league, "德甲")
-	results := WebCralwer.SearchForGame("多特蒙德", 200, 1, league...)
-	fmt.Println(results)
+	// league = append(league, "德乙")
+	// results := WebCralwer.SearchForGame("德累斯顿", 200, 1, league...)
+	// fmt.Println(results)
 	//WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...)
 	/*
 	   使用方法：根据时间去爬网站数据，存到数据库中
@@ -77,7 +80,7 @@ func Equation() {
 	var ishome int     //主客场d
 	var _ishome string //翻译临时主客场
 	var league []string
-	team = "多特蒙德"
+	team = "塞图巴尔"
 	goals = 1
 	num = 20
 	ishome = 1
@@ -90,11 +93,25 @@ func Equation() {
 	case 2:
 		_ishome = "客场"
 	}
-	league = append(league, "德甲")
+	league = append(league, "葡超")
 	//	league = append(league, "欧洲杯")
 
 	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 
+	team = "圣克拉拉"
+	goals = 0
+	num = 20
+	ishome = 2
+
+	switch ishome {
+	case 0:
+		_ishome = "主客场"
+	case 1:
+		_ishome = "主场"
+	case 2:
+		_ishome = "客场"
+	}
+	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 	//fmt.Println(baseMethod.MyPow(4, 3))
 	//fmt.Println(math.Pow(2.14, -1.23))
 	//baseMethod.CountMultiplyingsqrt(2, 3.3)
