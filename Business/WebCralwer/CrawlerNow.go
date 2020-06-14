@@ -18,7 +18,7 @@ func GetEByDate() {
 			s.Find("tr").Each(func(i int, s *goquery.Selection) {
 				//var teamname []string
 				s.Find("td").Each(func(i int, s *goquery.Selection) {
-					fmt.Println(s.Find("a").Text())
+					fmt.Println(i)
 				})
 				//fmt.Println(s.Attr("m"))
 			})
