@@ -26,3 +26,12 @@ func GetEByDate() {
 	})
 	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=2020-06-10")
 }
+
+func GetEByDate2() {
+	c := colly.NewCollector()
+	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
+		//e.Request.Visit(e.Attr("href"))
+		fmt.Println(e.Attr("href"))
+	})
+	c.Visit("http://live.zgzcw.com/ls/AllData.action?code=201&date=2020-06-16&ajax=true)
+}

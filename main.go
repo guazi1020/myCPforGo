@@ -4,6 +4,7 @@ import (
 	"fmt"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/baseMethod"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 )
@@ -12,12 +13,13 @@ func main() {
 	/*
 	   2020-06-10 测试抓取当前
 	*/
-	WebCralwer.GetEByDate()
+	//WebCralwer.GetEByDate()
+	WebCralwer.GetEByDate2()
 	/*
 		2020-06-09 测试E
 
 	*/
-	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(-3, 2.98), 3))
+	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(4, 2.95), 3))
 	// var league []string
 
 	// league = append(league, "德乙")
@@ -80,9 +82,9 @@ func Equation() {
 	var ishome int     //主客场d
 	var _ishome string //翻译临时主客场
 	var league []string
-	team = "塞图巴尔"
-	goals = 1
-	num = 20
+	team = "马里迪莫"
+	goals = 2
+	num = 10
 	ishome = 1
 
 	switch ishome {
@@ -98,9 +100,9 @@ func Equation() {
 
 	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 
-	team = "圣克拉拉"
-	goals = 0
-	num = 20
+	team = "塞图巴尔"
+	goals = 2
+	num = 10
 	ishome = 2
 
 	switch ishome {
