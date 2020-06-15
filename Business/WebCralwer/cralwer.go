@@ -93,16 +93,30 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
+
 		dom.Find("em.input-xh").Each(func(i int, s *goquery.Selection) {
+
 			var game Model.Game
 			game.Gnumber = Com.RemoveBlank(s.Text())
 			games = append(games, game)
 
 		})
+
+		if len(games) == 0 {
+			fmt.Println("切片为零")
+			dom.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
+				fmt.Println(i)
+				var game Model.Game
+				game.Gnumber = Com.RemoveBlank(s.Text())
+				games = append(games, game)
+
+			})
+		}
 		dom.Find("span.sptr").Children().Each(func(i int, s *goquery.Selection) {
+
 			_, bl := s.Attr("href")
 			if bl {
-				//fmt.Println("编号", i)
+
 				games[(i-3)/5].GhomeName = s.Text()
 			}
 			strClass, result := s.Attr("class")
@@ -113,6 +127,7 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 					games[i/5].GredQuantities = Com.RemoveBlank(s.Text())
 					break
 				case "paim": //主队排名
+					fmt.Println(i)
 					games[(i-2)/5].GhomeRank = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", "]"), "", "[")
 				case "rq": //主队让球
 					games[(i-4)/5].GletCount = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", ")"), "", "(")

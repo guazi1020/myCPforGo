@@ -35,7 +35,7 @@ func GetEByDate2() {
 	// 	fmt.Println(e.Attr("href"))
 	// })
 	// c.Visit("http://live.zgzcw.com/ls/AllData.action?code=201&date=2020-06-16&ajax=true")
-	strURL := "http://live.zgzcw.com/ls/AllData.action?code=all&date=2020-01-16&ajax=true"
+	strURL := "http://live.zgzcw.com/ls/AllData.action?code=201&date=2020-01-16&ajax=true"
 	params := make(map[string]string)
 	params["date"] = "2020-01-16"
 	fmt.Println(GetWeb(strURL, params))
