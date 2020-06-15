@@ -109,6 +109,7 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 			if result == true {
 				switch strClass {
 				case "hongpai": //比赛红牌
+
 					games[i/5].GredQuantities = Com.RemoveBlank(s.Text())
 					break
 				case "paim": //主队排名
