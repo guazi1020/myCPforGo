@@ -4,7 +4,6 @@ import (
 	"fmt"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Com/baseMethod"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 )
@@ -19,7 +18,7 @@ func main() {
 		2020-06-09 测试E
 
 	*/
-	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(4, 2.95), 3))
+	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(8, 2.75), 3))
 	// var league []string
 
 	// league = append(league, "德乙")
@@ -41,7 +40,7 @@ func main() {
 
 	//baseMethod.Domain()
 	//CPHttp.StartHttp()
-	Equation()
+	//quation()
 	//测试DICLeague的方法 20200306
 	//	WebCralwer.CrawlerLeague()
 
@@ -82,8 +81,8 @@ func Equation() {
 	var ishome int     //主客场d
 	var _ishome string //翻译临时主客场
 	var league []string
-	team = "马里迪莫"
-	goals = 2
+	team = "瓦尔贝里"
+	goals = 1
 	num = 10
 	ishome = 1
 
@@ -95,12 +94,12 @@ func Equation() {
 	case 2:
 		_ishome = "客场"
 	}
-	league = append(league, "葡超")
+	league = append(league, "瑞典超")
 	//	league = append(league, "欧洲杯")
 
 	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 
-	team = "塞图巴尔"
+	team = "哥德堡"
 	goals = 2
 	num = 10
 	ishome = 2

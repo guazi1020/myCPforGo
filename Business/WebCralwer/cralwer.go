@@ -72,8 +72,8 @@ func SaveWeb(params map[string]string) {
 	log.Println("开始工作", str_href)
 	//fmt.Println(games)
 	for key, game := range games {
-		//fmt.Println(game)
-		//fmt.Println(key)
+		// fmt.Println(game)
+		// fmt.Println(key)
 		go SaveOneGameInfo(game, ctx, key) //开协程
 
 	}
