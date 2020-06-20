@@ -103,7 +103,7 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 		})
 
 		if len(games) == 0 {
-			fmt.Println("切片为零")
+			//fmt.Println("切片为零")
 			dom.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
 				fmt.Println(i)
 				var game Model.Game

@@ -12,13 +12,14 @@ func main() {
 	/*
 	   2020-06-10 测试抓取当前
 	*/
-	//WebCralwer.GetEByDate()
-	WebCralwer.GetEByDate2()
+	WebCralwer.GetEByDate()
+	//WebCralwer.GetEByDate2()
 	/*
 		2020-06-09 测试E
 
 	*/
-	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(8, 2.75), 3))
+	//	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(-8, 2.08), 3))
+	//	Equation()
 	// var league []string
 
 	// league = append(league, "德乙")
@@ -81,8 +82,8 @@ func Equation() {
 	var ishome int     //主客场d
 	var _ishome string //翻译临时主客场
 	var league []string
-	team = "瓦尔贝里"
-	goals = 1
+	team = "城南FC"
+	goals = 0
 	num = 10
 	ishome = 1
 
@@ -94,13 +95,13 @@ func Equation() {
 	case 2:
 		_ishome = "客场"
 	}
-	league = append(league, "瑞典超")
+	league = append(league, "韩K联")
 	//	league = append(league, "欧洲杯")
 
 	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 
-	team = "哥德堡"
-	goals = 2
+	team = "尚州尚武"
+	goals = 1
 	num = 10
 	ishome = 2
 

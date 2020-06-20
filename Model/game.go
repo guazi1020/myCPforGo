@@ -55,6 +55,8 @@ type Game struct {
 	CreateDate string
 	//创建的IP
 	CreateIP string
+	//E值
+	GE string
 }
 
 // SaveGametoDB 把比赛数据放到数据库中
