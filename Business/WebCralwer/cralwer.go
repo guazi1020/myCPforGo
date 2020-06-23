@@ -48,12 +48,13 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 	if endSr-beginSr < 0 {
 		return //如果最晚时间早于开始时间，结束
 	}
-
+	fmt.Println((endSr - beginSr) / 86400)
 	for i := 0; i <= int((endSr-beginSr)/86400); i++ {
+
 		//i-1 yesteday,no today
 		params["date"] = thebeginDate.AddDate(0, 0, i).Format(dateLayout)
 		if IsOnly(params["date"]) {
-			fmt.Println("true")
+			fmt.Println("已经更新过了")
 			continue
 		}
 
@@ -67,9 +68,9 @@ func SaveWeb(params map[string]string) {
 	ctx, cancel := context.WithDeadline(context.Background(), d)
 	defer func() { cancel() }()
 
-	str_href := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
-	games := GetWeb(str_href, params)
-	log.Println("开始工作", str_href)
+	strHref := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
+	games := GetWeb(strHref, params)
+	log.Println("开始工作", strHref)
 	//fmt.Println(games)
 	for key, game := range games {
 		// fmt.Println(game)
@@ -89,6 +90,7 @@ func SaveWeb(params map[string]string) {
 
 //GetWeb 获取页面数量并对象化
 func GetWeb(str_href string, paras map[string]string) []Model.Game {
+
 	games := []Model.Game{}
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
@@ -103,15 +105,16 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 		})
 
 		if len(games) == 0 {
-			//fmt.Println("切片为零")
+			fmt.Println("切片为零")
 			dom.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
-				fmt.Println(i)
+				//fmt.Println(i)
 				var game Model.Game
 				game.Gnumber = Com.RemoveBlank(s.Text())
 				games = append(games, game)
 
 			})
 		}
+		//fmt.Print("bbegin")
 		dom.Find("span.sptr").Children().Each(func(i int, s *goquery.Selection) {
 
 			_, bl := s.Attr("href")
@@ -127,7 +130,7 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 					games[i/5].GredQuantities = Com.RemoveBlank(s.Text())
 					break
 				case "paim": //主队排名
-					fmt.Println(i)
+					//	fmt.Println(i)
 					games[(i-2)/5].GhomeRank = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", "]"), "", "[")
 				case "rq": //主队让球
 					games[(i-4)/5].GletCount = Com.RemoveCharacter(Com.RemoveCharacter(s.Text(), "", ")"), "", "(")
@@ -136,6 +139,7 @@ func GetWeb(str_href string, paras map[string]string) []Model.Game {
 				}
 			}
 		})
+
 		//比赛结果
 		dom.Find("span.boldbf").Each(func(i int, s *goquery.Selection) {
 			//fmt.Println(i,s.Text())

@@ -1,6 +1,7 @@
 package WebCralwer
 
 import (
+	"encoding/json"
 	"fmt"
 	"myCPforGo/Com"
 	"myCPforGo/Com/baseMethod"
@@ -18,13 +19,15 @@ func GetEByDate() {
 	//1.筛选符合条件的比赛
 	//a.sp值均大于2.0
 	c := colly.NewCollector()
-	games := []Model.Game{}
+	games := []Model.GameNow{}
 	c.OnResponse(func(r *colly.Response) {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
 		dom.Find("tbody").Find("tr").Each(func(i int, s *goquery.Selection) {
+			//fmt.Println(s.Html())
 
 			//创建game
 			game := Model.Game{}
+			gameNow := Model.GameNow{}
 			//t+mn为Gnumber
 			t, _ := s.Attr("t")
 			mn, _ := s.Attr("mn")
@@ -41,6 +44,8 @@ func GetEByDate() {
 
 			//EachWithBreak func(f func(int, *Selection) bool) *Selection
 			//Each func(f func(int, *Selection)) *Selection
+
+			tag := false
 			s.Find("td.wh-8").Find("div.tz-area").Eq(0).Find("a").Each(func(i int, s *goquery.Selection) {
 
 				if s.Text() == "未开售" {
@@ -50,10 +55,28 @@ func GetEByDate() {
 				switch i {
 				case 0:
 					game.GspWin = s.Text()
+					gspwin, _ := strconv.ParseFloat(game.GspWin, 32)
+					if gspwin > 2 {
+						tag = true
+					} else {
+						tag = false
+					}
 				case 1:
 					game.GspTie = s.Text()
+					GspTie, _ := strconv.ParseFloat(game.GspTie, 32)
+					if GspTie > 2 {
+						tag = true
+					} else {
+						tag = false
+					}
 				case 2:
 					game.GspDefeat = s.Text()
+					GspDefeat, _ := strconv.ParseFloat(game.GspDefeat, 32)
+					if GspDefeat > 2 {
+						tag = true
+					} else {
+						tag = false
+					}
 				default:
 					return
 				}
@@ -61,15 +84,20 @@ func GetEByDate() {
 			gspwin, _ := strconv.ParseFloat(game.GspWin, 32)
 			ghomerank, _ := strconv.ParseFloat(game.GhomeName, 32)
 			gguestRank, _ := strconv.ParseFloat(game.GguestRank, 32)
-			//fmt.Print(gspwin, ghomerank, gguestRank)
-			game.GE = baseMethod.ChangeNumber(Calculate_E(ghomerank-gguestRank, gspwin), 3)
 
-			games = append(games, game)
+			//fmt.Print(gspwin, ghomerank, gguestRank)
+			gameNow.GameInfo = game
+			// GE: = baseMethod.ChangeNumber(Calculate_E(ghomerank-gguestRank, gspwin), 3)
+			gameNow.GameE = baseMethod.ChangeNumber(Calculate_E(ghomerank-gguestRank, gspwin), 3)
+			if gameNow.GameE != "0" && tag == true {
+				games = append(games, gameNow)
+			}
 
 		})
-		fmt.Println(games)
+		data, _ := json.Marshal(games)
+		fmt.Println(string(data))
 	})
-	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=2020-06-21")
+	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=2020-06-23")
 }
 
 //GetEByDate2 get

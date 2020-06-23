@@ -5,6 +5,7 @@ import (
 	"reflect"
 )
 
+//Game 存储数据结构，不要随意更改
 type Game struct {
 	//主键 UUID
 	UUID string
@@ -55,8 +56,8 @@ type Game struct {
 	CreateDate string
 	//创建的IP
 	CreateIP string
-	//E值
-	GE string
+	// //E值
+	// GE string
 }
 
 // SaveGametoDB 把比赛数据放到数据库中
