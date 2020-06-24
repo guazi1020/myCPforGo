@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"myCPforGo/Com"
-	"myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
 	"reflect"
 	"strconv"
@@ -55,41 +54,35 @@ func GetEByDate() {
 				switch i {
 				case 0:
 					game.GspWin = s.Text()
-					gspwin, _ := strconv.ParseFloat(game.GspWin, 32)
-					if gspwin > 2 {
-						tag = true
-					} else {
-						tag = false
-					}
+
 				case 1:
 					game.GspTie = s.Text()
-					GspTie, _ := strconv.ParseFloat(game.GspTie, 32)
-					if GspTie > 2 {
-						tag = true
-					} else {
-						tag = false
-					}
+
 				case 2:
 					game.GspDefeat = s.Text()
-					GspDefeat, _ := strconv.ParseFloat(game.GspDefeat, 32)
-					if GspDefeat > 2 {
-						tag = true
-					} else {
-						tag = false
-					}
+
 				default:
 					return
 				}
 			})
 			gspwin, _ := strconv.ParseFloat(game.GspWin, 32)
-			ghomerank, _ := strconv.ParseFloat(game.GhomeName, 32)
+			ghomerank, _ := strconv.ParseFloat(game.GhomeRank, 32)
 			gguestRank, _ := strconv.ParseFloat(game.GguestRank, 32)
 
-			//fmt.Print(gspwin, ghomerank, gguestRank)
+			gspDefeat, _ := strconv.ParseFloat(game.GspDefeat, 32)
+			gspDeTie, _ := strconv.ParseFloat(game.GspTie, 32)
+			//判定都大于2.0
+			if gspDefeat > 2 && gspwin > 2 && gspDeTie > 2 {
+				tag = true
+			}
+
+			//计算E
 			gameNow.GameInfo = game
-			// GE: = baseMethod.ChangeNumber(Calculate_E(ghomerank-gguestRank, gspwin), 3)
-			gameNow.GameE = baseMethod.ChangeNumber(Calculate_E(ghomerank-gguestRank, gspwin), 3)
-			if gameNow.GameE != "0" && tag == true {
+			gameNow.GameE = Calculate_E(gguestRank-ghomerank, gspwin)
+
+			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) {
+
+				//计算最近的进球率
 				games = append(games, gameNow)
 			}
 
@@ -97,7 +90,7 @@ func GetEByDate() {
 		data, _ := json.Marshal(games)
 		fmt.Println(string(data))
 	})
-	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=2020-06-23")
+	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=2020-06-24")
 }
 
 //GetEByDate2 get

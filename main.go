@@ -18,7 +18,7 @@ func main() {
 		2020-06-09 测试E
 
 	*/
-	//	fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(-8, 2.08), 3))
+	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(6, 2.05), 3))
 	//	Equation()
 	// var league []string
 
