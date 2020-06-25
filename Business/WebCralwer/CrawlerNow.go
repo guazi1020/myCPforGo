@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly"
@@ -83,6 +84,17 @@ func GetEByDate() {
 			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) {
 
 				//计算最近的进球率
+				tnum := 5
+				gameNow.HomeScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 1, gameNow.GameInfo.Gleague)
+				gameNow.HomeScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 1, gameNow.GameInfo.Gleague)
+				gameNow.HomeScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 1, gameNow.GameInfo.Gleague)
+				gameNow.HomeScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 3, tnum, 1, gameNow.GameInfo.Gleague)
+				//gameNow.HomeScoringRateOther = 1 - gameNow.HomeScoringRate0 - gameNow.HomeScoringRate1 - gameNow.HomeScoringRate2 - gameNow.HomeScoringRate3
+				gameNow.GuestScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 2, gameNow.GameInfo.Gleague)
+				gameNow.GuestScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 2, gameNow.GameInfo.Gleague)
+				gameNow.GuestScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 2, gameNow.GameInfo.Gleague)
+				gameNow.GuestScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 2, gameNow.GameInfo.Gleague)
+				//gameNow.GuestScoringRateOther = 1 - gameNow.GuestScoringRate0 - gameNow.GuestScoringRate1 - gameNow.GuestScoringRate2 - gameNow.GuestScoringRate3
 				games = append(games, gameNow)
 			}
 
@@ -90,7 +102,7 @@ func GetEByDate() {
 		data, _ := json.Marshal(games)
 		fmt.Println(string(data))
 	})
-	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=2020-06-24")
+	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=" + time.Now().Format("2006-01-02"))
 }
 
 //GetEByDate2 get
