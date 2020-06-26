@@ -12,6 +12,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly"
+	"github.com/tealeg/xlsx"
 )
 
 //GetEByDate 根据时间来测算每场的E值
@@ -81,7 +82,9 @@ func GetEByDate() {
 			gameNow.GameInfo = game
 			gameNow.GameE = Calculate_E(gguestRank-ghomerank, gspwin)
 
-			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) {
+			//派出league
+
+			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) && gameNow.GameInfo.Gleague != "日乙" {
 
 				//计算最近的进球率
 				tnum := 5
@@ -93,7 +96,7 @@ func GetEByDate() {
 				gameNow.GuestScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 2, gameNow.GameInfo.Gleague)
-				gameNow.GuestScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 2, gameNow.GameInfo.Gleague)
+				gameNow.GuestScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 3, tnum, 2, gameNow.GameInfo.Gleague)
 				//gameNow.GuestScoringRateOther = 1 - gameNow.GuestScoringRate0 - gameNow.GuestScoringRate1 - gameNow.GuestScoringRate2 - gameNow.GuestScoringRate3
 				games = append(games, gameNow)
 			}
@@ -103,6 +106,26 @@ func GetEByDate() {
 		fmt.Println(string(data))
 	})
 	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=" + time.Now().Format("2006-01-02"))
+}
+
+func OutToExcel(gamesnows []Model.GameNow) {
+	file := xlsx.NewFile()
+	sheet, _ := file.AddSheet("Sheet1")
+	row := sheet.AddRow()
+	row.SetHeightCM(1) //设置每行的高度
+	//  gamenow := Model.GameNow{}
+	//  gamenow.GameInfo.Gnumber
+
+	cell := row.AddCell()
+	cell.Value = "haha"
+	cell = row.AddCell()
+	cell.Value = "xixi"
+
+	err := file.Save("file.xlsx")
+	if err != nil {
+		panic(err)
+	}
+
 }
 
 //GetEByDate2 get

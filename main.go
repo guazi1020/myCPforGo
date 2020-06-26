@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	//OutToExcel()
 	/*
 	   2020-06-10 测试抓取当前
 	*/
@@ -18,8 +19,8 @@ func main() {
 		2020-06-09 测试E
 
 	*/
-	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(6, 2.05), 3))
-	//	Equation()
+	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(-5, 2.7), 3))
+	//Equation()
 	// var league []string
 
 	// league = append(league, "德乙")
@@ -82,9 +83,9 @@ func Equation() {
 	var ishome int     //主客场d
 	var _ishome string //翻译临时主客场
 	var league []string
-	team = "城南FC"
+	team = "格罗兹尼"
 	goals = 0
-	num = 10
+	num = 8
 	ishome = 1
 
 	switch ishome {
@@ -95,14 +96,14 @@ func Equation() {
 	case 2:
 		_ishome = "客场"
 	}
-	league = append(league, "韩K联")
+	league = append(league, "俄超")
 	//	league = append(league, "欧洲杯")
 
 	fmt.Printf("%s,进%d个球，范围为最近%d场%s，赛制为%s的情况下的可能性为：%f\n", team, goals, num, _ishome, league, WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...))
 
-	team = "尚州尚武"
+	team = "索契"
 	goals = 1
-	num = 10
+	num = 8
 	ishome = 2
 
 	switch ishome {
