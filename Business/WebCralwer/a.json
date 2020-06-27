@@ -25,15 +25,15 @@
             "CreateIP": ""
         },
         "GameE": 1.0895150212049485,
-        "HomeScoringRate0": 0.44936,
-        "HomeScoringRate1": 0.35949,
-        "HomeScoringRate2": 0.14379,
-        "HomeScoringRate3": 0.03834,
+        "HomeScoringRate0": 0.56499,
+        "HomeScoringRate1": 0.32261,
+        "HomeScoringRate2": 0.0921,
+        "HomeScoringRate3": 0.01753,
         "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.30123,
-        "GuestScoringRate1": 0.36147,
-        "GuestScoringRate2": 0.21688,
-        "GuestScoringRate3": 0.08675,
+        "GuestScoringRate0": 0.42447,
+        "GuestScoringRate1": 0.36377,
+        "GuestScoringRate2": 0.15587,
+        "GuestScoringRate3": 0.04452,
         "GuestScoringRateOther": 0,
         "NumberOfRound": 0,
         "LeagueName": ""
@@ -50,320 +50,497 @@
             "GhomeRank": "20",
             "GhomeName": "布雷西亚",
             "GguestRank": "17",
-            "GguestName": "热那亚",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.80",
-            "GspTie": "3.17",
-            "GspDefeat": "2.12",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.215479979300499,
-        "HomeScoringRate0": 0.44936,
-        "HomeScoringRate1": 0.35949,
-        "HomeScoringRate2": 0.14379,
-        "HomeScoringRate3": 0.03834,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.44936,
-        "GuestScoringRate1": 0.35949,
-        "GuestScoringRate2": 0.14379,
-        "GuestScoringRate3": 0.03834,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-27 22:40周六040",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "意甲",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "10",
-            "GhomeName": "卡利亚里",
-            "GguestRank": "14",
-            "GguestName": "都　灵",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.26",
-            "GspTie": "2.98",
-            "GspDefeat": "2.74",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.0649119955062867,
-        "HomeScoringRate0": 0.07429,
-        "HomeScoringRate1": 0.19316,
-        "HomeScoringRate2": 0.25111,
-        "HomeScoringRate3": 0.21763,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.36791,
-        "GuestScoringRate1": 0.36791,
-        "GuestScoringRate2": 0.18395,
-        "GuestScoringRate3": 0.06131,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-27 22:40周六041",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "西甲",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "12",
-            "GhomeName": "奥萨苏纳",
-            "GguestRank": "19",
-            "GguestName": "莱加内斯",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.25",
-            "GspTie": "2.65",
-            "GspDefeat": "3.10",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.0959750000000001,
-        "HomeScoringRate0": 0.20193,
-        "HomeScoringRate1": 0.32308,
-        "HomeScoringRate2": 0.25847,
-        "HomeScoringRate3": 0.13785,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.67034,
-        "GuestScoringRate1": 0.26813,
-        "GuestScoringRate2": 0.05362,
-        "GuestScoringRate3": 0.00715,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-28 16:40周日002",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "韩K联",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "2",
-            "GhomeName": "蔚山现代",
-            "GguestRank": "1",
-            "GguestName": "全北现代",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.60",
-            "GspTie": "3.15",
-            "GspDefeat": "2.26",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.156219957590103,
-        "HomeScoringRate0": 0.30123,
-        "HomeScoringRate1": 0.36147,
-        "HomeScoringRate2": 0.21688,
-        "HomeScoringRate3": 0.08675,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.11082,
-        "GuestScoringRate1": 0.24382,
-        "GuestScoringRate2": 0.2682,
-        "GuestScoringRate3": 0.19668,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-28 17:40周日004",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "韩K联",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "8",
-            "GhomeName": "水原三星",
-            "GguestRank": "4",
-            "GguestName": "尚州尚武",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.12",
-            "GspTie": "2.90",
-            "GspDefeat": "3.05",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 0.9090559509277344,
-        "HomeScoringRate0": 0.36791,
-        "HomeScoringRate1": 0.36791,
-        "HomeScoringRate2": 0.18395,
-        "HomeScoringRate3": 0.06131,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.24663,
-        "GuestScoringRate1": 0.34528,
-        "GuestScoringRate2": 0.2417,
-        "GuestScoringRate3": 0.11279,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-28 21:10周日011",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "德乙",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "1",
-            "GhomeName": "比勒费",
-            "GguestRank": "3",
-            "GguestName": "海登海姆",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.60",
-            "GspTie": "3.55",
-            "GspDefeat": "2.10",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.197559956073761,
-        "HomeScoringRate0": 0.16532,
-        "HomeScoringRate1": 0.29759,
-        "HomeScoringRate2": 0.26783,
-        "HomeScoringRate3": 0.1607,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.36791,
-        "GuestScoringRate1": 0.36791,
-        "GuestScoringRate2": 0.18395,
-        "GuestScoringRate3": 0.06131,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-28 22:40周日023",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "意甲",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "8",
-            "GhomeName": "AC米兰",
-            "GguestRank": "5",
-            "GguestName": "罗　马",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.50",
-            "GspTie": "3.20",
-            "GspDefeat": "2.32",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.08525,
-        "HomeScoringRate0": 0.36791,
-        "HomeScoringRate1": 0.36791,
-        "HomeScoringRate2": 0.18395,
-        "HomeScoringRate3": 0.06131,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 0.16532,
-        "GuestScoringRate1": 0.29759,
-        "GuestScoringRate2": 0.26783,
-        "GuestScoringRate3": 0.1607,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-28 22:40周日034",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "意甲",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "16",
-            "GhomeName": "桑　普",
-            "GguestRank": "11",
-            "GguestName": "博洛尼亚",
-            "GresultScore": "",
-            "Gresult": "",
-            "GspWin": "2.46",
-            "GspTie": "3.12",
-            "GspDefeat": "2.40",
-            "GresultHalfScore": "",
-            "GredQuantities": "",
-            "GredQuantitlesGuest": "",
-            "GletCount": "",
-            "CreateDate": "",
-            "CreateIP": ""
-        },
-        "GameE": 1.0418100161552428,
-        "HomeScoringRate0": 1,
-        "HomeScoringRate1": 0,
-        "HomeScoringRate2": 0,
-        "HomeScoringRate3": 0,
-        "HomeScoringRateOther": 0,
-        "GuestScoringRate0": 1,
-        "GuestScoringRate1": 0,
-        "GuestScoringRate2": 0,
-        "GuestScoringRate3": 0,
-        "GuestScoringRateOther": 0,
-        "NumberOfRound": 0,
-        "LeagueName": ""
-    }, {
-        "GameInfo": {
-            "UUID": "",
-            "Gnumber": "2020-06-28 22:40周日036",
-            "Gyear": "",
-            "Gdata": "",
-            "Gtime": "",
-            "Gleague": "意甲",
-            "Gleaguenumber": "",
-            "GIsfinish": "",
-            "GhomeRank": "12",
-            "GhomeName": "萨索洛",
-            "GguestRank": "9",
-            "GguestName": "维罗
-            纳 ","
+            "GguestName": "热
+            那亚 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.80 ","
+            GspTie ":"
+            3.17 ","
+            GspDefeat ":"
+            2.12 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.215479979300499,"
+            HomeScoringRate0 ":0.48971,"
+            HomeScoringRate1 ":0.34965,"
+            HomeScoringRate2 ":0.12482,"
+            HomeScoringRate3 ":0.0297,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.56499,"
+            GuestScoringRate1 ":0.32261,"
+            GuestScoringRate2 ":0.0921,"
+            GuestScoringRate3 ":0.01753,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 27 22: 40 周六040 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            意甲 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            10 ","
+            GhomeName ":"
+            卡利亚里 ","
+            GguestRank ":"
+            14 ","
+            GguestName ":"
+            都 灵 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.26 ","
+            GspTie ":"
+            2.98 ","
+            GspDefeat ":"
+            2.74 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.0649119955062867,"
+            HomeScoringRate0 ":0.11744,"
+            HomeScoringRate1 ":0.25156,"
+            HomeScoringRate2 ":0.26943,"
+            HomeScoringRate3 ":0.19237,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.27668,"
+            GuestScoringRate1 ":0.35554,"
+            GuestScoringRate2 ":0.22843,"
+            GuestScoringRate3 ":0.09784,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 27 22: 40 周六041 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            西甲 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            12 ","
+            GhomeName ":"
+            奥萨苏纳 ","
+            GguestRank ":"
+            19 ","
+            GguestName ":"
+            莱加内斯 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.25 ","
+            GspTie ":"
+            2.65 ","
+            GspDefeat ":"
+            3.10 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.0959750000000001,"
+            HomeScoringRate0 ":0.23982,"
+            HomeScoringRate1 ":0.34246,"
+            HomeScoringRate2 ":0.24452,"
+            HomeScoringRate3 ":0.11639,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.65184,"
+            GuestScoringRate1 ":0.27898,"
+            GuestScoringRate2 ":0.0597,"
+            GuestScoringRate3 ":0.00851,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 28 16: 40 周日002 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            韩K联 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            2 ","
+            GhomeName ":"
+            蔚山现代 ","
+            GguestRank ":"
+            1 ","
+            GguestName ":"
+            全北现代 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.60 ","
+            GspTie ":"
+            3.15 ","
+            GspDefeat ":"
+            2.26 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.156219957590103,"
+            HomeScoringRate0 ":0.27668,"
+            HomeScoringRate1 ":0.35554,"
+            HomeScoringRate2 ":0.22843,"
+            HomeScoringRate3 ":0.09784,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.11744,"
+            GuestScoringRate1 ":0.25156,"
+            GuestScoringRate2 ":0.26943,"
+            GuestScoringRate3 ":0.19237,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 28 17: 40 周日004 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            韩K联 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            8 ","
+            GhomeName ":"
+            水原三星 ","
+            GguestRank ":"
+            4 ","
+            GguestName ":"
+            尚州尚武 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.12 ","
+            GspTie ":"
+            2.90 ","
+            GspDefeat ":"
+            3.05 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":0.9090559509277344,"
+            HomeScoringRate0 ":0.48971,"
+            HomeScoringRate1 ":0.34965,"
+            HomeScoringRate2 ":0.12482,"
+            HomeScoringRate3 ":0.0297,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.36791,"
+            GuestScoringRate1 ":0.36791,"
+            GuestScoringRate2 ":0.18395,"
+            GuestScoringRate3 ":0.06131,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 28 21: 10 周日011 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            德乙 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            1 ","
+            GhomeName ":"
+            比勒费 ","
+            GguestRank ":"
+            3 ","
+            GguestName ":"
+            海登海姆 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.60 ","
+            GspTie ":"
+            3.55 ","
+            GspDefeat ":"
+            2.10 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.197559956073761,"
+            HomeScoringRate0 ":0.18017,"
+            HomeScoringRate1 ":0.30882,"
+            HomeScoringRate2 ":0.26465,"
+            HomeScoringRate3 ":0.1512,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.42447,"
+            GuestScoringRate1 ":0.36377,"
+            GuestScoringRate2 ":0.15587,"
+            GuestScoringRate3 ":0.04452,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 28 22: 40 周
+            日023 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            意甲 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            8 ","
+            GhomeName ":"
+            AC米兰 ","
+            GguestRank ":"
+            5 ","
+            GguestName ":"
+            罗 马 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.50 ","
+            GspTie ":"
+            3.20 ","
+            GspDefeat ":"
+            2.32 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.08525,"
+            HomeScoringRate0 ":0.31921,"
+            HomeScoringRate1 ":0.36454,"
+            HomeScoringRate2 ":0.20815,"
+            HomeScoringRate3 ":0.07923,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":0.23982,"
+            GuestScoringRate1 ":0.34246,"
+            GuestScoringRate2 ":0.24452,"
+            GuestScoringRate3 ":0.11639,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 28 22: 40 周日034 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            意甲 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            16 ","
+            GhomeName ":"
+            桑 普 ","
+            GguestRank ":"
+            11 ","
+            GguestName ":"
+            博洛尼亚 ","
+            GresultScore ":"
+            ","
+            Gresult ":"
+            ","
+            GspWin ":"
+            2.46 ","
+            GspTie ":"
+            3.12 ","
+            GspDefeat ":"
+            2.40 ","
+            GresultHalfScore ":"
+            ","
+            GredQuantities ":"
+            ","
+            GredQuantitlesGuest ":"
+            ","
+            GletCount ":"
+            ","
+            CreateDate ":"
+            ","
+            CreateIP ":"
+            "},"
+            GameE ":1.0418100161552428,"
+            HomeScoringRate0 ":1,"
+            HomeScoringRate1 ":0,"
+            HomeScoringRate2 ":0,"
+            HomeScoringRate3 ":0,"
+            HomeScoringRateOther ":0,"
+            GuestScoringRate0 ":1,"
+            GuestScoringRate1 ":0,"
+            GuestScoringRate2 ":0,"
+            GuestScoringRate3 ":0,"
+            GuestScoringRateOther ":0,"
+            NumberOfRound ":0,"
+            LeagueName ":"
+            "},{"
+            GameInfo ":{"
+            UUID ":"
+            ","
+            Gnumber ":"
+            2020 - 06 - 28 22: 40 周日036 ","
+            Gyear ":"
+            ","
+            Gdata ":"
+            ","
+            Gtime ":"
+            ","
+            Gleague ":"
+            意甲 ","
+            Gleaguenumber ":"
+            ","
+            GIsfinish ":"
+            ","
+            GhomeRank ":"
+            12 ","
+            GhomeName ":"
+            萨索洛 ","
+            GguestRank ":"
+            9 ","
+            GguestName ":"
+            维罗纳 ","
             GresultScore ":"
             ","
             Gresult ":"
@@ -387,15 +564,15 @@
             CreateIP ":"
             "},"
             GameE ":1.0331580496788024,"
-            HomeScoringRate0 ":0.16532,"
-            HomeScoringRate1 ":0.29759,"
-            HomeScoringRate2 ":0.26783,"
-            HomeScoringRate3 ":0.1607,"
+            HomeScoringRate0 ":0.15617,"
+            HomeScoringRate1 ":0.29,"
+            HomeScoringRate2 ":0.26927,"
+            HomeScoringRate3 ":0.16667,"
             HomeScoringRateOther ":0,"
-            GuestScoringRate0 ":0.24663,"
-            GuestScoringRate1 ":0.34528,"
-            GuestScoringRate2 ":0.2417,"
-            GuestScoringRate3 ":0.11279,"
+            GuestScoringRate0 ":0.36791,"
+            GuestScoringRate1 ":0.36791,"
+            GuestScoringRate2 ":0.18395,"
+            GuestScoringRate3 ":0.06131,"
             GuestScoringRateOther ":0,"
             NumberOfRound ":0,"
             LeagueName ":"
@@ -453,10 +630,10 @@
             HomeScoringRate2 ":0.18395,"
             HomeScoringRate3 ":0.06131,"
             HomeScoringRateOther ":0,"
-            GuestScoringRate0 ":0.54884,"
-            GuestScoringRate1 ":0.3293,"
-            GuestScoringRate2 ":0.09879,"
-            GuestScoringRate3 ":0.01975,"
+            GuestScoringRate0 ":0.56499,"
+            GuestScoringRate1 ":0.32261,"
+            GuestScoringRate2 ":0.0921,"
+            GuestScoringRate3 ":0.01753,"
             GuestScoringRateOther ":0,"
             NumberOfRound ":0,"
             LeagueName ":"

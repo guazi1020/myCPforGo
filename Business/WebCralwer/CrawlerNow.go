@@ -87,7 +87,7 @@ func GetEByDate() {
 			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) && gameNow.GameInfo.Gleague != "日乙" {
 
 				//计算最近的进球率
-				tnum := 5
+				tnum := 7
 				gameNow.HomeScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.HomeScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.HomeScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 1, gameNow.GameInfo.Gleague)
@@ -104,22 +104,98 @@ func GetEByDate() {
 		})
 		data, _ := json.Marshal(games)
 		fmt.Println(string(data))
+		OutToExcel(games)
 	})
 	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=" + time.Now().Format("2006-01-02"))
 }
 
-func OutToExcel(gamesnows []Model.GameNow) {
+func OutToExcel(gamesNow []Model.GameNow) {
 	file := xlsx.NewFile()
 	sheet, _ := file.AddSheet("Sheet1")
 	row := sheet.AddRow()
 	row.SetHeightCM(1) //设置每行的高度
 	//  gamenow := Model.GameNow{}
 	//  gamenow.GameInfo.Gnumber
-
+	//生成表头
 	cell := row.AddCell()
-	cell.Value = "haha"
+	cell.Value = "比赛编号"
 	cell = row.AddCell()
-	cell.Value = "xixi"
+	cell.Value = "赛事"
+	cell = row.AddCell()
+	cell.Value = "主队"
+	cell = row.AddCell()
+	cell.Value = "客队"
+	cell = row.AddCell()
+	cell.Value = "胜"
+	cell = row.AddCell()
+	cell.Value = "平"
+	cell = row.AddCell()
+	cell.Value = "负"
+	cell = row.AddCell()
+	cell.Value = "E"
+	cell = row.AddCell()
+	cell.Value = "H0"
+	cell = row.AddCell()
+	cell.Value = "H1"
+	cell = row.AddCell()
+	cell.Value = "H2"
+	cell = row.AddCell()
+	cell.Value = "H3"
+	cell = row.AddCell()
+	cell.Value = "G0"
+	cell = row.AddCell()
+	cell.Value = "G1"
+	cell = row.AddCell()
+	cell.Value = "G2"
+	cell = row.AddCell()
+	cell.Value = "G3"
+
+	for _, gamenow := range gamesNow {
+		dtrow := sheet.AddRow()
+		dtrow.SetHeightCM(1)
+		//比赛编号
+		dtcell := dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.Gnumber
+		//赛事
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.Gleague
+		//主队
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GhomeName
+		//主队排名
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GhomeRank
+		//客队
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GguestName
+		//客队排名
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GguestRank
+		//胜
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GspWin
+		//平
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GspTie
+		//负
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.GameInfo.GspDefeat
+		//E
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.GameE, 'f', 6, 64)
+		//H0
+
+		//H1
+		//H2
+		//H3
+		//G0
+		//G1
+		//G2
+		//G3
+
+	}
+
+	//填充内容
 
 	err := file.Save("file.xlsx")
 	if err != nil {
