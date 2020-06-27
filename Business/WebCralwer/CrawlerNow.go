@@ -84,7 +84,7 @@ func GetEByDate() {
 
 			//派出league
 
-			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) && gameNow.GameInfo.Gleague != "日乙" {
+			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) {
 
 				//计算最近的进球率
 				tnum := 7
@@ -111,7 +111,7 @@ func GetEByDate() {
 
 func OutToExcel(gamesNow []Model.GameNow) {
 	file := xlsx.NewFile()
-	sheet, _ := file.AddSheet("Sheet1")
+	sheet, _ := file.AddSheet(time.Now().Format("2006-01-02"))
 	row := sheet.AddRow()
 	row.SetHeightCM(1) //设置每行的高度
 	//  gamenow := Model.GameNow{}
@@ -124,7 +124,11 @@ func OutToExcel(gamesNow []Model.GameNow) {
 	cell = row.AddCell()
 	cell.Value = "主队"
 	cell = row.AddCell()
+	cell.Value = "主队排名"
+	cell = row.AddCell()
 	cell.Value = "客队"
+	cell = row.AddCell()
+	cell.Value = "客队排名"
 	cell = row.AddCell()
 	cell.Value = "胜"
 	cell = row.AddCell()
@@ -184,14 +188,29 @@ func OutToExcel(gamesNow []Model.GameNow) {
 		dtcell = dtrow.AddCell()
 		dtcell.Value = strconv.FormatFloat(gamenow.GameE, 'f', 6, 64)
 		//H0
-
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.HomeScoringRate0, 'f', 6, 64)
 		//H1
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.HomeScoringRate1, 'f', 6, 64)
 		//H2
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.HomeScoringRate2, 'f', 6, 64)
 		//H3
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.HomeScoringRate3, 'f', 6, 64)
 		//G0
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate0, 'f', 6, 64)
 		//G1
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate1, 'f', 6, 64)
 		//G2
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate2, 'f', 6, 64)
 		//G3
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate3, 'f', 6, 64)
 
 	}
 
