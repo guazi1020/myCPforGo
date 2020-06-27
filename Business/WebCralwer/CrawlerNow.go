@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"myCPforGo/Com"
 	"myCPforGo/Model"
-	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -15,7 +14,7 @@ import (
 	"github.com/tealeg/xlsx"
 )
 
-//GetEByDate 根据时间来测算每场的E值
+//GetEByDate 根据当前时间来测算每场的E值
 func GetEByDate() {
 	//1.筛选符合条件的比赛
 	//a.sp值均大于2.0
@@ -234,11 +233,12 @@ func GetEByDate2() {
 	strURL := "http://live.zgzcw.com/ls/AllData.action?code=all&date=2020-01-16&ajax=true"
 	params := make(map[string]string)
 	params["date"] = "2020-01-16"
-	for _, game := range GetWeb(strURL, params) {
-		value := reflect.ValueOf(game)
-		for i := 0; i < value.NumField(); i++ {
-			fmt.Printf("Field %d: %v\n", i, value.Field(i))
-		}
+	for _, game := range GetWebToGames(strURL, params) {
+		fmt.Println(game)
+		// value := reflect.ValueOf(game)
+		// for i := 0; i < value.NumField(); i++ {
+		// 	fmt.Printf("Field %d: %v\n", i, value.Field(i))
+		// }
 
 	}
 }

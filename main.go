@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	//WebCralwer.OutToExcel()
+	WebCralwer.GetEByDate2()
 	/*
 	   2020-06-10 测试抓取当前
 	*/
-	WebCralwer.GetEByDate()
+	// WebCralwer.GetEByDate()
 	//WebCralwer.GetEByDate2()
 	/*
 		2020-06-09 测试E

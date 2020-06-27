@@ -89,6 +89,8 @@ func SaveWeb(params map[string]string) {
 }
 
 //GetWeb 获取页面数量并对象化
+//面向参数为201
+//http://live.zgzcw.com/ls/AllData.action?code=all&date=2020-01-16&ajax=true
 func GetWeb(str_href string, paras map[string]string) []Model.Game {
 
 	games := []Model.Game{}
@@ -262,4 +264,22 @@ func CompositionURL(head string, params map[string]string) string {
 	}
 	//2.组装url
 	return head + "?" + str_params
+}
+
+//GetWebToGames 组装全量数据对象
+func GetWebToGames(strHref string, params map[string]string) []Model.Game {
+	games := []Model.Game{}
+	c := colly.NewCollector()
+	c.OnResponse(func(r *colly.Response) {
+		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
+		dom.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
+			//fmt.Println(i)
+			var game Model.Game
+			game.Gnumber = Com.RemoveBlank(s.Text())
+			games = append(games, game)
+
+		})
+	})
+	c.Visit(strHref)
+	return games
 }
