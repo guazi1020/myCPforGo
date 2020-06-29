@@ -272,13 +272,30 @@ func GetWebToGames(strHref string, params map[string]string) []Model.Game {
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
-		dom.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
-			//fmt.Println(i)
-			var game Model.Game
-			game.Gnumber = Com.RemoveBlank(s.Text())
-			games = append(games, game)
+		dom.Find("body").Each(func(i int, hs *goquery.Selection) {
+			hs.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
+				//fmt.Println(i)
+				var game Model.Game
+				game.Gnumber = Com.RemoveBlank(s.Text())
 
+				//Gleague
+				game.Gleague = s.Next().Text()
+				s.Next().Remove()
+				//GIsfinish
+				game.GIsfinish = s.Next().Text()
+				s.Next().Remove()
+				games = append(games, game)
+			})
+			fmt.Println(hs.Text())
 		})
+		//Gleague
+		// dom.Find("a").Find("span").Each(func(i int, s *goquery.Selection) {
+		// 	games[i].Gleague = s.Text()
+		// 	// s.Parent().Next().Each(func(i int, s *goquery.Selection) {
+		// 	// 	fmt.Println(s.Html())
+		// 	// })
+		// })
+
 	})
 	c.Visit(strHref)
 	return games

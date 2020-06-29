@@ -9,12 +9,25 @@ import (
 )
 
 func main() {
-	WebCralwer.GetEByDate2()
+
+	/*
+	   使用方法：根据时间去爬网站数据，存到数据库中
+	   示例1，爬取2020-05-20到现在的网站数据
+	*/
+	//示例1 begin
+
+	// params := make(map[string]string)
+	// params["code"] = "201"
+	// params["ajax"] = "true"
+	// WebCralwer.SaveWebByDate("2020-06-04", "", params)
+
+	WebCralwer.GetEByDateAll()
 	/*
 	   2020-06-10 测试抓取当前
 	*/
-	// WebCralwer.GetEByDate()
-	//WebCralwer.GetEByDate2()
+	//测算当前日期的比赛E和相关进球率预测
+	//WebCralwer.GetEByDate()
+
 	/*
 		2020-06-09 测试E
 
@@ -27,16 +40,6 @@ func main() {
 	// results := WebCralwer.SearchForGame("德累斯顿", 200, 1, league...)
 	// fmt.Println(results)
 	//WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...)
-	/*
-	   使用方法：根据时间去爬网站数据，存到数据库中
-	   示例1，爬取2020-05-20到现在的网站数据
-	*/
-	//示例1 begin
-
-	// params := make(map[string]string)
-	// params["code"] = "201"
-	// params["ajax"] = "true"
-	// WebCralwer.SaveWebByDate("2020-06-04", "", params)
 
 	//示例1 end
 

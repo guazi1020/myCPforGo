@@ -108,9 +108,15 @@ func GetEByDate() {
 	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=" + time.Now().Format("2006-01-02"))
 }
 
+//OutToExcel 根据model.GameNow的模型进行生成Excel
 func OutToExcel(gamesNow []Model.GameNow) {
-	file := xlsx.NewFile()
-	sheet, _ := file.AddSheet(time.Now().Format("2006-01-02"))
+	//file := xlsx.NewFile()
+	file, _ := xlsx.OpenFile("file.xlsx")
+	sheet, err := file.AddSheet(time.Now().Format("2006-01-02"))
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("今日比赛已经计算过了。")
+	}
 	row := sheet.AddRow()
 	row.SetHeightCM(1) //设置每行的高度
 	//  gamenow := Model.GameNow{}
@@ -215,15 +221,15 @@ func OutToExcel(gamesNow []Model.GameNow) {
 
 	//填充内容
 
-	err := file.Save("file.xlsx")
+	err = file.Save("file.xlsx")
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 
 }
 
-//GetEByDate2 get
-func GetEByDate2() {
+//GetEByDateAll 组全量比赛数据
+func GetEByDateAll() {
 	// c := colly.NewCollector()
 	// c.OnHTML("a[href]", func(e *colly.HTMLElement) {
 	// 	//e.Request.Visit(e.Attr("href"))
