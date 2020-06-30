@@ -267,23 +267,46 @@ func CompositionURL(head string, params map[string]string) string {
 }
 
 //GetWebToGames 组装全量数据对象
-func GetWebToGames(strHref string, params map[string]string) []Model.Game {
-	games := []Model.Game{}
+func GetWebToGames(strHref string, params map[string]string) []Model.GameAll {
+	games := []Model.GameAll{}
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
 		dom.Find("body").Each(func(i int, hs *goquery.Selection) {
 			hs.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
 				//fmt.Println(i)
-				var game Model.Game
-				game.Gnumber = Com.RemoveBlank(s.Text())
+				var game Model.GameAll
+				fmt.Println(s.Text())
+				//	game.GAnumber = Com.RemoveBlank(s.Text())
 
 				//Gleague
-				game.Gleague = s.Next().Text()
+				game.GAleague = s.Next().Text()
 				s.Next().Remove()
 				//GIsfinish
-				game.GIsfinish = s.Next().Text()
+				game.GAIsFinished = s.Next().Text()
 				s.Next().Remove()
+				//HomeRank
+				game.GAHomeRank = s.Next().Find("em.paim").Text()
+				//s.Next().Remove()
+				//HomeName
+				game.GAHomeName = s.Next().Find("a").Text()
+				s.Next().Remove()
+				//resultsource
+				game.GAresultScore = s.Next().Text()
+				s.Next().Remove()
+				//GuestName
+				game.GAGuestName = s.Next().Find("a").Text()
+				//GuestRank
+				game.GAGuestRank = s.Next().Find("em").Text()
+				s.Next().Remove()
+
+				game.GAresultHalf = s.Next().Text()
+				s.Next().Remove()
+
+				game.GAspWin = s.Next().Find("span").Eq(0).Text()
+				game.GAspTie = s.Next().Find("span").Eq(1).Text()
+				game.GAspDefeat = s.Next().Find("span").Eq(2).Text()
+
 				games = append(games, game)
 			})
 			fmt.Println(hs.Text())
