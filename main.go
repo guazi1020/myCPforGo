@@ -22,10 +22,10 @@ func main() {
 	// WebCralwer.SaveWebByDate("2020-06-04", "", params)
 
 	//当前测试内容
-	WebCralwer.GetEByDateAll()
+	//WebCralwer.GetEByDateAll()
 
 	//测算当前日期的比赛E和相关进球率预测
-	//WebCralwer.GetEByDate()
+	WebCralwer.GetEByDate()
 
 	/*
 		2020-06-09 测试E
