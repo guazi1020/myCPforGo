@@ -10,7 +10,9 @@ import (
 	"fmt"
 	"log"
 	"myCPforGo/Com"
+	"myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
+	"strconv"
 	"strings"
 	"time"
 	"unicode"
@@ -267,17 +269,17 @@ func CompositionURL(head string, params map[string]string) string {
 }
 
 //GetWebToGames 组装全量数据对象
-func GetWebToGames(strHref string, params map[string]string) []Model.GameAll {
-	games := []Model.GameAll{}
+func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasic {
+	games := []Model.GameAllBasic{}
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
 		dom.Find("body").Each(func(i int, hs *goquery.Selection) {
 			hs.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
 				//fmt.Println(i)
-				var game Model.GameAll
-				fmt.Println(s.Text())
-				//	game.GAnumber = Com.RemoveBlank(s.Text())
+				var game Model.GameAllBasic
+				//fmt.Println(s.Next().Next().Text())
+				//game.GAnumber = Com.RemoveBlank(s.Text())
 
 				//Gleague
 				game.GAleague = s.Next().Text()
@@ -307,17 +309,31 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAll {
 				game.GAspTie = s.Next().Find("span").Eq(1).Text()
 				game.GAspDefeat = s.Next().Find("span").Eq(2).Text()
 
+				gguestRank, _ := strconv.ParseFloat(game.GAGuestRank, 64)
+				ghomeRank, _ := strconv.ParseFloat(game.GAHomeRank, 64)
+				gspwin, _ := strconv.ParseFloat(game.GAspWin, 64)
+				//计算E值
+				game.GAE = Calculate_E(gguestRank-ghomeRank, gspwin)
+
+				game.GAresult = baseMethod.CalculateGameResult(game.GAresultScore)
+				//判定是否符合要求
 				games = append(games, game)
 			})
-			fmt.Println(hs.Text())
+
+			//填充轮数(round)
+			var sround []string
+			strsource := Com.RemoveBlank(hs.Text())
+			for _, item := range strings.Fields(strsource) {
+				if item[0] == 231 { //判定首字符是否是“第”
+					sround = append(sround, item)
+				}
+			}
+			if len(sround) == len(games) {
+				for i, round := range sround {
+					games[i].GARound = round
+				}
+			}
 		})
-		//Gleague
-		// dom.Find("a").Find("span").Each(func(i int, s *goquery.Selection) {
-		// 	games[i].Gleague = s.Text()
-		// 	// s.Parent().Next().Each(func(i int, s *goquery.Selection) {
-		// 	// 	fmt.Println(s.Html())
-		// 	// })
-		// })
 
 	})
 	c.Visit(strHref)

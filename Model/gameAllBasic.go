@@ -1,6 +1,6 @@
 package Model
 
-type GameAll struct {
+type GameAllBasic struct {
 	//主键 UUID
 	UUID string
 	//赛事
@@ -32,4 +32,6 @@ type GameAll struct {
 	GAspTie string
 	//sp负
 	GAspDefeat string
+	//计算的E值
+	GAE float64
 }

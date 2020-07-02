@@ -241,8 +241,8 @@ func GetEByDateAll() {
 	params["date"] = "2020-01-16"
 	for _, game := range GetWebToGames(strURL, params) {
 		fmt.Println(game)
-		// value := reflect.ValueOf(game)
-		// for i := 0; i < value.NumField(); i++ {
+		// value := reflect.ValueOf(game)f
+		// for i := 0; i < vaFlue.NumField(); i++ {
 		// 	fmt.Printf("Field %d: %v\n", i, value.Field(i))
 		// }
 
