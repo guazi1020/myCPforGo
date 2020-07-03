@@ -6,6 +6,7 @@ import (
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
 	"myCPforGo/Model"
+	"reflect"
 )
 
 func main() {
@@ -16,13 +17,13 @@ func main() {
 	*/
 	//示例1 begin
 
-	// params := make(map[string]string)
-	// params["code"] = "201"
-	// params["ajax"] = "true"
-	// WebCralwer.SaveWebByDate("2020-06-04", "", params)
+	params := make(map[string]string)
+	params["code"] = "all"
+	params["ajax"] = "true"
+	WebCralwer.SaveWebByDate("2020-07-01", "", params)
 
 	//当前测试内容
-	WebCralwer.GetEByDateAll()
+	//WebCralwer.GetEByDateAll()
 	//fmt.Println(baseMethod.CalculateGameResult("2-2"))
 	//测算当前日期的比赛E和相关进球率预测
 	//WebCralwer.GetEByDate()
@@ -63,6 +64,17 @@ func main() {
 
 	//测试http展示 20200321
 	//CPHttp.StartHttp()
+
+	// var game Model.Game
+	// game.GIsfinish = "3"
+	// TestForReflect(game)
+}
+
+func TestForReflect(igame interface{}) {
+	game := reflect.ValueOf(igame)
+	var igame1 Model.Game
+	igame1 = game.Interface().(Model.Game)
+	fmt.Println(igame1.GIsfinish)
 }
 
 //Equation 最终计算公式

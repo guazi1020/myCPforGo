@@ -2,7 +2,6 @@ package power
 
 import (
 	"database/sql"
-	"fmt"
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/comerr"
 	"strings"
@@ -25,7 +24,7 @@ func (comMySQL ComMySQL) Query(a string, args ...interface{}) map[int]map[string
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(a)
 	if err != nil {
-		fmt.Println("数据库连接失败")
+		//fmt.Println("数据库连接失败")
 		comerr.CheckErr(err)
 	}
 	rows, err := stmt.Query(args...)

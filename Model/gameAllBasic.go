@@ -33,5 +33,12 @@ type GameAllBasic struct {
 	//sp负
 	GAspDefeat string
 	//计算的E值
-	GAE float64
+	GAE string
+	/*
+		非业务性字段
+	*/
+	//创建时间
+	CreateDate string
+	//创建的IP
+	CreateIP string
 }

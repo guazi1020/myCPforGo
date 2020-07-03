@@ -135,10 +135,53 @@ func SaveOneGameInfo(game Model.Game, ctx context.Context, key int) {
 	}
 }
 
+func SaveOneGameAllBaiscInfo(gameAll Model.GameAllBasic, ctx context.Context, key int) {
+	//这个功能只执行1.5s
+	_, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(1500))
+	defer func() {
+		cancel()
+	}()
+
+	if (gameAll == Model.GameAllBasic{}) {
+		// 如果对象是空的
+		return
+	} else {
+
+		/*
+			构建str_sql
+		*/
+		var str_place string //str_place 标识符
+		gameAll.CreateDate = time.Now().Format(base_format)
+		gameAll.CreateIP = baseMethod.GetNetIP()
+		gameAll.UUID = tsgutils.UUID()
+
+		t := reflect.TypeOf(gameAll)
+		v := reflect.ValueOf(gameAll)
+		var pInterface []interface{} = make([]interface{}, v.NumField())
+		//构建pInterface参数[]interface{}
+		for i := 0; i < t.NumField(); i++ {
+			str_place += "?,"
+			pInterface[i] = v.Field(i).String()
+
+		}
+
+		str_place = strings.TrimRight(str_place, ",")
+		str_c := "insert into GameAllBasic values(" + str_place + ")" //str_c 格式:insert into game values(?,?,?...)
+		//fmt.Println(str_c)
+		//存储
+		if enable.Exec(str_c, pInterface...) == 1 {
+			fmt.Println(key, "finished")
+		}
+	}
+}
+
 //IsOnly 判断是否有重复的值
 //ture 有重复的 false 无重复的
-func IsOnly(Gyear string) bool {
-	str_sql := "select count(Gyear) num from game where Gyear=?"
+func IsOnly(Gyear string, tableName string, primaryField string) bool {
+
+	str_sql := "select count({primaryField}) num from {tableName} where {primaryField}=?"
+	r := strings.NewReplacer("{tableName}", tableName, "{primaryField}", primaryField)
+	str_sql = r.Replace(str_sql)
 	i, _ := strconv.Atoi(enable.Query(str_sql, Gyear)[0]["num"])
 	if i > 0 {
 		return true //有重复的,true

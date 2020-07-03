@@ -55,30 +55,54 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 
 		//i-1 yesteday,no today
 		params["date"] = thebeginDate.AddDate(0, 0, i).Format(dateLayout)
-		if IsOnly(params["date"]) {
+		tableName := "game"
+		primaryField := "Gyear"
+		switch params["code"] {
+		case "all":
+			{
+				tableName = "GameAllBasic"
+				primaryField = "GAdate"
+			}
+		}
+		if IsOnly(params["date"], tableName, primaryField) {
 			fmt.Println("已经更新过了")
 			continue
 		}
-
 		SaveWeb(params)
 	}
 }
 
 //SaveWeb 根据参数开始工作
+// params := make(map[string]string)
+// params["code"] = "201"
+// params["ajax"] = "true"
+// params["date"]="2020-02-01"
 func SaveWeb(params map[string]string) {
-	d := time.Now().Add(5000 * time.Millisecond)
+	d := time.Now().Add(5000 * time.Millisecond) //5秒最大限度
 	ctx, cancel := context.WithDeadline(context.Background(), d)
 	defer func() { cancel() }()
+	strHref := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params) //组装href
 
-	strHref := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
-	games := GetWeb(strHref, params)
-	log.Println("开始工作", strHref)
-	//fmt.Println(games)
-	for key, game := range games {
-		// fmt.Println(game)
-		// fmt.Println(key)
-		go SaveOneGameInfo(game, ctx, key) //开协程
+	switch params["code"] {
+	case "201":
+		games := GetWeb(strHref, params)
+		log.Println("开始工作", strHref)
+		//fmt.Println(games)
+		for key, game := range games {
+			// fmt.Println(game)
+			// fmt.Println(key)
+			go SaveOneGameInfo(game, ctx, key) //开协程
 
+		}
+	case "all":
+		gameAlls := GetWebToGames(strHref, params)
+		fmt.Println(gameAlls)
+		// for key, gameAll := range gameAlls {
+		// 	go SaveOneGameAllBaiscInfo(gameAll, ctx, key) //开协程
+		// }
+		///fmt.Println(gameAlls)
+	default:
+		break
 	}
 
 	for {
@@ -313,7 +337,7 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 				ghomeRank, _ := strconv.ParseFloat(game.GAHomeRank, 64)
 				gspwin, _ := strconv.ParseFloat(game.GAspWin, 64)
 				//计算E值
-				game.GAE = Calculate_E(gguestRank-ghomeRank, gspwin)
+				game.GAE = baseMethod.ChangeNumber(Calculate_E(gguestRank-ghomeRank, gspwin), 3)
 
 				game.GAresult = baseMethod.CalculateGameResult(game.GAresultScore)
 				//判定是否符合要求
@@ -323,11 +347,14 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 			//填充轮数(round)
 			var sround []string
 			strsource := Com.RemoveBlank(hs.Text())
-			for _, item := range strings.Fields(strsource) {
+			//strings.Split
+			for k, item := range strings.Fields(strsource) {
+				fmt.Println(k, item)
 				if item[0] == 231 { //判定首字符是否是“第”
 					sround = append(sround, item)
 				}
 			}
+			fmt.Println(sround, len(sround), len(games))
 			if len(sround) == len(games) {
 				for i, round := range sround {
 					games[i].GARound = round
