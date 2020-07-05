@@ -10,6 +10,8 @@ import (
 )
 
 func main() {
+	// str := "周四"
+	// fmt.Println(str[0])
 
 	/*
 	   使用方法：根据时间去爬网站数据，存到数据库中
@@ -20,10 +22,10 @@ func main() {
 	params := make(map[string]string)
 	params["code"] = "all"
 	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate("2020-07-01", "", params)
+	WebCralwer.SaveWebByDate("2020-01-01", "", params)
 
 	//当前测试内容
-	//WebCralwer.GetEByDateAll()
+
 	//fmt.Println(baseMethod.CalculateGameResult("2-2"))
 	//测算当前日期的比赛E和相关进球率预测
 	//WebCralwer.GetEByDate()

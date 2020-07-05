@@ -91,12 +91,12 @@ func GetEByDate() {
 				gameNow.HomeScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.HomeScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.HomeScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 3, tnum, 1, gameNow.GameInfo.Gleague)
-				//gameNow.HomeScoringRateOther = 1 - gameNow.HomeScoringRate0 - gameNow.HomeScoringRate1 - gameNow.HomeScoringRate2 - gameNow.HomeScoringRate3
+				gameNow.HomeScoringRateOther = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 4, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 3, tnum, 2, gameNow.GameInfo.Gleague)
-				//gameNow.GuestScoringRateOther = 1 - gameNow.GuestScoringRate0 - gameNow.GuestScoringRate1 - gameNow.GuestScoringRate2 - gameNow.GuestScoringRate3
+				gameNow.GuestScoringRateOther = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 4, tnum, 2, gameNow.GameInfo.Gleague)
 				games = append(games, gameNow)
 			}
 
@@ -151,6 +151,8 @@ func OutToExcel(gamesNow []Model.GameNow) {
 	cell = row.AddCell()
 	cell.Value = "H3"
 	cell = row.AddCell()
+	cell.Value = "H4"
+	cell = row.AddCell()
 	cell.Value = "G0"
 	cell = row.AddCell()
 	cell.Value = "G1"
@@ -158,6 +160,8 @@ func OutToExcel(gamesNow []Model.GameNow) {
 	cell.Value = "G2"
 	cell = row.AddCell()
 	cell.Value = "G3"
+	cell = row.AddCell()
+	cell.Value = "G4"
 
 	for _, gamenow := range gamesNow {
 		dtrow := sheet.AddRow()
@@ -204,6 +208,9 @@ func OutToExcel(gamesNow []Model.GameNow) {
 		//H3
 		dtcell = dtrow.AddCell()
 		dtcell.Value = strconv.FormatFloat(gamenow.HomeScoringRate3, 'f', 6, 64)
+		//H4
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.HomeScoringRateOther, 'f', 6, 64)
 		//G0
 		dtcell = dtrow.AddCell()
 		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate0, 'f', 6, 64)
@@ -216,6 +223,9 @@ func OutToExcel(gamesNow []Model.GameNow) {
 		//G3
 		dtcell = dtrow.AddCell()
 		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate3, 'f', 6, 64)
+		//G3
+		dtcell = dtrow.AddCell()
+		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRateOther, 'f', 6, 64)
 
 	}
 
@@ -226,25 +236,4 @@ func OutToExcel(gamesNow []Model.GameNow) {
 		fmt.Println(err)
 	}
 
-}
-
-//GetEByDateAll 组全量比赛数据
-func GetEByDateAll() {
-	// c := colly.NewCollector()
-	// c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-	// 	//e.Request.Visit(e.Attr("href"))
-	// 	fmt.Println(e.Attr("href"))
-	// })
-	// c.Visit("http://live.zgzcw.com/ls/AllData.action?code=201&date=2020-06-16&ajax=true")
-	strURL := "http://live.zgzcw.com/ls/AllData.action?code=all&date=2020-01-16&ajax=true"
-	params := make(map[string]string)
-	params["date"] = "2020-01-16"
-	for _, game := range GetWebToGames(strURL, params) {
-		fmt.Println(game)
-		// value := reflect.ValueOf(game)f
-		// for i := 0; i < vaFlue.NumField(); i++ {
-		// 	fmt.Printf("Field %d: %v\n", i, value.Field(i))
-		// }
-
-	}
 }
