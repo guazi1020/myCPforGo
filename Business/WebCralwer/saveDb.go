@@ -22,13 +22,23 @@ import (
 
 const base_format = "2006-01-02 15:04:05"
 
+// const (
+// 	userName = "root"
+// 	password = "LijdLijd*105"
+// 	//password = "lijdlijd105"
+// 	ip = "49.235.158.254"
+// 	//port     = "3306"
+// 	port   = "38160"
+// 	dbname = "footballsp"
+// )
+
 const (
 	userName = "root"
 	password = "LijdLijd*105"
 	//password = "lijdlijd105"
-	ip = "49.235.158.254"
+	ip = "cdb-6zkfgy0x.gz.tencentcdb.com"
 	//port     = "3306"
-	port   = "38160"
+	port   = "10155"
 	dbname = "footballsp"
 )
 
