@@ -66,12 +66,14 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 		default:
 			break
 		case 0:
-			results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc LIMIT ?", team, team, count)
+			//results = enable.Query("select * from game WHERE GhomeName=? or GguestName=? order by Gyear desc LIMIT ?", team, team, count)
+			results = enable.Query("select * from GameAllBasic WHERE GAhomeName=? or GguestName=? order by GADate desc LIMIT ?", team, team, count)
 		case 1:
-			results = enable.Query("select * from game WHERE GhomeName=?  order by Gyear desc LIMIT ?", team, count)
-			//fmt.Println(results)
+			//results = enable.Query("select * from game WHERE GhomeName=?  order by Gyear desc LIMIT ?", team, count)
+			results = enable.Query("select * from GameAllBasic WHERE GAhomeName=?  order by GADate desc LIMIT ?", team, count)
 		case 2:
-			results = enable.Query("select * from game WHERE  GguestName=? order by Gyear desc LIMIT ?", team, count)
+			//results = enable.Query("select * from game WHERE  GguestName=? order by Gyear desc LIMIT ?", team, count)
+			results = enable.Query("select * from GameAllBasic WHERE  GAguestName=? order by GADate desc LIMIT ?", team, count)
 		}
 
 	}
@@ -87,13 +89,16 @@ func SearchForGame(team string, count int, ishome int, league ...string) map[int
 		default:
 			break
 		case 0:
-			sql = fmt.Sprintf("select * from game WHERE GhomeName=? or GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			//sql = fmt.Sprintf("select * from game WHERE GhomeName=? or GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			sql = fmt.Sprintf("select * from GameAllBasic WHERE GAhomeName=? or GAguestName=? and Gleague in (%s) order by GADate desc LIMIT ?", leagues)
 			results = enable.Query(sql, team, team, count)
 		case 1:
-			sql = fmt.Sprintf("select * from game WHERE GhomeName=?  and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			//sql = fmt.Sprintf("select * from game WHERE GhomeName=?  and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			sql = fmt.Sprintf("select * from GameAllBasic WHERE GAhomeName=?  and GAleague in (%s) order by GADate desc LIMIT ?", leagues)
 			results = enable.Query(sql, team, count)
 		case 2:
-			sql = fmt.Sprintf("select * from game WHERE  GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			//sql = fmt.Sprintf("select * from game WHERE  GguestName=? and Gleague in (%s) order by Gyear desc LIMIT ?", leagues)
+			sql = fmt.Sprintf("select * from GameAllBasic WHERE  GAguestName=? and GAleague in (%s) order by GADate desc LIMIT ?", leagues)
 			results = enable.Query(sql, team, count)
 		}
 		//fmt.Println(sql)

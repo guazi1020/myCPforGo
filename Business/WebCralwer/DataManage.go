@@ -64,21 +64,21 @@ func Calculate_sumGlobal(team string, count int, Ishomes int, league ...string) 
 	case 0:
 		results = SearchForGame(team, count, 0, league...)
 		for _, result := range results {
-			if result["GhomeName"] == team {
-				sNumbers = sNumbers + resolveSources(result["GresultScore"], true)
+			if result["GAhomeName"] == team {
+				sNumbers = sNumbers + resolveSources(result["GAresultScore"], true)
 			} else {
-				sNumbers = sNumbers + resolveSources(result["GresultScore"], false)
+				sNumbers = sNumbers + resolveSources(result["GAresultScore"], false)
 			}
 		}
 	case 1:
 		results = SearchForGame(team, count, 1, league...)
 		for i := 0; i < len(results); i++ {
-			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], true)
+			sNumbers = sNumbers + resolveSources(results[i]["GAresultScore"], true)
 		}
 	case 2:
 		results = SearchForGame(team, count, 2, league...)
 		for i := 0; i < len(results); i++ {
-			sNumbers = sNumbers + resolveSources(results[i]["GresultScore"], false)
+			sNumbers = sNumbers + resolveSources(results[i]["GAresultScore"], false)
 		}
 	}
 

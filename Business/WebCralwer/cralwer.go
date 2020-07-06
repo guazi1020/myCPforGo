@@ -96,10 +96,12 @@ func SaveWeb(params map[string]string) {
 		}
 	case "all":
 		gameAlls := GetWebToGames(strHref, params)
-		fmt.Println(gameAlls)
-		// for key, gameAll := range gameAlls {
-		// 	go SaveOneGameAllBaiscInfo(gameAll, ctx, key) //开协程
-		// }
+
+		fmt.Println("时间：", params["date"])
+		//fmt.Println(gameAlls)
+		for key, gameAll := range gameAlls {
+			go SaveOneGameAllBaiscInfo(gameAll, ctx, key) //开协程
+		}
 		///fmt.Println(gameAlls)
 	default:
 		break
@@ -340,26 +342,39 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 				game.GAE = baseMethod.ChangeNumber(Calculate_E(gguestRank-ghomeRank, gspwin), 3)
 
 				game.GAresult = baseMethod.CalculateGameResult(game.GAresultScore)
+
+				game.GADate = params["date"]
 				//判定是否符合要求
 				games = append(games, game)
 			})
 
-			//填充轮数(round)
-			var sround []string
+			/*单独填充轮数(round)*/
 			strsource := Com.RemoveBlank(hs.Text())
-			//strings.Split
+			//fmt.Println(strsource)
+			num := 0
+			index := 0
+			tempStrings := []string{}
 			for k, item := range strings.Fields(strsource) {
-				fmt.Println(k, item)
-				if item[0] == 231 { //判定首字符是否是“第”
-					sround = append(sround, item)
+				//fmt.Println(string(item))
+				if k != 0 {
+					tempStrings = append(tempStrings, item)
+					if item == "欧亚析" {
+						tag := 0
+						rs := []rune(tempStrings[0])
+						if string(rs[0:1]) == "周" {
+							tag = 1
+						}
+
+						games[index].GARound = tempStrings[tag]
+						num = 0
+						index++
+						tempStrings = []string{}
+					} else {
+						num++
+					}
 				}
 			}
-			fmt.Println(sround, len(sround), len(games))
-			if len(sround) == len(games) {
-				for i, round := range sround {
-					games[i].GARound = round
-				}
-			}
+
 		})
 
 	})
