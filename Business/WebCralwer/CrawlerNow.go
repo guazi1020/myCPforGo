@@ -15,7 +15,7 @@ import (
 )
 
 //GetEByDate 根据当前时间来测算每场的E值
-func GetEByDate() {
+func GetEByDate(round int) {
 	//1.筛选符合条件的比赛
 	//a.sp值均大于2.0
 	c := colly.NewCollector()
@@ -86,7 +86,7 @@ func GetEByDate() {
 			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) {
 
 				//计算最近的进球率
-				tnum := 7
+				tnum := round
 				gameNow.HomeScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.HomeScoringRate1 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 1, tnum, 1, gameNow.GameInfo.Gleague)
 				gameNow.HomeScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 1, gameNow.GameInfo.Gleague)

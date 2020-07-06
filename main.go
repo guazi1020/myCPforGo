@@ -22,13 +22,10 @@ func main() {
 	params := make(map[string]string)
 	params["code"] = "all"
 	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate("2020-01-01", "", params)
+	WebCralwer.SaveWebByDate("2018-07-25", "2019-01-01", params)
 
-	//当前测试内容
-
-	//fmt.Println(baseMethod.CalculateGameResult("2-2"))
 	//测算当前日期的比赛E和相关进球率预测
-	//WebCralwer.GetEByDate()
+	//WebCralwer.GetEByDate(10)
 
 	/*
 		2020-06-09 测试E
