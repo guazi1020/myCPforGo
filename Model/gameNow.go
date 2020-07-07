@@ -16,4 +16,6 @@ type GameNow struct {
 
 	NumberOfRound int
 	LeagueName    string
+
+	Gamestatistics GameStatistics
 }

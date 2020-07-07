@@ -258,6 +258,30 @@ func ModeltoString(model interface{}, tableName string) (string, []interface{}) 
 	return str_insert, pInterface
 }
 
+//MakeGameStatistics 历史E+-0.01上下同类league的统计
+func MakeGameStatistics(game Model.GameNow) Model.GameNow {
+	str := "SELECT COUNT(*) as 'GCount', sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END) as 'GWinNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GWinDC', sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END) as 'GTieNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GTietDC', sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END) as 'GDefeatNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GDefeatDC' FROM GameAllBasic where GAleague=? and GAE>? and GAE<? and GADate>? order BY GADate DESC "
+	var params []interface{}
+	params = append(params, game.GameInfo.Gleague)
+	//beginE, _ := strconv.ParseFloat(game.GameE, 64)
+	params = append(params, baseMethod.ChangeNumber(game.GameE, 2))
+	//strconv.FormatFloat(v, 'E', -1, 64)/
+	params = append(params, baseMethod.ChangeNumber(game.GameE+0.01, 2))
+	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
+	params = append(params, "")
+	results := enable.Query(str, params...)
+	if len(results) > 0 {
+		game.Gamestatistics.GCount = results[0]["GCount"]
+		game.Gamestatistics.GDefeatDC = results[0]["GDefeatDC"]
+		game.Gamestatistics.GDefeatNumber = results[0]["GDefeatNumber"]
+		game.Gamestatistics.GTieNumber = results[0]["GTieNumber"]
+		game.Gamestatistics.GTietDC = results[0]["GTietDC"]
+		game.Gamestatistics.GWinDC = results[0]["GWinDC"]
+		game.Gamestatistics.GWinNumber = results[0]["GWinNumber"]
+	}
+	return game
+}
+
 /*SearchCom 标准查找方法
  */
 func SearchCom(str_sql string) map[int]map[string]string {
@@ -269,8 +293,8 @@ func MysqlDemo_Insert() {
 	fmt.Println(enable.Exec(str_sql, tsgutils.UUID(), t))
 }
 func MysqlDemo_Select() {
-
-	results := enable.Query("select * from game")
+	str := "SELECT COUNT(*) as 'GCount', sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END) as 'GWinNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GWinDC', sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END) as 'GTieNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GTietDC', sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END) as 'GDefeatNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GDefeatDC' FROM GameAllBasic where GAleague='英冠' and GAE>'1.22' and GAE<'1.23' and GADate>'' order BY GADate DESC "
+	results := enable.Query(str)
 	//fmt.Println(results)
 	for _, v := range results {
 		for _k, _v := range v {

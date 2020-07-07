@@ -97,6 +97,9 @@ func GetEByDate(round int) {
 				gameNow.GuestScoringRate2 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 2, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRate3 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 3, tnum, 2, gameNow.GameInfo.Gleague)
 				gameNow.GuestScoringRateOther = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 4, tnum, 2, gameNow.GameInfo.Gleague)
+
+				gameNow = MakeGameStatistics(gameNow)
+				//fmt.Println(gameNow.LeagueName, gameNow.GameE)
 				games = append(games, gameNow)
 			}
 
@@ -163,6 +166,21 @@ func OutToExcel(gamesNow []Model.GameNow) {
 	cell = row.AddCell()
 	cell.Value = "G4"
 
+	cell = row.AddCell()
+	cell.Value = "符合总比赛数"
+	cell = row.AddCell()
+	cell.Value = "胜场"
+	cell = row.AddCell()
+	cell.Value = "胜场占比"
+	cell = row.AddCell()
+	cell.Value = "平场"
+	cell = row.AddCell()
+	cell.Value = "平场占比"
+	cell = row.AddCell()
+	cell.Value = "负场"
+	cell = row.AddCell()
+	cell.Value = "负场占比"
+
 	for _, gamenow := range gamesNow {
 		dtrow := sheet.AddRow()
 		dtrow.SetHeightCM(1)
@@ -223,10 +241,31 @@ func OutToExcel(gamesNow []Model.GameNow) {
 		//G3
 		dtcell = dtrow.AddCell()
 		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRate3, 'f', 6, 64)
-		//G3
+		//G4
 		dtcell = dtrow.AddCell()
 		dtcell.Value = strconv.FormatFloat(gamenow.GuestScoringRateOther, 'f', 6, 64)
 
+		//GCount        string //数量
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GCount
+		//GWinNumber    string //胜场
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GWinNumber
+		//GWinDC        string //占比
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GWinDC
+		//GTieNumber    string //平场
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GTieNumber
+		//GTietDC       string //平比
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GTietDC
+		//GDefeatNumber string //客胜场
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GDefeatNumber
+		//GDefeatDC string //客胜比
+		dtcell = dtrow.AddCell()
+		dtcell.Value = gamenow.Gamestatistics.GDefeatDC
 	}
 
 	//填充内容
@@ -235,5 +274,10 @@ func OutToExcel(gamesNow []Model.GameNow) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+}
+
+//StatisticsGame
+func StatisticsGame(game Model.GameNow) {
 
 }
