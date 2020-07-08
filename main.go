@@ -10,24 +10,26 @@ import (
 )
 
 func main() {
-	// game := Model.GameNow{}
-	// game.GameE = 1.22
-	// game.LeagueName = "英冠"
-	// game = WebCralwer.MakeGameStatistics(game)
-	// fmt.Println(game)
+	var begindate, enddate string
+	fmt.Print("开始日期:")
+	fmt.Scanf("%s\n", &begindate)
+	fmt.Print("结束日期:")
+	fmt.Scanf("%s\n", &enddate)
+	// fmt.Println(begindate)
+	// fmt.Println(enddate)
 	/*
 	   使用方法：根据时间去爬网站数据，存到数据库中
 	   示例1，爬取2020-05-20到现在的网站数据
 	*/
 	//示例1 begin
 
-	// params := make(map[string]string)
-	// params["code"] = "all"
-	// params["ajax"] = "true"
-	// WebCralwer.SaveWebByDate("2020-01-01", "", params)
+	params := make(map[string]string)
+	params["code"] = "all"
+	params["ajax"] = "true"
+	WebCralwer.SaveWebByDate(begindate, enddate, params)
 
 	//测算当前日期的比赛E和相关进球率预测
-	WebCralwer.GetEByDate(10)
+	//WebCralwer.GetEByDate(10)
 
 	/*
 		2020-06-09 测试E
@@ -69,6 +71,12 @@ func main() {
 	// var game Model.Game
 	// game.GIsfinish = "3"
 	// TestForReflect(game)
+
+	// game := Model.GameNow{}
+	// game.GameE = 1.22
+	// game.LeagueName = "英冠"
+	// game = WebCralwer.MakeGameStatistics(game)
+	// fmt.Println(game)
 }
 
 func TestForReflect(igame interface{}) {
