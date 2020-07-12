@@ -45,7 +45,7 @@ func GetEByDate(round int) {
 			//EachWithBreak func(f func(int, *Selection) bool) *Selection
 			//Each func(f func(int, *Selection)) *Selection
 
-			tag := false
+			tag := true
 			s.Find("td.wh-8").Find("div.tz-area").Eq(0).Find("a").Each(func(i int, s *goquery.Selection) {
 
 				if s.Text() == "未开售" {
@@ -83,8 +83,8 @@ func GetEByDate(round int) {
 
 			//派出league
 
-			if gameNow.GameE != 0 && tag == true && (gameNow.GameE > 1 || gameNow.GameE < 0.923) {
-
+			// if gameNow.GameE != 0 && tag == true && (gameNow.GameE >  || gameNow.GameE < 0.923) {
+			if gameNow.GameE != 0 && tag == true {
 				//计算最近的进球率
 				tnum := round
 				gameNow.HomeScoringRate0 = Probability_ScoringRate(gameNow.GameInfo.GhomeName, 0, tnum, 1, gameNow.GameInfo.Gleague)

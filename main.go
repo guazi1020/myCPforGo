@@ -20,18 +20,18 @@ func main() {
 	   示例1，爬取2020-05-20到现在的网站数据
 	*/
 	//示例1 begin
-	var begindate, enddate string
-	fmt.Print("开始日期:")
-	fmt.Scanf("%s\n", &begindate)
-	fmt.Print("结束日期:")
-	fmt.Scanf("%s\n", &enddate)
-	params := make(map[string]string)
-	params["code"] = "all"
-	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate(begindate, enddate, params)
+	// var begindate, enddate string
+	// fmt.Print("开始日期:")
+	// fmt.Scanf("%s\n", &begindate)
+	// fmt.Print("结束日期:")
+	// fmt.Scanf("%s\n", &enddate)
+	// params := make(map[string]string)
+	// params["code"] = "all"
+	// params["ajax"] = "true"
+	// WebCralwer.SaveWebByDate(begindate, enddate, params)
 
 	//测算当前日期的比赛E和相关进球率预测
-	//WebCralwer.GetEByDate(7)
+	WebCralwer.GetEByDate(7)
 
 	/*
 		2020-06-09 测试E
