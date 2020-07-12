@@ -5,7 +5,6 @@ import (
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/comerr"
 	"strings"
-	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -59,13 +58,13 @@ func (comMySQL ComMySQL) Query(a string, args ...interface{}) map[int]map[string
 //Del mysql实现执行sql
 func (comMySQL ComMySQL) Exec(str_sql string, args ...interface{}) int64 {
 	var DB *sql.DB
-loop:
+	//loop:
 	DB = comMySQL.Open()
 	stmt, err := DB.Prepare(str_sql)
-	if err != nil {
-		time.Sleep(3 * 1000)
-		goto loop
-	}
+	// if err != nil {
+	// 	time.Sleep(3 * 1000)
+	// 	goto loop
+	// }
 	comerr.CheckErr(err)
 	//st := "insert into game (UUID,Gnumber,Gdata,Gtime,Gleague,Gleaguenumber,GIsfinish,GhomeRank,GhomeName,GguestRank,GguestName,Gresult,GspWin,GspTie,GspDefeat,GredQuantities,GletCount,GresultScore,GredQuantitlesGuest,GresultHalfScore,CreateDate,CreateIP) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	result, err := stmt.Exec(args...)

@@ -70,6 +70,9 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 		}
 		SaveWeb(params)
 	}
+
+	//clearRepeatInfo
+	ClearRepeatInfo()
 }
 
 //SaveWeb 根据参数开始工作

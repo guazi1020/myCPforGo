@@ -258,15 +258,15 @@ func ModeltoString(model interface{}, tableName string) (string, []interface{}) 
 	return str_insert, pInterface
 }
 
-//MakeGameStatistics 历史E+-0.01上下同类league的统计
+//MakeGameStatistics 历史E+-0.05上下同类league的统计,填充game模型
 func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	str := "SELECT COUNT(*) as 'GCount', sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END) as 'GWinNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GWinDC', sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END) as 'GTieNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GTietDC', sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END) as 'GDefeatNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GDefeatDC' FROM GameAllBasic where GAleague=? and GAE>? and GAE<? and GADate>? order BY GADate DESC "
 	var params []interface{}
 	params = append(params, game.GameInfo.Gleague)
 	//beginE, _ := strconv.ParseFloat(game.GameE, 64)
-	params = append(params, baseMethod.ChangeNumber(game.GameE, 2))
+	params = append(params, baseMethod.ChangeNumber(game.GameE-0.005, 3))
 	//strconv.FormatFloat(v, 'E', -1, 64)/
-	params = append(params, baseMethod.ChangeNumber(game.GameE+0.01, 2))
+	params = append(params, baseMethod.ChangeNumber(game.GameE+0.005, 3))
 	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
 	params = append(params, "")
 	results := enable.Query(str, params...)
@@ -280,6 +280,24 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 		game.Gamestatistics.GWinNumber = results[0]["GWinNumber"]
 	}
 	return game
+}
+
+//clearRepeatInfo 清除多余的数据
+func ClearRepeatInfo() {
+	//1.将多余的数据存储到toDel表中
+	str := "INSERT INTO toDel ( SELECT MIN(UUID),	GAleague,	GARound,	GAHomeName,	GAHomeRank,	GAGuestName,	GAGuestRank,	GAresultScore FROM	GameAllBasic WHERE	GAHomeRank != '' GROUP BY	GARound,	GAHomeName,	GAHomeRank,	GAGuestName,	GAGuestRank,	GAresultScore,	GAleague HAVING	count(*) > 1)"
+	//fmt.Println(enable.Exec(str))
+	if enable.Exec(str) > 0 {
+		//2.删除gamebasic的数据。
+		strDel := "DELETE FROM GameAllBasic WHERE	uuid IN (SELECT uuid FROM toDel)"
+		if enable.Exec(strDel) > 0 {
+			strDeltoDel := "delete from toDel"
+			if enable.Exec(strDeltoDel) > 0 {
+				fmt.Println("已删除重复的数据")
+			}
+		}
+	}
+
 }
 
 /*SearchCom 标准查找方法
