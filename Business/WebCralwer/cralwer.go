@@ -29,7 +29,7 @@ const (
 //SaveWebByDate 根据开始时间和结束时间爬站点的数据，存入数据库中
 //beginDate 开始时间,为空默认为只爬endDate一天
 //endDate 结束时间，为空默认为当前一天
-func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
+func SaveWebByDate(beginDate string, endDate string, params map[string]string) bool {
 
 	//条件判断，判断当前日期的问题
 	if endDate == "" {
@@ -48,7 +48,7 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 	endSr := theendDate.AddDate(0, 0, -1).Unix()
 
 	if endSr-beginSr < 0 {
-		return //如果最晚时间早于开始时间，结束
+		return false //如果最晚时间早于开始时间，结束
 	}
 	fmt.Println((endSr - beginSr) / 86400)
 	for i := 0; i <= int((endSr-beginSr)/86400); i++ {
@@ -73,6 +73,7 @@ func SaveWebByDate(beginDate string, endDate string, params map[string]string) {
 
 	//clearRepeatInfo
 	ClearRepeatInfo()
+	return true
 }
 
 //SaveWeb 根据参数开始工作

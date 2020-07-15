@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"myCPforGo/Business/CPHttp"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
@@ -31,7 +32,7 @@ func main() {
 	// WebCralwer.SaveWebByDate(begindate, enddate, params)
 
 	//测算当前日期的比赛E和相关进球率预测
-	WebCralwer.GetEByDate(7)
+	//WebCralwer.GetEByDate(10)
 
 	/*
 		2020-06-09 测试E
@@ -68,7 +69,7 @@ func main() {
 	//WebCralwer.FindAllLeagueAndCrawlerTeam()
 
 	//测试http展示 20200321
-	//CPHttp.StartHttp()
+	CPHttp.StartHttp()
 
 	// var game Model.Game
 	// game.GIsfinish = "3"

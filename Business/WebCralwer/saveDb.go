@@ -268,7 +268,7 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	//strconv.FormatFloat(v, 'E', -1, 64)/
 	params = append(params, baseMethod.ChangeNumber(game.GameE+0.005, 3))
 	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
-	params = append(params, "")
+	params = append(params, "2019")
 	results := enable.Query(str, params...)
 	if len(results) > 0 {
 		game.Gamestatistics.GCount = results[0]["GCount"]

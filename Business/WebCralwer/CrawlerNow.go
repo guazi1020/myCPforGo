@@ -15,7 +15,7 @@ import (
 )
 
 //GetEByDate 根据当前时间来测算每场的E值
-func GetEByDate(round int) {
+func GetEByDate(round int)[]Model.GameNow {
 	//1.筛选符合条件的比赛
 	//a.sp值均大于2.0
 	c := colly.NewCollector()
@@ -109,6 +109,7 @@ func GetEByDate(round int) {
 		OutToExcel(games)
 	})
 	c.Visit("http://cp.zgzcw.com/lottery/jchtplayvsForJsp.action?lotteryId=47&type=jcmini&issue=" + time.Now().Format("2006-01-02"))
+	return games
 }
 
 //OutToExcel 根据model.GameNow的模型进行生成Excel

@@ -1,16 +1,13 @@
 package CPHttp
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
 	"html"
-	"io"
 	"log"
 	"myCPforGo/Business/WebCralwer"
 	"myCPforGo/Model"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -26,37 +23,57 @@ func StartHttp() {
 	router.HandleFunc("/", HandleIndex)
 	router.HandleFunc("/app", HandleDemoIndex)
 	router.HandleFunc("/app/{id}", HandleDemoShow)
-	router.HandleFunc("/dataforjson", DataForJson)
-
+	router.HandleFunc("/SaveResultDate/{begindate}/{enddate}", SaveResultDate)
+	router.HandleFunc("/GetNowGame", GetNowGame)
 	err := http.ListenAndServe(_port, router) //监听端口,装载路由
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 }
 
-func DataForJson(w http.ResponseWriter, r *http.Request) {
+func GetNowGame(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") //允许访问所有域
 	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")         //header的类型
 	w.Header().Set("content-type", "application/json")                     //返回数据格式是json
 	w.Header().Set("Access-Control-Allow-Credentials", "true")
-	str, _ := os.Getwd()
-	inputFile, inputError := os.Open(str + "\\Document\\result_data1.json")
-	if inputError != nil {
-		fmt.Println(inputError)
-		return
-	}
-	defer inputFile.Close()
+	data, _ := json.Marshal(WebCralwer.GetEByDate(10))
+	fmt.Fprintf(w, string(data))
 
-	var s string
-	inputReader := bufio.NewReader(inputFile)
-	for {
-		inputString, readerError := inputReader.ReadString('\n')
-		if readerError == io.EOF {
-			break
-		}
-		s = s + inputString
+}
+
+//SaveResultDate 更新保存结果数据
+func SaveResultDate(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")         //header的类型
+	w.Header().Set("content-type", "application/json")                     //返回数据格式是json
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	// str, _ := os.Getwd()
+	// inputFile, inputError := os.Open(str + "\\Document\\result_data1.json")
+	// if inputError != nil {
+	// 	fmt.Println(inputError)
+	// 	return
+	// }
+	// defer inputFile.Close()
+
+	// var s string
+	// inputReader := bufio.NewReader(inputFile)
+	// for {
+	// 	inputString, readerError := inputReader.ReadString('\n')
+	// 	if readerError == io.EOF {
+	// 		break
+	// 	}
+	// 	s = s + inputString
+	// }
+	vars := mux.Vars(r)
+	begindate := vars["begindate"]
+	enddate := vars["enddate"]
+	params := make(map[string]string)
+	params["code"] = "all"
+	params["ajax"] = "true"
+	if WebCralwer.SaveWebByDate(begindate, enddate, params) {
+		fmt.Fprintf(w, "已经更新完成")
 	}
-	fmt.Fprintf(w, s)
+
 }
 
 //HandleIndex /index
