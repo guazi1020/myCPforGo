@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"myCPforGo/Business/CPHttp"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
@@ -12,15 +11,9 @@ import (
 
 func main() {
 
-	//	WebCralwer.ClearRepeatInfo()
-
-	// fmt.Println(begindate)
-	// fmt.Println(enddate)
 	/*
-	   使用方法：根据时间去爬网站数据，存到数据库中
-	   示例1，爬取2020-05-20到现在的网站数据
+		更新一段时间的比赛信息
 	*/
-	//示例1 begin
 	// var begindate, enddate string
 	// fmt.Print("开始日期:")
 	// fmt.Scanf("%s\n", &begindate)
@@ -32,7 +25,12 @@ func main() {
 	// WebCralwer.SaveWebByDate(begindate, enddate, params)
 
 	//测算当前日期的比赛E和相关进球率预测
-	//WebCralwer.GetEByDate(10)
+	WebCralwer.GetEByDate(10)
+
+	/*
+		开端口
+	*/
+	//CPHttp.StartHttp()
 
 	/*
 		2020-06-09 测试E
@@ -69,7 +67,7 @@ func main() {
 	//WebCralwer.FindAllLeagueAndCrawlerTeam()
 
 	//测试http展示 20200321
-	CPHttp.StartHttp()
+	//CPHttp.StartHttp()
 
 	// var game Model.Game
 	// game.GIsfinish = "3"

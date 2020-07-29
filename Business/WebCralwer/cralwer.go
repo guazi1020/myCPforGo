@@ -319,6 +319,9 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 				s.Next().Remove()
 				//HomeRank
 				game.GAHomeRank = s.Next().Find("em.paim").Text()
+				if len(game.GAHomeRank) > 1 {
+					game.GAHomeRank = game.GAHomeRank[1 : len(game.GAHomeRank)-1]
+				}
 				//s.Next().Remove()
 				//HomeName
 				game.GAHomeName = s.Next().Find("a").Text()
@@ -330,6 +333,9 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 				game.GAGuestName = s.Next().Find("a").Text()
 				//GuestRank
 				game.GAGuestRank = s.Next().Find("em").Text()
+				if len(game.GAGuestRank) > 1 {
+					game.GAGuestRank = game.GAGuestRank[1 : len(game.GAGuestRank)-1]
+				}
 				s.Next().Remove()
 
 				game.GAresultHalf = s.Next().Text()

@@ -260,15 +260,46 @@ func ModeltoString(model interface{}, tableName string) (string, []interface{}) 
 
 //MakeGameStatistics 历史E+-0.05上下同类league的统计,填充game模型
 func MakeGameStatistics(game Model.GameNow) Model.GameNow {
-	str := "SELECT COUNT(*) as 'GCount', sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END) as 'GWinNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GWinDC', sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END) as 'GTieNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GTietDC', sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END) as 'GDefeatNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GDefeatDC' FROM GameAllBasic where GAleague=? and GAE>? and GAE<? and GADate>? order BY GADate DESC "
+
+	//conRank Rank条件
+	var conRank string
+	homeranki, _ := strconv.Atoi(game.GameInfo.GhomeRank)
+	guestranki, _ := strconv.Atoi(game.GameInfo.GguestRank)
+	if homeranki < guestranki {
+		conRank = " GAhomeRank < GAguestRank "
+	} else {
+		conRank = " GAhomeRank >= GAguestRank "
+	}
+	if len(conRank) == 0 {
+		conRank = " 1=1 "
+	}
+
+	//conSP conSP条件
+	var conSP string
+	homeSPi, _ := strconv.Atoi(game.GameInfo.GspWin)
+	guestSPi, _ := strconv.Atoi(game.GameInfo.GspDefeat)
+	if homeSPi < guestSPi {
+		conSP = " GAspWin < GAspDefeat "
+	} else {
+		conSP = " GAspWin >= GAspDefeat "
+	}
+	if len(conSP) == 0 {
+		conSP = " 1=1 "
+	}
+
+	str := "SELECT COUNT(*) as 'GCount', sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END) as 'GWinNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GWinDC', sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END) as 'GTieNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GTietDC', sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END) as 'GDefeatNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GDefeatDC' FROM GameAllBasic where GAleague=? and GAE>? and GAE<? and GADate>? "
+	str = str + " and " + conRank + " and " + conSP
 	var params []interface{}
 	params = append(params, game.GameInfo.Gleague)
 	//beginE, _ := strconv.ParseFloat(game.GameE, 64)
-	params = append(params, baseMethod.ChangeNumber(game.GameE-0.005, 3))
+	params = append(params, baseMethod.ChangeNumber(game.GameE-0.05, 3))
+	//params = append(params, 0)
 	//strconv.FormatFloat(v, 'E', -1, 64)/
-	params = append(params, baseMethod.ChangeNumber(game.GameE+0.005, 3))
+	params = append(params, baseMethod.ChangeNumber(game.GameE+0.05, 3))
+	//params = append(params, 4)
 	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
 	params = append(params, "2019")
+
 	results := enable.Query(str, params...)
 	if len(results) > 0 {
 		game.Gamestatistics.GCount = results[0]["GCount"]
