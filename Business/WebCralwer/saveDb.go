@@ -331,6 +331,27 @@ func ClearRepeatInfo() {
 
 }
 
+//FindEInfoByUUID 通过
+func FindEInfoByUUID(strUUID string) {
+	//1.通过UUID找到信息
+	if len(strUUID) > 0 {
+		str := "select * from GameAllBasic where uuid=?"
+		//result := enable.Query(str)
+		var params []interface{}
+		params = append(params, strUUID)
+		result := enable.Query(str, params...)
+		if len(result) > 0 {
+			league := result[0]["GAleague"]
+			homeRank := result[0]["GAHomeRank"]
+			guestRank := result[0]["GAGuestRank"]
+			gae := result[0]["GAE"]
+			spwin := result[0]["GAspWin"]
+			fmt.Printf(league, homeRank, guestRank, gae, spwin)
+		}
+
+	}
+}
+
 /*SearchCom 标准查找方法
  */
 func SearchCom(str_sql string) map[int]map[string]string {

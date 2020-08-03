@@ -25,6 +25,7 @@ func StartHttp() {
 	router.HandleFunc("/app/{id}", HandleDemoShow)
 	router.HandleFunc("/SaveResultDate/{begindate}/{enddate}", SaveResultDate)
 	router.HandleFunc("/GetNowGame", GetNowGame)
+
 	err := http.ListenAndServe(_port, router) //监听端口,装载路由
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)

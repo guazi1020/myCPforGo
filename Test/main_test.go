@@ -1,20 +1,22 @@
 package Test
 
 import (
-	"strconv"
+	"myCPforGo/Business/WebCralwer"
 	"testing"
 )
 
 func TestHello(t *testing.T) {
-	str := ""
-	stri, _ := strconv.Atoi(str)
-	str1 := ""
-	str1i, _ := strconv.Atoi(str1)
-	if stri < str1i {
-		t.Log("<")
-	} else {
-		t.Log(">")
-	}
+
+	WebCralwer.FindEInfoByUUID("097dd210-d8a2-a217-e17c-6d503925d40d")
+	// str := ""
+	// stri, _ := strconv.Atoi(str)
+	// str1 := ""
+	// str1i, _ := strconv.Atoi(str1)
+	// if stri < str1i {
+	// 	t.Log("<")
+	// } else {
+	// 	t.Log(">")
+	// }
 	// str := "[123]"
 	// if len(str) != 0 {
 	// 	str = str[1 : len(str)-1]

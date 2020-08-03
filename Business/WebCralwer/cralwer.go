@@ -391,3 +391,8 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 	c.Visit(strHref)
 	return games
 }
+
+//GetInfoByE 根据E来放回
+func GetInfoByE(strE string) {
+
+}
