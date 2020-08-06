@@ -331,7 +331,7 @@ func ClearRepeatInfo() {
 
 }
 
-//FindEInfoByUUID 通过
+//FindEInfoByUUID 通过UUID找到相关的数据
 func FindEInfoByUUID(strUUID string) {
 	//1.通过UUID找到信息
 	if len(strUUID) > 0 {
@@ -340,16 +340,40 @@ func FindEInfoByUUID(strUUID string) {
 		var params []interface{}
 		params = append(params, strUUID)
 		result := enable.Query(str, params...)
-		if len(result) > 0 {
+		if len(result) > 0 { //找到以后寻找数据
 			league := result[0]["GAleague"]
 			homeRank := result[0]["GAHomeRank"]
 			guestRank := result[0]["GAGuestRank"]
 			gae := result[0]["GAE"]
 			spwin := result[0]["GAspWin"]
-			fmt.Printf(league, homeRank, guestRank, gae, spwin)
+			//2.去寻找那些数据
+			strSQL := "SELECT * fROM GameAllBasic "
+			strSQL += " WHERE GADate>?"   //a.GAdate
+			strSQL += " AND GAleague = ?" //b.league
+			//strSQL +="AND " judeGAspWinDefeatForSQL()
+			var paramsforstrSQL []interface{}
+			paramsforstrSQL = append(paramsforstrSQL, "2019")
+			temps := enable.Query(strSQL, paramsforstrSQL...)
+
+			str := judeGAspWinDefeatForSQL("10", "GaspWin", "9", "GaspDefeat")
+			fmt.Printf(league, homeRank, guestRank, gae, spwin, str, strSQL, temps)
 		}
 
 	}
+}
+
+//judeGAspWinDefeatForSQL 判定one与two之间的大小，为组装SQL时用
+//@strOne 省
+func judeGAspWinDefeatForSQL(strOne string, strOneName string, strTwo string, strTwoName string) string {
+	One, _ := strconv.Atoi(strOne)
+	Two, _ := strconv.Atoi(strTwo)
+	if One < Two {
+		return strOneName + " < " + strTwoName
+	}
+	if One >= Two {
+		return strOneName + " >= " + strTwoName
+	}
+	return "1 = 1"
 }
 
 /*SearchCom 标准查找方法

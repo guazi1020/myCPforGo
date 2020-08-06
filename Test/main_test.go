@@ -2,6 +2,7 @@ package Test
 
 import (
 	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/comerr"
 	"testing"
 )
 
@@ -30,4 +31,7 @@ func TestHello(t *testing.T) {
 	// 	t.Log("it's ok")
 	// }
 
+}
+func TestInterface(t *testing.T) {
+	comerr.ReadConfig()
 }

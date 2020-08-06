@@ -1,0 +1,19 @@
+{
+    "title":"系统配置文件",
+    "vision":"1.0",
+    "content":{
+        "dataset":{
+            "book":{
+                "userName":"root",
+                "root":"LijdLijd*105",
+                "ip":"cdb-6zkfgy0x.gz.tencentcdb.com",
+                "port":"10155",
+                "dbname":"footballsp"
+            },
+            "descript":"腾讯云账套",
+            "type":"mysql",
+            "vison":"5.6",
+            "endtime":"2021-07"
+        }
+    }
+}
