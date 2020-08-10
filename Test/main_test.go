@@ -1,8 +1,10 @@
 package Test
 
 import (
+	"myCPforGo/Business/CPHttp/ImpMethod"
 	"myCPforGo/Business/WebCralwer"
 	"myCPforGo/Com/comerr"
+	"myCPforGo/Interface/HTTP"
 	"testing"
 )
 
@@ -34,4 +36,10 @@ func TestHello(t *testing.T) {
 }
 func TestInterface(t *testing.T) {
 	comerr.ReadConfig()
+}
+
+func Testtt(t *testing.T) {
+	var vv HTTP.IGetGameData
+	vv = ImpMethod.GetGameDataOne{}
+	vv.GetGameDataForYear("2019")
 }
