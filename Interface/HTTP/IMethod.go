@@ -11,5 +11,5 @@ type IGetGameData interface {
 		@strYear 年份
 		return []Model.GameAllBasic
 	*/
-	GetGameDataForYear(strYear string) []Model.GameAllBasic
+	GetGameDataForYear() []Model.GameAllBasic
 }

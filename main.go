@@ -13,8 +13,9 @@ import (
 
 func main() {
 	var vv HTTP.IGetGameData
-	vv = ImpMethod.GetGameDataOne{}
-	vv.GetGameDataForYear("2019")
+	vv = ImpMethod.GetGameDataOne{StrYear: "2019"}
+
+	vv.GetGameDataForYear()
 	//	comerr.ReadConfig()
 
 	/*

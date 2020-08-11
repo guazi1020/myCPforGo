@@ -7,10 +7,11 @@ import (
 )
 
 type GetGameDataOne struct {
+	StrYear string
 }
 
 //GetGameDataForYear 实现
-func (getGameData GetGameDataOne) GetGameDataForYear(strYear string) []Model.GameAllBasic {
+func (getGameData GetGameDataOne) GetGameDataForYear() []Model.GameAllBasic {
 
 	// filePtr, err := os.Open("../Config/config.json")
 	// if err != nil {
@@ -21,8 +22,8 @@ func (getGameData GetGameDataOne) GetGameDataForYear(strYear string) []Model.Gam
 	// defer filePtr.Close()
 
 	path, _ := os.Getwd()
-	fmt.Println("Path:", path)
+	fmt.Println("Path:", path+getGameData.StrYear)
 	var games []Model.GameAllBasic
-	fmt.Println("one running")
+	// fmt.Println("one running")
 	return games
 }
