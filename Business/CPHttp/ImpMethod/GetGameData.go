@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+type TTest struct {
+	name string
+}
+
 type GetGameDataOne struct {
 	StrYear string
 }
@@ -23,14 +27,16 @@ func (getGameData GetGameDataOne) GetGameDataForYear() []Model.GameAllBasic {
 	// defer filePtr.Close()
 
 	path, _ := os.Getwd()
-	path += "\\Config\\config.json"
-	fmt.Println(path)
+	path += "\\Config\\configtest.json"
+
 	filePtr, err := os.Open(path)
 	if err != nil {
 		fmt.Println("Open file failed [Err:%s]", err.Error())
 	}
 	decoder := json.NewDecoder(filePtr)
-	fmt.Println(decoder)
+	var ttest []TTest
+	err = decoder.Decode(&ttest)
+	fmt.Println(ttest)
 	defer filePtr.Close()
 	var games []Model.GameAllBasic
 

@@ -6,6 +6,7 @@ import (
 	"myCPforGo/Business/CPHttp/ImpMethod"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
+	"myCPforGo/Com/comerr"
 	"myCPforGo/Interface/HTTP"
 	"myCPforGo/Model"
 	"reflect"
@@ -16,7 +17,7 @@ func main() {
 	vv = ImpMethod.GetGameDataOne{StrYear: "2019"}
 
 	vv.GetGameDataForYear()
-	//	comerr.ReadConfig()
+	comerr.ReadConfig()
 
 	/*
 		更新一段时间的比赛信息

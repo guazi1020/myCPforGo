@@ -40,6 +40,7 @@ func TestInterface(t *testing.T) {
 
 func Testtt(t *testing.T) {
 	var vv HTTP.IGetGameData
-	vv = ImpMethod.GetGameDataOne{}
-	vv.GetGameDataForYear("2019")
+	vv = ImpMethod.GetGameDataOne{StrYear: "2019"}
+
+	vv.GetGameDataForYear()
 }
