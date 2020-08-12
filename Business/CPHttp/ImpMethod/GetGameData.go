@@ -1,6 +1,7 @@
 package ImpMethod
 
 import (
+	"encoding/json"
 	"fmt"
 	"myCPforGo/Model"
 	"os"
@@ -22,8 +23,16 @@ func (getGameData GetGameDataOne) GetGameDataForYear() []Model.GameAllBasic {
 	// defer filePtr.Close()
 
 	path, _ := os.Getwd()
-	fmt.Println("Path:", path+getGameData.StrYear)
+	path += "\\Config\\config.json"
+	fmt.Println(path)
+	filePtr, err := os.Open(path)
+	if err != nil {
+		fmt.Println("Open file failed [Err:%s]", err.Error())
+	}
+	decoder := json.NewDecoder(filePtr)
+	fmt.Println(decoder)
+	defer filePtr.Close()
 	var games []Model.GameAllBasic
-	// fmt.Println("one running")
+
 	return games
 }
