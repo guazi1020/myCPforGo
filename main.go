@@ -6,18 +6,19 @@ import (
 	"myCPforGo/Business/CPHttp/ImpMethod"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
-	"myCPforGo/Com/comerr"
 	"myCPforGo/Interface/HTTP"
 	"myCPforGo/Model"
+	"os"
 	"reflect"
 )
 
 func main() {
 	var vv HTTP.IGetGameData
-	vv = ImpMethod.GetGameDataOne{StrYear: "2019"}
-
+	path, _ := os.Getwd()
+	path += "\\Config\\configtest.json"
+	vv = ImpMethod.GetGameDataOne{Path: path}
 	vv.GetGameDataForYear()
-	comerr.ReadConfig()
+	//	comerr.ReadConfig()
 
 	/*
 		更新一段时间的比赛信息
@@ -33,7 +34,7 @@ func main() {
 	// WebCralwer.SaveWebByDate(begindate, enddate, params)
 
 	//测算当前日期的比赛E和相关进球率预测
-	//WebCralwer.GetEByDate(10)
+	WebCralwer.GetEByDate(10)
 
 	/*
 		开端口
