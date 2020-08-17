@@ -3,21 +3,23 @@ package main
 import (
 	"fmt"
 	_ "myCPforGo/Business/CPHttp"
-	"myCPforGo/Business/CPHttp/ImpMethod"
 	"myCPforGo/Business/WebCralwer"
+	"myCPforGo/Com/baseMethod"
 	_ "myCPforGo/Com/baseMethod"
-	"myCPforGo/Interface/HTTP"
 	"myCPforGo/Model"
-	"os"
 	"reflect"
 )
 
 func main() {
-	var vv HTTP.IGetGameData
-	path, _ := os.Getwd()
-	path += "\\Config\\configtest.json"
-	vv = ImpMethod.GetGameDataOne{Path: path}
-	vv.GetGameDataForYear()
+
+	fmt.Println(baseMethod.CountFactorial(8))
+	fmt.Println(baseMethod.CountMultiplyingsqrt(2, 4.1))
+	// var vv HTTP.IGetGameData
+	// path, _ := os.Getwd()
+	// path += "\\Config\\configtest.json"
+	// vv = ImpMethod.GetGameDataOne{Path: path}
+	// vv.GetGameDataForYear()
+
 	//	comerr.ReadConfig()
 
 	/*
@@ -33,8 +35,8 @@ func main() {
 	// params["ajax"] = "true"
 	// WebCralwer.SaveWebByDate(begindate, enddate, params)
 
-	//测算当前日期的比赛E和相关进球率预测
-	WebCralwer.GetEByDate(10)
+	// //测算当前日期的比赛E和相关进球率预测
+	// WebCralwer.GetEByDate(10)
 
 	/*
 		开端口

@@ -8,6 +8,7 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+//阶乘计算，x底数 n阶乘数
 func MyPow(x float64, n int) float64 {
 	if n < 0 {
 		if n == -1<<31 {
@@ -86,7 +87,7 @@ func DecimalsToGrade(source float64) (int64, int64) {
 }
 
 //Compoundrate 计算复利
-//
+//source 本 rate利率
 func Compoundrate(source float64, rate float64, number int) float64 {
 
 	for i := 0; i < number; i++ {
