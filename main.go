@@ -4,21 +4,15 @@ import (
 	"fmt"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
-	"myCPforGo/Com/baseMethod"
 	_ "myCPforGo/Com/baseMethod"
+	"myCPforGo/Config"
 	"myCPforGo/Model"
 	"reflect"
 )
 
 func main() {
 
-	fmt.Println(baseMethod.CountFactorial(8))
-	fmt.Println(baseMethod.CountMultiplyingsqrt(2, 4.1))
-	// var vv HTTP.IGetGameData
-	// path, _ := os.Getwd()
-	// path += "\\Config\\configtest.json"
-	// vv = ImpMethod.GetGameDataOne{Path: path}
-	// vv.GetGameDataForYear()
+	Config.ReadConfig()
 
 	//	comerr.ReadConfig()
 

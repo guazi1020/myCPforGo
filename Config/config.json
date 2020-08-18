@@ -1,19 +1,17 @@
 {
-    "title":"系统配置文件",
-    "vision":"1.0",
-    "content":{
-        "dataset":{
-            "book":{
-                "userName":"root",
-                "root":"LijdLijd*105",
-                "ip":"cdb-6zkfgy0x.gz.tencentcdb.com",
-                "port":"10155",
-                "dbname":"footballsp"
+    "Title":"系统配置文件",
+    "Vision":"1.0",
+    "Content":[{
+            "Book":{
+                "UserName":"root",
+                "Root":"LijdLijd*105",
+                "Ip":"cdb-6zkfgy0x.gz.tencentcdb.com",
+                "Port":"10155",
+                "Dbname":"footballsp"
             },
-            "descript":"腾讯云账套",
-            "type":"mysql",
-            "vison":"5.6",
-            "endtime":"2021-07"
-        }
-    }
+            "Descript":"腾讯云账套",
+            "Type":"mysql",
+            "Vison":"5.6",
+            "Endtime":"2021-07"
+        }]
 }
