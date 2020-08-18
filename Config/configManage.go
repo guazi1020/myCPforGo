@@ -3,6 +3,7 @@ package Config
 import (
 	"encoding/json"
 	"fmt"
+	"myCPforGo/Com/comerr"
 	"os"
 )
 
@@ -33,7 +34,7 @@ func ReadConfig() {
 
 	filePtr, err := os.Open(path)
 	if err != nil {
-		fmt.Println("Open file failed [Err:%s]", err.Error())
+		comerr.CheckErr(err)
 	}
 	decoder := json.NewDecoder(filePtr)
 	var configs ModelConfig
