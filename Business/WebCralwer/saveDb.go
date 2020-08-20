@@ -11,6 +11,7 @@ import (
 	"myCPforGo/Com/DataBase/model"
 	"myCPforGo/Com/DataBase/power"
 	"myCPforGo/Com/baseMethod"
+	"myCPforGo/Config"
 	"myCPforGo/Model"
 	"reflect"
 	"strconv"
@@ -26,31 +27,22 @@ const base_format = "2006-01-02 15:04:05"
 // 	userName = "root"
 // 	password = "LijdLijd*105"
 // 	//password = "lijdlijd105"
-// 	ip = "49.235.158.254"
+// 	ip = "cdb-6zkfgy0x.gz.tencentcdb.com"
 // 	//port     = "3306"
-// 	port   = "38160"
+// 	port   = "10155"
 // 	dbname = "footballsp"
 // )
 
-const (
-	userName = "root"
-	password = "LijdLijd*105"
-	//password = "lijdlijd105"
-	ip = "cdb-6zkfgy0x.gz.tencentcdb.com"
-	//port     = "3306"
-	port   = "10155"
-	dbname = "footballsp"
-)
-
-var comparam = model.DBParam{
-	UserName: userName,
-	Password: password,
-	IP:       ip,
-	Port:     port,
-	Dbname:   dbname}
 var enable model.Power
 
 func init() {
+	configs := Config.ReadConfig()
+	var comparam = model.DBParam{
+		UserName: configs.Content[0].Book.UserName,
+		Password: configs.Content[0].Book.Root,
+		IP:       configs.Content[0].Book.Ip,
+		Port:     configs.Content[0].Book.Port,
+		Dbname:   configs.Content[0].Book.Dbname}
 	enable = power.ComMySQL{
 		comparam}
 }

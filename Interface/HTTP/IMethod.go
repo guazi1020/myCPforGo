@@ -4,6 +4,9 @@ import (
 	"myCPforGo/Model"
 )
 
+type ConditionParams struct {
+}
+
 //GetGameData 获取Game数据
 type IGetGameData interface {
 	/*

@@ -2,7 +2,6 @@ package Config
 
 import (
 	"encoding/json"
-	"fmt"
 	"myCPforGo/Com/comerr"
 	"os"
 )
@@ -28,7 +27,7 @@ type Dataset struct {
 }
 
 //ReadConfig 读取配置文件
-func ReadConfig() {
+func ReadConfig() ModelConfig {
 	path, _ := os.Getwd()
 	path += "\\Config\\config.json"
 
@@ -39,7 +38,7 @@ func ReadConfig() {
 	decoder := json.NewDecoder(filePtr)
 	var configs ModelConfig
 	err = decoder.Decode(&configs)
-	fmt.Println(configs.Content[0].Book.Dbname)
+	//fmt.Println(configs.Content[0].Book.Dbname)
 	defer filePtr.Close()
-
+	return configs
 }
