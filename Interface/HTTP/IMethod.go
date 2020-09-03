@@ -4,10 +4,6 @@ import (
 	"myCPforGo/Model"
 )
 
-type ConditionParams struct {
-	Iyear string
-}
-
 //GetGameData 获取Game数据
 type IGetGameData interface {
 	/*
@@ -16,6 +12,4 @@ type IGetGameData interface {
 		return []Model.GameAllBasic
 	*/
 	GetGameDataForYear() []Model.GameAllBasic
-
-	GetGameDataForNumber() Model.GameAllBasic
 }

@@ -1,18 +1,18 @@
 package ImpMethod
 
 import (
-	"myCPforGo/Interface/HTTP"
+	"fmt"
 	"myCPforGo/Model"
 )
 
 type GetGameDataOne struct {
-	conCond HTTP.ConditionParams
+	// conCond HTTP.ConditionParams
 }
 
 //GetGameDataForYear 实现
 func (getGameData GetGameDataOne) GetGameDataForYear() []Model.GameAllBasic {
 
 	var games []Model.GameAllBasic
-
+	fmt.Println("abcdefg")
 	return games
 }

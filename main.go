@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"myCPforGo/Business/CPHttp"
 	_ "myCPforGo/Business/CPHttp"
 	"myCPforGo/Business/WebCralwer"
 	_ "myCPforGo/Com/baseMethod"
@@ -11,77 +12,23 @@ import (
 
 func main() {
 
-	//Config.ReadConfig()
+	CPHttp.StartHttp()
+	// /*
+	// 	更新一段时间的比赛信息
+	// */
+	// var begindate, enddate string
+	// fmt.Print("开始日期:")
+	// fmt.Scanf("%s\n", &begindate)
+	// fmt.Print("结束日期:")
+	// fmt.Scanf("%s\n", &enddate)
+	// params := make(map[string]string)
+	// params["code"] = "all"
+	// params["ajax"] = "true"
+	// WebCralwer.SaveWebByDate(begindate, enddate, params)
 
-	//	comerr.ReadConfig()
+	// //测算当前日期的比赛E和相关进球率预测
+	// WebCralwer.GetEByDate(10)
 
-	/*
-		更新一段时间的比赛信息
-	*/
-	var begindate, enddate string
-	fmt.Print("开始日期:")
-	fmt.Scanf("%s\n", &begindate)
-	fmt.Print("结束日期:")
-	fmt.Scanf("%s\n", &enddate)
-	params := make(map[string]string)
-	params["code"] = "all"
-	params["ajax"] = "true"
-	WebCralwer.SaveWebByDate(begindate, enddate, params)
-
-	//测算当前日期的比赛E和相关进球率预测
-	WebCralwer.GetEByDate(10)
-
-	/*
-		开端口
-	*/
-	//CPHttp.StartHttp()
-
-	/*
-		2020-06-09 测试E
-
-	*/
-	//fmt.Println(baseMethod.ChangeNumber(WebCralwer.Calculate_E(-5, 2.7), 3))
-	//Equation()
-	// var league []string
-
-	// league = append(league, "德乙")
-	// results := WebCralwer.SearchForGame("德累斯顿", 200, 1, league...)
-	// fmt.Println(results)
-	//WebCralwer.Probability_ScoringRate(team, goals, num, ishome, league...)
-
-	//示例1 end
-
-	//baseMethod.Domain()
-	//CPHttp.StartHttp()
-	//quation()
-	//测试DICLeague的方法 20200306
-	//	WebCralwer.CrawlerLeague()
-
-	//测试DicTeam方法 20200318
-	//WebCralwer.CrawlerTeam("36")
-	//var team Model.Team
-	//team.TeamName = "nasidake"
-	//team.UUID = tsgutils.UUID()
-	//WebCralwer.SaveComm(team, "di")
-
-	//测试读取方法 20200320
-	// for k, v := range WebCralwer.FindAllLeague() {
-	// 	log.Println(k, v)
-	// }
-	//WebCralwer.FindAllLeagueAndCrawlerTeam()
-
-	//测试http展示 20200321
-	//CPHttp.StartHttp()
-
-	// var game Model.Game
-	// game.GIsfinish = "3"
-	// TestForReflect(game)
-
-	// game := Model.GameNow{}
-	// game.GameE = 1.22
-	// game.LeagueName = "英冠"
-	// game = WebCralwer.MakeGameStatistics(game)
-	// fmt.Println(game)
 }
 
 func TestForReflect(igame interface{}) {
