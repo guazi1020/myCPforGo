@@ -13,9 +13,9 @@ import (
 func main() {
 
 	CPHttp.StartHttp()
-	// /*
-	// 	更新一段时间的比赛信息
-	// */
+	/*
+		更新一段时间的比赛信息
+	*/
 	// var begindate, enddate string
 	// fmt.Print("开始日期:")
 	// fmt.Scanf("%s\n", &begindate)
