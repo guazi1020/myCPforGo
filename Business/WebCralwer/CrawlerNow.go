@@ -14,8 +14,25 @@ import (
 	"github.com/tealeg/xlsx"
 )
 
+//GetEbyDateLiveStreaming 根据当前时间测算比赛（live-stream）
+func GetEbyDateLiveStreaming(round int) []Model.GameNow {
+
+	c := colly.NewCollector()
+	games := []Model.GameNow{}
+	params := make(map[string]string)
+	params["code"] = "201"
+	params["ajax"] = "true"
+	params["date"] = "2020-02-01"
+	url := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
+	c.OnResponse(func(r *colly.Response) {
+
+	})
+	c.Visit(url)
+	return games
+}
+
 //GetEByDate 根据当前时间来测算每场的E值
-func GetEByDate(round int)[]Model.GameNow {
+func GetEByDate(round int) []Model.GameNow {
 	//1.筛选符合条件的比赛
 	//a.sp值均大于2.0
 	c := colly.NewCollector()
