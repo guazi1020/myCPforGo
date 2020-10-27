@@ -17,17 +17,26 @@ import (
 //GetEbyDateLiveStreaming 根据当前时间测算比赛（live-stream）
 func GetEbyDateLiveStreaming(round int) []Model.GameNow {
 
-	c := colly.NewCollector()
+	// c := colly.NewCollector()
 	games := []Model.GameNow{}
 	params := make(map[string]string)
 	params["code"] = "201"
 	params["ajax"] = "true"
-	params["date"] = "2020-02-01"
+	params["date"] = time.Now().Format("2006-01-02")
 	url := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
-	c.OnResponse(func(r *colly.Response) {
-
-	})
-	c.Visit(url)
+	basicgame := GetWeb(url, params)
+	for key, value := range basicgame {
+		fmt.Println(key, value)
+		// t := reflect.TypeOf(value)
+		// //	v := reflect.ValueOf(value)
+		// for k := 0; k < t.Len(); k++ {
+		// 	fmt.Print(t.Field(k))
+		// 	//fmt.Println(v)
+		// }
+	}
+	fmt.Println(basicgame)
+	fmt.Println(url)
+	// c.Visit(url)
 	return games
 }
 

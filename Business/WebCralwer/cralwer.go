@@ -304,6 +304,7 @@ func GetWebToGames(strHref string, params map[string]string) []Model.GameAllBasi
 	c := colly.NewCollector()
 	c.OnResponse(func(r *colly.Response) {
 		dom, _ := goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
+		//fmt.Println(dom.Html())
 		dom.Find("body").Each(func(i int, hs *goquery.Selection) {
 			hs.Find("input[name='order']").Each(func(i int, s *goquery.Selection) {
 				//fmt.Println(i)
