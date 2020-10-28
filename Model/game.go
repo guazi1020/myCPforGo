@@ -23,7 +23,7 @@ type Game struct {
 	Gleaguenumber string
 	//是否已经完赛
 	GIsfinish string
-	//主队排名
+	//主队排名 jin'she
 	GhomeRank string
 	//主队名称
 	GhomeName string

@@ -1,5 +1,6 @@
 package Model
 
+//GameStatistics 赛事统计
 type GameStatistics struct {
 	GCount        string //数量
 	GWinNumber    string //胜场

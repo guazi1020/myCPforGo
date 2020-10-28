@@ -23,7 +23,7 @@ func main() {
 	// params := make(map[string]string)
 	// params["code"] = "all"
 	// params["ajax"] = "true"
-		WebCralwer.SaveWebByDate(begindate, enddate, params)
+	//	WebCralwer.SaveWebByDate(begindate, enddate, params)
 
 	//测算当前日期的比赛E和相关进球率预测
 	//WebCralwer.GetEByDate(10)
