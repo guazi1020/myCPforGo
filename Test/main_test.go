@@ -10,5 +10,5 @@ func TestA(t *testing.T) {
 	// var httpMode HTTP.IGetGameData
 	// httpMode = ImpMethod.GetGameDataOne{Year: "2020"}
 	// httpMode.GetGameDataForYear()
-	
+	//
 }
