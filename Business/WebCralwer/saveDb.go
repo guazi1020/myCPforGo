@@ -258,9 +258,9 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	homeranki, _ := strconv.Atoi(game.GameInfo.GhomeRank)
 	guestranki, _ := strconv.Atoi(game.GameInfo.GguestRank)
 	if homeranki < guestranki {
-		conRank = " GAhomeRank < GAguestRank "
+		conRank = "CAST(GAHomeRank AS SIGNED INTEGER) < CAST(GAGuestRank AS SIGNED INTEGER) "
 	} else {
-		conRank = " GAhomeRank >= GAguestRank "
+		conRank = " CAST(GAHomeRank AS SIGNED INTEGER) >= CAST(GAGuestRank AS SIGNED INTEGER) "
 	}
 	if len(conRank) == 0 {
 		conRank = " 1=1 "
@@ -271,9 +271,9 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	homeSPi, _ := strconv.Atoi(game.GameInfo.GspWin)
 	guestSPi, _ := strconv.Atoi(game.GameInfo.GspDefeat)
 	if homeSPi < guestSPi {
-		conSP = " GAspWin < GAspDefeat "
+		conSP = " CAST(GAspWin as decimal(9,4)) < CAST(GAspDefeat as decimal(9,4)) "
 	} else {
-		conSP = " GAspWin >= GAspDefeat "
+		conSP = " CAST(GAspWin as decimal(9,4)) >= CAST(GAspDefeat as decimal(9,4)) "
 	}
 	if len(conSP) == 0 {
 		conSP = " 1=1 "
@@ -291,7 +291,7 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	//params = append(params, 4)
 	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
 	params = append(params, "2019")
-
+	//fmt.Println(str)
 	results := enable.Query(str, params...)
 	if len(results) > 0 {
 		game.Gamestatistics.GCount = results[0]["GCount"]

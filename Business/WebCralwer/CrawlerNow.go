@@ -24,11 +24,24 @@ func GetEbyDateLiveStreaming(round int) []Model.Game {
 	params["ajax"] = "true"
 	params["date"] = time.Now().Format("2006-01-02")
 	url := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
-	games = GetWeb(url, params)    //获取今天比赛
-	data, _ := json.Marshal(games) //json
-	fmt.Println(string(data))
+	games = GetWeb(url, params) //获取今天比赛
+	gameNows := []Model.GameNow{}
+	for _, game := range games {
+		gameNow := Model.GameNow{}
+		gameNow.GameInfo = game
+		ghomerank, _ := strconv.ParseFloat(game.GhomeRank, 32)
+		gguestRank, _ := strconv.ParseFloat(game.GguestRank, 32)
+		gspwin, _ := strconv.ParseFloat(game.GspWin, 32)
+		gameNow.GameE = Calculate_E(gguestRank-ghomerank, gspwin)
+		gameNow = MakeGameStatistics(gameNow)
+		fmt.Println(gameNow.GameInfo.Gnumber)
+		fmt.Println(gameNow.GameE, gameNow.Gamestatistics)
+		gameNows = append(gameNows, gameNow)
 
-	// c.Visit(url)
+	}
+	// data, _ := json.Marshal(games) //json
+	// fmt.Println(string(data))
+
 	return games
 }
 
