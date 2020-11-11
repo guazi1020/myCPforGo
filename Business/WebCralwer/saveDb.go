@@ -278,16 +278,18 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	if len(conSP) == 0 {
 		conSP = " 1=1 "
 	}
-
+	//去掉联赛前五轮
+	conRound := " substring_index( substring_index(GARound, '轮', 1),'第',-1)>5 "
 	str := "SELECT COUNT(*) as 'GCount', sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END) as 'GWinNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '3' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GWinDC', sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END) as 'GTieNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '1' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GTietDC', sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END) as 'GDefeatNumber', CONCAT(CAST(round((sum(CASE GAresult WHEN '0' THEN 1 ELSE 0 END)/COUNT(*))*100,3) AS CHAR),'%') AS 'GDefeatDC' FROM GameAllBasic where GAleague=? and GAE>? and GAE<? and GADate>? "
-	str = str + " and " + conRank + " and " + conSP
+	str = str + " and " + conRank + " and " + conSP + " and " + conRound
 	var params []interface{}
 	params = append(params, game.GameInfo.Gleague)
 	//beginE, _ := strconv.ParseFloat(game.GameE, 64)
-	params = append(params, baseMethod.ChangeNumber(game.GameE-0.05, 3))
+	var deviationValue = 0.1
+	params = append(params, baseMethod.ChangeNumber(game.GameE-deviationValue, 3))
 	//params = append(params, 0)
 	//strconv.FormatFloat(v, 'E', -1, 64)/
-	params = append(params, baseMethod.ChangeNumber(game.GameE+0.05, 3))
+	params = append(params, baseMethod.ChangeNumber(game.GameE+deviationValue, 3))
 	//params = append(params, 4)
 	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
 	params = append(params, "2019")

@@ -35,7 +35,7 @@ func GetEbyDateLiveStreaming(round int) []Model.Game {
 		gameNow.GameE = Calculate_E(gguestRank-ghomerank, gspwin)
 		gameNow = MakeGameStatistics(gameNow)
 		fmt.Println(gameNow.GameInfo.Gnumber)
-		fmt.Println(gameNow.GameE, gameNow.Gamestatistics)
+		fmt.Println(gameNow.GameE, gameNow.GameInfo.GspWin, gameNow.GameInfo.GspTie, gameNow.GameInfo.GspDefeat, gameNow.Gamestatistics)
 		gameNows = append(gameNows, gameNow)
 
 	}
