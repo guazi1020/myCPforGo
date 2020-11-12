@@ -28,7 +28,7 @@ func main() {
 	// //测算当前日期的比赛E和相关进球率预测
 	// WebCralwer.GetEByDate(10)
 
-	WebCralwer.GetEbyDateLiveStreaming(10)
+	WebCralwer.GetEbyDateLiveStreaming(10, "2020-11-11")
 
 }
 

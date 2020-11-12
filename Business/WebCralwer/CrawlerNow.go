@@ -15,7 +15,7 @@ import (
 )
 
 //GetEbyDateLiveStreaming 根据当前时间测算比赛（live-stream）
-func GetEbyDateLiveStreaming(round int) []Model.Game {
+func GetEbyDateLiveStreaming(round int, strDate string) []Model.Game {
 
 	// c := colly.NewCollector()
 	games := []Model.Game{}
@@ -23,7 +23,7 @@ func GetEbyDateLiveStreaming(round int) []Model.Game {
 	params["code"] = "201"
 	params["ajax"] = "true"
 	//params["date"] = time.Now().Format("2006-01-02")
-	params["date"] = "2020-11-08"
+	params["date"] = strDate
 	url := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
 	games = GetWeb(url, params) //获取今天比赛
 	gameNows := []Model.GameNow{}
@@ -40,7 +40,7 @@ func GetEbyDateLiveStreaming(round int) []Model.Game {
 		gameNows = append(gameNows, gameNow)
 
 	}
-	// data, _ := json.Marshal(games) //json
+	OutToExcel(gameNows)
 	// fmt.Println(string(data))
 
 	return games
