@@ -22,7 +22,8 @@ func GetEbyDateLiveStreaming(round int) []Model.Game {
 	params := make(map[string]string)
 	params["code"] = "201"
 	params["ajax"] = "true"
-	params["date"] = time.Now().Format("2006-01-02")
+	//params["date"] = time.Now().Format("2006-01-02")
+	params["date"] = "2020-11-08"
 	url := CompositionURL("http://live.zgzcw.com/ls/AllData.action", params)
 	games = GetWeb(url, params) //获取今天比赛
 	gameNows := []Model.GameNow{}
