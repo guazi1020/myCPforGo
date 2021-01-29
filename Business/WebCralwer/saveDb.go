@@ -292,7 +292,7 @@ func MakeGameStatistics(game Model.GameNow) Model.GameNow {
 	params = append(params, baseMethod.ChangeNumber(game.GameE+deviationValue, 3))
 	//params = append(params, 4)
 	//fmt.Println(baseMethod.ChangeNumber(game.GameE+0.01, 2))
-	params = append(params, "2019")
+	params = append(params, "2020")
 	//fmt.Println(str)
 	results := enable.Query(str, params...)
 	if len(results) > 0 {
